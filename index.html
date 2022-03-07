@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="shortcut icon" href="background/favicon.ico">
+    <link rel="stylesheet" href="./css/styleHome.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <a href="index.html"><img class="logo-pharms" src="https://i.imgur.com/WMRobHV.png"></a>
+            <ul class="navbar">
+                <li class="agora">
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li>
+                    <a href="suporte.html">Suporte</a>
+                </li>
+                <li>
+                    |
+                </li>
+                <li>
+                    <a href="login.html">Login</a>
+                </li>
+                <li>
+                    <a href="cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner">
+        <div class="container">
+            <div class="first-text">
+                <h1>
+                    SEGURANÇA E PRATICIDADE
+                    COM MONITORAMENTO ONLINE
+                </h1>
+            </div>
+
+            <div class="sub-text">
+                <span>
+                    Somos uma empresa especializada em soluções de gerenciamento e controle de temperatura e
+                    umidade do ar, para fins de monitoramento referente ao armazenamento conveniente de medicamentos.
+                    <span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sobre-nos">
+        <div class="container">
+            <div class="text-titulo">
+                <h1>
+                    SOBRE NÓS
+                </h1>
+            </div>
+
+            <div class="text-boxes">
+                <div class="box-msg" id="missao">
+                    <b>Missão</b>
+                    <span>
+                        Nossa missão é ajudar as empresas de saúde a se tornarem mais digitais, eficientes e inclusivas,
+                        permitindo que mais pessoas tenham acesso à saúde de qualidade com mais segurança e tratamento
+                        humanizado.
+                    </span>
+                </div>
+                <div class="box-msg" id="acreditar">
+                    <b>Visão</b>
+                    <span>
+                        A tecnologia transforma as organizações,
+                        pessoas e a sociedade. Somos uma equipe multidisciplinar com grandes ideias inovadoras e nossa
+                        principal preocupação é oferecer Confiabilidade e Sustentação, de forma
+                        a atender com excelência as necessidades de nossos clientes.
+                    </span>
+                </div>
+            </div>
+
+            <div class="text-boxes">
+                <div class="box-msg" id="valores">
+                    <b>Valores</b>
+                    <span>Prezamos a qualidade minuciosa com os detalhes de nossa plataforma, possibilitando
+                        automatizações que ajudam nas decisões de nosso cliente. <br>
+                        É importante ter Transparência e Efetividade nos processos que estamos, a Pharmcs preza pela
+                        Inovação e Resolutividade.
+                    </span>
+
+                </div>
+                <div class="box-msg" id="funcionalidade">
+                    <b>Funcionalidades</b>
+                    <span>
+                        <ul>
+                            <li>Aumente a qualidade de seus medicamentos</li>
+                            <li>Elimine divergências por monitoramento manual</li>
+                            <li>Ganhe mais autonomia na tomada de decisões por meio de Alertas</li>
+                            <li>Monitore diversas farmácias em apenas um usuário</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="simulador">
+        <div class="container">
+            <div class="boxes">
+                <div class="box">
+                    <h1>Faça já a simulação para saber a eficácia de nosso sistema!</h1>
+                    <p>Produção por ano (unidades):</p>
+                    <input id="producaopano" placeholder="Digite a quantia">
+                    <p>Perdas por ano (unidades):</p>
+                    <input id="perdaspano" placeholder="Digite a quantia">
+                    <button onclick="simular()">SIMULAR</button>
+                </div>
+            </div>
+            <div class="boxes">
+                <div class="div-msg" id="mensagem"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="social">
+        <div class="container">
+            <div class="boxes">
+                <div class="box">
+                    <img src="https://i.imgur.com/aTUTCEM.png">
+                    <span>(11) 5670-2148 | (11) 98974-3205</span>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.imgur.com/uERbBBm.png">
+                    <span>Segunda a Sexta, 08h30 às 19h30</span>
+                </div>
+
+                <div class="box">
+                    <img src="https://i.imgur.com/3Vg04Yv.png">
+                    <span>contato@pharmcs.com.br</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lower">
+        <div class="container">
+            <div class="rodape">
+                <div class="final">
+                    <b>VOLTE SEMPRE</b>
+                    <span>Caso haja alguma dúvida,</span>
+                    <span>entre em contato conosco.</span>
+                </div>
+                <div class="final">
+                    <b>ENCONTRE-NOS</b>
+                    <span>Rua Haddock Lobo 595</span>
+                    <span>São Paulo, SP 01414-001</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>© 2021 Pharmcs</span>
+    </div>
+</body>
+
+</html>
+
+<script>
+    // FUNÇÃO DO SIMULADOR FINANCEIRO
+    function simular() {
+        var producao = (Number(producaopano.value));
+        var perdas = (Number(perdaspano.value));
+        var porcentagem = (perdas / producao) * 100;
+        var pharmcs = (perdas * 0.9);
+        var caiunidades = (perdas - pharmcs);
+        var caiporcento = (caiunidades / producao) * 100;
+
+        mensagem.style.fontSize = "20px";
+        mensagem.style.padding = "20px";
+        mensagem.style.backgroundImage = 'linear-gradient(315deg, rgb(60 106 147) 0%, rgb(44 83 117) 74%)';
+        mensagem.style.borderRadius = '20px';
+        mensagem.innerHTML = `
+            O total de perdas em medicamentos por ano é de: <b><span style="color: #ffbe40;">${(porcentagem).toFixed(2)}%</span></b>, ou seja 
+            <b><span style="color: #ffbe40;">${perdas}</span></b> unidades desperdiçadas de <b><span style="color: #ffbe40;">${producao}</span></b> produzidas.
+            <br><br>
+            Usando o sistema de monitoramento da Pharmcs, a quantidade <br>de perda em medicamentos da sua empresa cai para <b><span style="color: #ffbe40;">
+            ${(caiporcento).toFixed(1)}%</span></b>
+            (<b><span style="color: #ffbe40;">${caiunidades}</span></b> unidades desperdiçadas, de <b><span style="color: #ffbe40;">${producao}</span></b> ao ano).
+            <br><br>
+            Nosso sistema conta com <b><span style="color: #ffbe40;">90%</span></b> de eficácia, garantindo monitoramento 
+            
+            em tempo real e qualidade em seus medicamentos.
+            `
+            ;
+    }
+</script>
