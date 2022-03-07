@@ -17,6 +17,7 @@ body {
     width: 25vh;
     cursor: pointer;
     background-color: #FFFFFF;
+    padding: 1rem;
 }
 
 .navbar {
