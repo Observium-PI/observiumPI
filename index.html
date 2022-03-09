@@ -46,7 +46,7 @@
             <div class="sub-text">
                 <span>
                     Somos uma empresa especializada em soluções de monitoração de computadores e
-                    equipamentos computacionais, para fins de apoio nas decisões estratégcias da TI. 
+                    equipamentos computacionais, para fins de apoio nas decisões estratégcias da TI.
                     <span>
             </div>
         </div>
@@ -105,20 +105,55 @@
         </div>
     </div>
 
-    <div class="simulador">
+    <div class="produto">
         <div class="container">
-            <div class="boxes">
-                <div class="box">
-                    <h1>Faça já a simulação para saber a eficácia de nosso sistema!</h1>
-                    <p>Produção por ano (unidades):</p>
-                    <input id="producaopano" placeholder="Digite a quantia">
-                    <p>Perdas por ano (unidades):</p>
-                    <input id="perdaspano" placeholder="Digite a quantia">
-                    <button onclick="simular()">SIMULAR</button>
+            <div class="boxes" style="width: 60%;">
+                <div class="box" style="background-color: white;">
+                    <h1>O que oferecemos?</h1>
+                    <p>
+                        Funcionalidades de monitoramento para que sua gestão de T.I possa
+                         ser feita de maneira mais eficaz e ágil. Evitando que o hospital sofra
+                         com instabilidades e congestionamento. 
+                    </p>
+
+                    <div class="linha1">
+                        <div class="box">
+                            <img src="assets/imgs/alertas.png" alt="">
+                            <h3>Alertas</h4>
+                            <p>
+                                Notificações de alertas enviados diretamente para
+                                a equipe de T.I
+                            </p>
+                        </div>
+                        <div class="box">
+                            <img src="assets/imgs/monitoramento.png" alt="">
+                            <h3>Monitoramento</h4>
+                            <p>O monitoramento das maquinas são feitos em tempo real, trazendo maior precisão na rotina</p>
+                        </div>
+                        <div class="box">
+                            <img src="assets/imgs/log-document.png" alt="">
+                            <h3>Logs</h4>
+                            <p>Incidentes registrados serão armazenados em logs
+                                 para a facilidade em futuras manutenções ou analise de dados.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="boxes">
-                <div class="div-msg" id="mensagem"></div>
+                <!--
+                horizontally push the elements to the left of the viewBox
+                vertically center same shapes
+                -->
+                <div class="box">
+                    <svg viewBox="50 -100 200 200">
+                        <g>
+                            <!-- pathLength to animate the stroke using percent values -->
+                            <path pathLength="1" d="M 0 0 h 300" fill="none" stroke="#ff3d3d" />
+                            <circle fill="#ff3d3d" r="3" />
+                        </g>
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
@@ -138,7 +173,7 @@
 
                 <div class="box">
                     <img src="https://i.imgur.com/3Vg04Yv.png">
-                    <span>contato@pharmcs.com.br</span>
+                    <span>contato@observium.com.br</span>
                 </div>
             </div>
         </div>
@@ -168,32 +203,4 @@
 
 </html>
 
-<script>
-    // FUNÇÃO DO SIMULADOR FINANCEIRO
-    function simular() {
-        var producao = (Number(producaopano.value));
-        var perdas = (Number(perdaspano.value));
-        var porcentagem = (perdas / producao) * 100;
-        var pharmcs = (perdas * 0.9);
-        var caiunidades = (perdas - pharmcs);
-        var caiporcento = (caiunidades / producao) * 100;
-
-        mensagem.style.fontSize = "20px";
-        mensagem.style.padding = "20px";
-        mensagem.style.backgroundImage = 'linear-gradient(315deg, rgb(60 106 147) 0%, rgb(44 83 117) 74%)';
-        mensagem.style.borderRadius = '20px';
-        mensagem.innerHTML = `
-            O total de perdas em medicamentos por ano é de: <b><span style="color: #ffbe40;">${(porcentagem).toFixed(2)}%</span></b>, ou seja 
-            <b><span style="color: #ffbe40;">${perdas}</span></b> unidades desperdiçadas de <b><span style="color: #ffbe40;">${producao}</span></b> produzidas.
-            <br><br>
-            Usando o sistema de monitoramento da Pharmcs, a quantidade <br>de perda em medicamentos da sua empresa cai para <b><span style="color: #ffbe40;">
-            ${(caiporcento).toFixed(1)}%</span></b>
-            (<b><span style="color: #ffbe40;">${caiunidades}</span></b> unidades desperdiçadas, de <b><span style="color: #ffbe40;">${producao}</span></b> ao ano).
-            <br><br>
-            Nosso sistema conta com <b><span style="color: #ffbe40;">90%</span></b> de eficácia, garantindo monitoramento 
-            
-            em tempo real e qualidade em seus medicamentos.
-            `
-            ;
-    }
-</script>
+<script src="js/main.js"></script>
