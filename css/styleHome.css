@@ -138,11 +138,12 @@ body {
     /* position:absolute; */
 }
 .back1{
-    background-color: blue;
-        height: 100%;
-        transform: rotateY(180deg);
-        position: relative;
-        /* position: absolute; */
+    background-image: url("../assets/imgs/um.jpg");
+    background-size: cover;
+    height: 100%;
+    transform: rotateY(180deg);
+    position: relative;
+    /* position: absolute; */
 }
 .front1,  .back1{
     width: 100%;
@@ -158,11 +159,12 @@ body {
     /* position:absolute; */
 }
 .back2{
-    background-color: blue;
-        height: 100%;
-        transform: rotateY(180deg);
-        position: relative;
-        /* position: absolute; */
+    background-image: url("../assets/imgs/dois.jpg");
+    background-size: cover;
+    height: 100%;
+    transform: rotateY(180deg);
+    position: relative;
+    /* position: absolute; */
 }
 .front2,  .back2{
     width: 100%;
@@ -178,7 +180,8 @@ body {
     /* position:absolute; */
 }
 .back3{
-    background-color: blue;
+    background-image: url("../assets/imgs/tres.jpg");
+    background-size: cover;
     height: 100%;
     transform: rotateY(180deg);
     position: relative;
