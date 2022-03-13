@@ -50,7 +50,7 @@ body {
 .banner {
     height: 110vh;
     color: #FFFFFF;
-    background-image: url("https://i.imgur.com/Ue395CS.png");
+    background-image: url("../assets/imgs/bgnd11.jpg");
     background-color: #3c6a93;
     background-size: cover;
 }
@@ -60,6 +60,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 4rem;
 }
 
 .banner .first-text {
