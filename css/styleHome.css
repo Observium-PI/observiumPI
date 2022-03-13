@@ -48,7 +48,7 @@ body {
 
 /* BANNER */
 .banner {
-    height: 110vh;
+    height: 90vh;
     color: #FFFFFF;
     background-image: url("../assets/imgs/bgnd11.jpg");
     background-color: #3c6a93;
@@ -119,6 +119,7 @@ body {
     height: 50vh;
     perspective: 1000px;
 }
+
 .flipper{
     width: 100%;
 	height: 100%;
@@ -203,7 +204,8 @@ body {
     /* position:absolute; */
 }
 .back4{
-    background-color: red;
+    background-image: url("../assets/imgs/quatro.jpg");
+    background-size: cover;
     height: 100%;
     transform: rotateY(180deg);
     position: relative;
@@ -224,7 +226,8 @@ body {
     /* position:absolute; */
 }
 .back5{
-    background-color: blue;
+    background-image: url("../assets/imgs/cinco.jpg");
+    background-size: cover;
     height: 100%;
     transform: rotateY(180deg);
     position: relative;
