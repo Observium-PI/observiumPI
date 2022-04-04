@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="navbar"></div>
+    <div class="banner">
+        <div class="container">
+            <div class="filters"></div>
+            
+            <div class="donut-graph-one">
+                <canvas id="donutChartOne" style="width:100%;max-width:90%"></canvas>
+                <div class="text-disp-mem">
+                    <b class="text" id="memDisp"></b>
+                </div>
+                <div class="text-uso-mem">
+                    <b class="text" id="memUso"></b>
+                </div>
+            </div>
+            <div class="donut-graph-two">
+                <canvas id="donutChartTwo" style="width:100%;max-width:90%"></canvas>
+                <div class="text-disp-disc">
+                    <b class="text" id="discDisp"></b>
+                </div>
+                <div class="text-uso-disc">
+                    <b class="text" id="discUso"></b>
+                </div>
+            </div>
+            <div class="line-graph">
+                <canvas id="lineChart" style="width:100%;max-width:85%"></canvas>
+            </div>
+
+            <div class="text-mem">
+                <b class="text">Memória - RAM</b>
+            </div>
+            <div class="text-disc">
+                <b class="text">Disco Rígido</b>
+            </div>
+            <div class="text-cpu">
+                <b class="text">CPU - Velocidade</b>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var myChart = new Chart("lineChart", {
+        type: "line",
+        data: {
+            labels: ['08:01:00','08:01:30','08:02:00','08:02:30','08:03:00','08:03:30','08:04:00','08:04:30','08:05:00','08:05:30'],
+            datasets: [{
+                data: [20,18,23,29,34,30,37,42,48,45],
+                borderColor: "white",
+                fill: false,
+                grid: false
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#FFF"
+                    },
+                    gridLines: {
+                        display: true,
+                        color: "#0c1622"
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontColor: "#FFF"
+                    },
+                    gridLines: {
+                        display: true,
+                        color: "#0c1622"
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    var usoMem = 9.3;
+    var dispMem = 6.7;
+
+    var myChart = new Chart("donutChartOne", {
+        type: "doughnut",
+        data: {
+            labels: ["Em uso","Restante"],
+            datasets: [{
+                data: [usoMem,dispMem],
+                borderColor: "#0a518f",
+                backgroundColor: ["white", "#0c1622"],
+                fill: false
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    var usoDisc = 41;
+    var dispDisc = 59;
+
+    var myChart = new Chart("donutChartTwo", {
+        type: "doughnut",
+        data: {
+            labels: ["Em uso","Restante"],
+            datasets: [{
+                data: [usoDisc,dispDisc],
+                borderColor: "#0a518f",
+                backgroundColor: ["white", "#0c1622"],
+                fill: false
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    function escreverTexto() {
+        memDisp.innerHTML = `Disp: ${dispMem}Gb`;
+        memUso.innerHTML = `Em uso: ${usoMem}Gb`;
+
+        discDisp.innerHTML = `Disp: ${dispDisc}%`;
+        discUso.innerHTML = `Em uso: ${usoDisc}%`;
+    }
+
+    escreverTexto();
+</script>
