@@ -1,2 +1,2 @@
-# projeto_pessoal
-Repositório destinado ao projeto pessoal, desafio do 1° semestre
+# OBSERVIUM 
+Repositório destinado à hospedagem da aplicação WEB da OBSERVIUM
