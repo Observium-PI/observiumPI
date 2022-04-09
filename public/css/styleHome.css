@@ -348,7 +348,58 @@ body {
       stroke-dashoffset: 0;
     }
   }
-  
+
+  /* LOGIN */
+  .login .banner {
+    height: 90vh;
+    color: #FFFFFF;
+    background-image: url("../assets/imgs/FundoObservium1.jpg");
+    background-color: #3c6a93;
+    background-size: cover;
+}
+
+.login .container {       
+    align-items: center;
+    display: flex;
+    justify-content: center;   
+}
+
+.login .box-login {
+    height: 60vh;
+    width: 40%;
+    border-radius: 3vh;
+    background-color: #3c6a93;
+    margin-left: 10%;  
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    align-items: center; 
+}
+
+.login .box-login img {
+    width: 50%;
+    margin: 5%;
+}
+
+.login .box-login input {
+    width: 50%;
+    margin-top: 4px;
+    padding: 10px;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 8px;    
+}
+
+.login .banner button{
+    width: 16vh;
+    height: 4vh;
+    margin-top: 2vh;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+ }
+
+
 /* SOCIAL */
 .social {
     background-color: #2c5375;
