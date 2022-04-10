@@ -100,7 +100,7 @@ body {
 
 .item_container {
     width: 22%;
-    height: 40vh;
+    height: 50vh;
     background-color: #0a518f;
     float: left;
     margin-right: 3%;
@@ -108,7 +108,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    border-radius: 1vh;
+    overflow: hidden;
 }
 
 .item_container_SO {
@@ -145,6 +147,9 @@ body {
 }
 
 .hostname {
+    font-size: 2.8vh;
+    width: 80%;
+    height: 15%;
     text-align: center;
     color: aliceblue;
 }

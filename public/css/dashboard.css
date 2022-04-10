@@ -135,6 +135,7 @@ body {
     background-color: #0a518f;
     grid-template-rows: 1fr 0.3fr;
     grid-template-columns: 1fr 1fr;
+    border-radius: 1vh;
 }
 
 #donutChartOne {
@@ -171,6 +172,7 @@ body {
     background-color: #0a518f;
     grid-template-rows: 1fr 0.3fr;
     grid-template-columns: 1fr 1fr;
+    border-radius: 1vh;
 }
 
 #donutChartTwo {
@@ -207,6 +209,7 @@ body {
     grid-row-start: 4;
     grid-row-end: 7;
     background-color: #0a518f;
+    border-radius: 1vh;
 }
 
 .text-mem {
