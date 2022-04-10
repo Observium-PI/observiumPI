@@ -119,6 +119,31 @@ body{
     background-position: center;
 }
 
+.div_edit_delete{
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.item_container_img_edit {
+    height: 100%;
+    width: 20%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.item_container_img_delete {
+    height: 100%;
+    width: 20%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .hostname {
     text-align: center;
     color:aliceblue;

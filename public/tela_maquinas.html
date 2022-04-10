@@ -50,4 +50,120 @@
 </body>
 
 </html>
+<<<<<<< HEAD
 <script src="js/backendTelaDeMaquinas.js"></script>
+=======
+
+<script>
+    let listaMaquinas = [
+        {
+            nome: "Máquina 1",
+            imagemSO: "./assets/imgs/monitor-windows.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },
+        {
+            nome: "Máquina 2",
+            imagemSO: "./assets/imgs/monitor-windows.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },  
+        {
+            nome: "Máquina 3",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },  
+        {
+            nome: "Máquina 4",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },
+        {
+            nome: "Máquina 5",
+            imagemSO: "./assets/imgs/monitor-windows.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },   
+        {
+            nome: "Máquina 6",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },  
+        {
+            nome: "Máquina 7",
+            imagemSO: "./assets/imgs/monitor-windows.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },  
+        {
+            nome: "Máquina 8",
+            imagemSO: "./assets/imgs/monitor-windows.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },
+        {
+            nome: "Máquina 9",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },   
+        {
+            nome: "Máquina 10",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },  
+        {
+            nome: "Máquina 11",
+            imagemSO: "./assets/imgs/monitor-windows.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },  
+        {
+            nome: "Máquina 12",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        },
+        {
+            nome: "Máquina 13",
+            imagemSO: "./assets/imgs/monitor-linux.png",
+            img_edit: "./assets/imgs/editar.png",
+            img_delete: "./assets/imgs/garbage.png"
+        }
+    ]; 
+        
+    for (let i = 0; i < listaMaquinas.length; i++) {
+        const container = document.getElementById("container")
+        let card = document.createElement("div")
+        let tituloMaquina = document.createElement("h3")
+        let divSO = document.createElement("div")
+        let div_edit_delete = document.createElement("div")
+        let img_edit = document.createElement("div")
+        let img_delete = document.createElement("div")
+
+        tituloMaquina.innerHTML += listaMaquinas[i].nome
+
+        container.appendChild(card)
+        card.appendChild(divSO)
+        card.appendChild(tituloMaquina)
+        card.appendChild(div_edit_delete)
+        div_edit_delete.appendChild(img_edit)
+        div_edit_delete.appendChild(img_delete)
+
+        tituloMaquina.classList.add("hostname")
+        card.classList.add("item_container")
+        divSO.classList.add("item_container_SO")
+        div_edit_delete.classList.add("div_edit_delete")
+        img_edit.classList.add("item_container_img_edit")
+        img_delete.classList.add("item_container_img_delete")
+        
+        divSO.style.backgroundImage = "url(" + listaMaquinas[i].imagemSO + ")"
+        img_edit.style.backgroundImage = "url(" + listaMaquinas[i].img_edit + ")"
+        img_delete.style.backgroundImage = "url(" + listaMaquinas[i].img_delete + ")"
+    }
+</script>
+>>>>>>> 89291df43679baec82f2d6810d46ebe0caca4f3d
