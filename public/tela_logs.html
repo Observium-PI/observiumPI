@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/logs.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic" rel="stylesheet" />
+    <title>Logs | Observium</title>
+</head>
+<body>
+    <div class="side-bar">
+        <div class="container">
+            <div class="boxes" id="boxes_logo">
+                <div class="box">
+                    <img src="assets/imgs/Logo_Observium_Quadrado.png" alt="">
+                </div>
+            </div>
+
+            <div class="boxes" id="boxes_links">
+                <a class="box" href="tela_maquinas.html">
+                    <img src="assets/imgs/imac.png" alt="">
+                </a>
+                <a class="box" href="dashboard.html">
+                    <img src="assets/imgs/graphic-arrow.png" alt="">
+                </a>
+                <a class="box" id="box_selected" href="tela_logs.html">
+                    <img src="assets/imgs/files.png" alt="">
+                </a>
+            </div>
+
+            <div class="boxes" id="boxes_logout">
+                <a class="box">
+                    <img src="assets/imgs/logout.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="banner">
+        <div class="container">
+            <div class="data">
+                <h3 class="text">Selecione uma data:</h3>
+                <div>
+                    <input type="date">
+                    <input type="date">
+                    <button>OK</button>
+                </div>
+            </div>
+
+            <div class="conteudo-logs">
+                <div class="cabecalho-logs">
+                    <b class="text">Data</b>
+                    <b class="text">Componente</b>
+                    <b class="text">Máquina</b>
+                    <b class="text">Descrição</b>
+                </div>
+
+                <div class="banner-logs" id="logs">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    let listaLogs = [
+        {
+            data: "10/04/2022",
+            componente: "CPU",
+            maquina: "Máquina 1",
+            descricao: "aviso"
+        },
+        {
+            data: "10/04/2022",
+            componente: "Disco 1",
+            maquina: "Máquina 2",
+            descricao: "aviso"
+        },  
+        {
+            data: "10/04/2022",
+            componente: "Memória RAM",
+            maquina: "Máquina 3",
+            descricao: "aviso"
+        },  
+        {
+            data: "10/04/2022",
+            componente: "Memória RAM",
+            maquina: "Máquina 4",
+            descricao: "aviso"
+        },
+        {
+            data: "10/04/2022",
+            componente: "CPU",
+            maquina: "Máquina 5",
+            descricao: "aviso"
+        },   
+        {
+            data: "10/04/2022",
+            componente: "Disco 1",
+            maquina: "Máquina 6",
+            descricao: "aviso"
+        },  
+        {
+            data: "10/04/2022",
+            componente: "Disco 1",
+            maquina: "Máquina 7",
+            descricao: "aviso"
+        },  
+        {
+            data: "10/04/2022",
+            componente: "CPU",
+            maquina: "Máquina 8",
+            descricao: "aviso"
+        },
+        {
+            data: "10/04/2022",
+            componente: "Memória RAM",
+            maquina: "Máquina 9",
+            descricao: "aviso"
+        },   
+        {
+            data: "10/04/2022",
+            componente: "Disco 1",
+            maquina: "Máquina 10",
+            descricao: "aviso"
+        },  
+        {
+            data: "10/04/2022",
+            componente: "Memória RAM",
+            maquina: "Máquina 11",
+            descricao: "aviso"
+        },  
+        {
+            data: "10/04/2022",
+            componente: "Disco 1",
+            maquina: "Máquina 12",
+            descricao: "aviso"
+        },
+        {
+            data: "10/04/2022",
+            componente: "CPU",
+            maquina: "Máquina 13",
+            descricao: "aviso"
+        }
+    ]; 
+        
+    for (let i = 0; i < listaLogs.length; i++) {
+        const log = document.getElementById("logs")
+        let card = document.createElement("div")
+        let data = document.createElement("span")
+        let componente = document.createElement("span")
+        let maquina = document.createElement("span")
+        let descricao = document.createElement("span")
+        
+        data.innerHTML += listaLogs[i].data
+        componente.innerHTML += listaLogs[i].componente
+        maquina.innerHTML += listaLogs[i].maquina
+        descricao.innerHTML += listaLogs[i].descricao
+
+        log.appendChild(card)
+        card.appendChild(data)
+        card.appendChild(componente)
+        card.appendChild(maquina)
+        card.appendChild(descricao)
+
+        card.classList.add("card-log")
+        data.classList.add("text-log")
+        componente.classList.add("text-log")
+        maquina.classList.add("text-log")
+        descricao.classList.add("text-log")
+    }
+</script>

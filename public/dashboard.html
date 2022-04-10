@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
     <title>Dashboard</title>
@@ -19,15 +20,15 @@
             </div>
 
             <div class="boxes" id="boxes_links" >
-                <div class="box" id="box_selected">
+                <a class="box" href="tela_maquinas.html">
                     <img src="assets/imgs/imac.png" alt="">
-                </div>
-                <div class="box">
+                </a>
+                <a class="box" id="box_selected" href="dashboard.html">
                     <img src="assets/imgs/graphic-arrow.png" alt="">
-                </div>
-                <div class="box">
+                </a>
+                <a class="box" href="tela_logs.html">
                     <img src="assets/imgs/files.png" alt="">
-                </div>
+                </a>
             </div>
 
             <div class="boxes" id="boxes_logout">
@@ -37,52 +38,34 @@
             </div>
         </div>
     </div>
+
     <div class="banner">
         <div class="container">
             <!-- Filtros -->
-            <div class="filters">
-                <div class="filters-box">
-                    <h2>Máquinas</h2>
-                    <select>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                        <option value="">x</option>
-                    </select>
-                    <button>Ok</button>
+            <div id="filtros" class="filters">
+                <div id="maquina-alerta" class="filters-box">
+                    <h3 class="text">Máquinas em Alerta</h3>
+                    <select class="select-filter" id="select_alerta"></select>
+                    <div class="btt-filter">
+                        <button>OK</button>
+                    </div>
                 </div>
 
-                <div class="filters-box">
-                    <h2>Máquinas - Windows</h2>
-                    <select>
-                    <option value="">Windows</option>
-                    <option value="">Windows</option>
-                    <option value="">Windows</option>
-                    <option value="">Windows</option>
-                    <option value="">Windows</option>
-                    <option value="">Windows</option>
-                </select>
-                <button>Ok</button>
+                <div id="maquina-windows" class="filters-box">
+                    <h3 class="text">Máquinas Windows</h3>
+                    <select class="select-filter" id="select_windows"></select>
+                    <div class="btt-filter">
+                        <button>OK</button>
+                    </div>
                 </div>
 
-                <div class="filters-box">
-                    <h2>Máquinas - Linux</h2>
-                    <select>
-                    <option value="">Linux</option>
-                    <option value="">Linux</option>
-                    <option value="">Linux</option>
-                    <option value="">Linux</option>
-                    <option value="">Linux</option>
-                </select>
-                <button>Ok</button>
+                <div id="maquina-linux" class="filters-box">
+                    <h3 class="text">Máquinas Linux</h3>
+                    <select class="select-filter" id="select_linux"></select>
+                    <div class="btt-filter">
+                        <button>OK</button>
+                    </div>
                 </div>
-
             </div>
             
             <div class="donut-graph-one">
@@ -94,6 +77,7 @@
                     <b class="text" id="memUso"></b>
                 </div>
             </div>
+
             <div class="donut-graph-two">
                 <canvas id="donutChartTwo" style="width:100%;max-width:90%"></canvas>
                 <div class="text-disp-disc">
@@ -103,6 +87,7 @@
                     <b class="text" id="discUso"></b>
                 </div>
             </div>
+
             <div class="line-graph">
                 <canvas id="lineChart" style="width:100%;max-width:85%"></canvas>
             </div>
@@ -110,9 +95,11 @@
             <div class="text-mem">
                 <b class="text">Memória - RAM</b>
             </div>
+
             <div class="text-disc">
                 <b class="text">Disco Rígido</b>
             </div>
+
             <div class="text-cpu">
                 <b class="text">CPU - Velocidade</b>
             </div>
@@ -211,4 +198,83 @@
     }
 
     escreverTexto();
+</script>
+
+<script>
+    let listaStatus = [
+    {
+            nome: "Máquina 1",
+            sistemaOperacional: "windows"
+        },
+        {
+            nome: "Máquina 2",
+            sistemaOperacional: "windows"
+        },  
+        {
+            nome: "Máquina 3",
+            sistemaOperacional: "linux"
+        },  
+        {
+            nome: "Máquina 4",
+            sistemaOperacional: "linux"
+        },
+        {
+            nome: "Máquina 5",
+            sistemaOperacional: "windows"
+        },   
+        {
+            nome: "Máquina 6",
+            sistemaOperacional: "linux"
+        },  
+        {
+            nome: "Máquina 7",
+            sistemaOperacional: "windows"
+        },  
+        {
+            nome: "Máquina 8",
+            sistemaOperacional: "windows"
+        },
+        {
+            nome: "Máquina 9",
+            sistemaOperacional: "linux"
+        },   
+        {
+            nome: "Máquina 10",
+            sistemaOperacional: "linux"
+        },  
+        {
+            nome: "Máquina 11",
+            sistemaOperacional: "windows"
+        },  
+        {
+            nome: "Máquina 12",
+            sistemaOperacional: "linux"
+        },
+        {
+            nome: "Máquina 13",
+            sistemaOperacional: "linux"
+        }
+    ];
+
+    for (let i = 0; i < listaStatus.length; i++) {
+        const container = document.getElementById("select_windows")
+
+        if (listaStatus[i].sistemaOperacional == "windows") {
+            let option = document.createElement("option")
+            option.innerHTML += listaStatus[i].nome
+            container.appendChild(option)
+            option.classList.add("option-box")
+        }
+    }
+
+    for (let i = 0; i < listaStatus.length; i++) {
+        const container = document.getElementById("select_linux")
+
+        if (listaStatus[i].sistemaOperacional == "linux") {
+            let option = document.createElement("option")
+            option.innerHTML += listaStatus[i].nome
+            container.appendChild(option)
+            option.classList.add("option-box")
+        }
+    }
 </script>

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Máquinas | Observium</title>
     <link rel="stylesheet" href="./css/style.css">
+    <title>Máquinas | Observium</title>
 </head>
 
 <body>
@@ -19,21 +19,21 @@
             </div>
 
             <div class="boxes" id="boxes_links">
-                <div class="box" id="box_selected">
+                <a class="box" id="box_selected" href="tela_maquinas.html">
                     <img src="assets/imgs/imac.png" alt="">
-                </div>
-                <div class="box">
+                </a>
+                <a class="box" href="dashboard.html">
                     <img src="assets/imgs/graphic-arrow.png" alt="">
-                </div>
-                <div class="box">
+                </a>
+                <a class="box" href="tela_logs.html">
                     <img src="assets/imgs/files.png" alt="">
-                </div>
+                </a>
             </div>
 
             <div class="boxes" id="boxes_logout">
-                <div class="box">
+                <a class="box">
                     <img src="assets/imgs/logout.png" alt="">
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -107,7 +107,6 @@
         }
     ]; 
         
-    const addCards = document.getElementById("machine_wrapper")
     for (let i = 0; i < listaMaquinas.length; i++) {
         const container = document.getElementById("container")
         let card = document.createElement("div")
