@@ -97,11 +97,32 @@ body {
     grid-template-rows: 0.1fr 0.7fr 0.2fr 1fr 0.2fr 1fr 0.1fr;
 }
 
+/* Filtros */
 .filters {
+    display: grid;
+    grid-template-columns: repeat(6, 19rem);
+    column-gap: 3rem;
+
+
     grid-column-start: 2;
     grid-column-end: 6;
     grid-row-start: 2;
     background-color: #0a518f;
+}
+
+.filters-box{
+
+}
+
+.filters h2{
+    color: white;
+    font-weight: bold;
+}
+
+.filters select{
+    display: block;
+    border-radius: 0.3rem;
+    width: 100%;
 }
 
 .donut-graph-one {
