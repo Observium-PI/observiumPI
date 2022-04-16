@@ -8,4 +8,8 @@ router.get("/listar", function (req, res) {
     computadorController.fnListar(req, res);
 });
 
+router.post("/excluir", function(req, res){
+    computadorController.fnExcluir(req, res);
+});
+
 module.exports = router;

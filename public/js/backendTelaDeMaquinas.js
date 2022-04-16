@@ -72,7 +72,11 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         //CONFIGURANDO URL DAS DIV COM IMAGENS
                         divSO.style.backgroundImage = "url(" + element.imagemSO + ")"
                         img_edit.style.backgroundImage = "url(" + element.img_edit + ")"
-                        img_delete.style.backgroundImage = "url(" + element.img_delete + ")"
+                        img_delete.style.backgroundImage = "url(" + element.img_delete + ")";
+
+                        //Adicionando eventos para os clicks de excluir máquina
+                        btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
+
 
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card)
@@ -156,6 +160,9 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         img_edit.style.backgroundImage = "url(" + element.img_edit + ")"
                         img_delete.style.backgroundImage = "url(" + element.img_delete + ")"
 
+                         //Adicionando eventos para os clicks de excluir máquina
+                         btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
+
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card)
                         card.appendChild(divSO)
@@ -185,9 +192,6 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         .catch(error => {
             console.log("Erro: " + error)
         })
-<<<<<<< HEAD
-    }
-=======
 
 }
 
@@ -199,4 +203,23 @@ function fnDeslogar(){
     // Logo após, ele é direcionado para a tela inicial do site.
     location = "index.html";
 }
->>>>>>> 0caf366c3def9dfb3f74844ecdf2d63e9fe57b7b
+
+function fnExcluir(idComputador){
+    let body = JSON.stringify({idComputador: idComputador});
+
+
+    fetch("computador/excluir", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
+    })
+    .then(resposta => {
+        console.log("Resposta: " + resposta);
+        location = 'tela_maquinas.html';
+    })
+    .catch(error => {
+        console.log("Erro: " + error)
+    })
+}

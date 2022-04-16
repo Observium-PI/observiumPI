@@ -30,7 +30,7 @@ var mySqlConfigCasa = {
   host: "localhost",
   user: "root",
   database: "Observium",
-  password: "sptech"
+  password: "observium123"
 };
 
 function executar(instrucao) {
@@ -56,7 +56,7 @@ function executar(instrucao) {
     });
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     return new Promise(function (resolve, reject) {
-      var conexao = mysql.createConnection(mySqlConfigFaculdade);
+      var conexao = mysql.createConnection(mySqlConfigCasa);
       conexao.connect();
       conexao.query(instrucao, function (erro, resultados) {
         conexao.end();
