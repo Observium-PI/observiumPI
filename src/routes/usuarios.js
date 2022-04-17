@@ -16,7 +16,11 @@ router.get("/verificacaoDeUsuarios", function (req, res) {
 });
 
 router.get("/listarUsuarios", function (req, res) {
-    usuarioController.listarUsers(res, res);
+    usuarioController.listarUsers(req, res);
+})
+
+router.get("/pegarUsuarios", function (req, res) {
+    usuarioController.pegarUsers(req, res);
 })
 
 module.exports = router;

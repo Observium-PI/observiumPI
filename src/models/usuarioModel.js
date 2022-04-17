@@ -20,15 +20,25 @@ function verificarUser(id) {
 
 function listarUsers() {
   var instrucao = `
-    SELECT nome FROM Usuario;
+    SELECT idUsuario, nome, login, setor, tipoUsuario FROM Usuario ORDER BY nome;
     `;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
+function pegarUsers(id) {
+  var instrucao = `
+  SELECT * FROM Usuario WHERE idUsuario = '${id}';
+`;
+
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   fnEntrar,
   verificarUser,
-  listarUsers
+  listarUsers,
+  pegarUsers
 }
