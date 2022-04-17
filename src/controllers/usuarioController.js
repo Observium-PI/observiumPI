@@ -71,7 +71,7 @@ function listarUsers(req, res) {
 
 function pegarUsers(req, res) {
     var id = req.body.id;
-    console.log(id);
+
     if (!id) {
         return res.status(400).send("Não há id desse user!");
     }
@@ -89,9 +89,22 @@ function pegarUsers(req, res) {
 
 }
 
+function pesquisarUsers(req, res) {
+    var pesquisa = req.body.pesquisa;
+
+    usuarioModel.pesquisarUsers(pesquisa)
+        .then(resultado => {
+            return res.status(200).send(resultado);
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     fnEntrar,
     verificarUser,
     listarUsers,
-    pegarUsers
+    pegarUsers,
+    pesquisarUsers
 }

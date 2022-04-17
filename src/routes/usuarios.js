@@ -23,4 +23,8 @@ router.get("/pegarUsuarios", function (req, res) {
     usuarioController.pegarUsers(req, res);
 })
 
+router.get("/pesquisarUsuarios", function (req, res) {
+    usuarioController.pesquisarUsers(req, res);
+})
+
 module.exports = router;

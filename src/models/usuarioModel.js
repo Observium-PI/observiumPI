@@ -36,9 +36,19 @@ function pegarUsers(id) {
   return database.executar(instrucao);
 }
 
+function pesquisarUsers(pesquisa) {
+  var instrucao = `
+    SELECT * FROM Usuario WHERE nome LIKE '${pesquisa}%';
+  `;
+
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   fnEntrar,
   verificarUser,
   listarUsers,
-  pegarUsers
+  pegarUsers,
+  pesquisarUsers
 }
