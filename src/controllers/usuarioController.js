@@ -60,7 +60,7 @@ function verificarUser(req, res) {
 function listarUsers(req, res) {
     usuarioModel.listarUsers()
         .then(resultado => {
-            return res.status(200).send(resultado[0]);
+            return res.status(200).send(resultado);
         })
         .catch(function (erro) {
             console.log(erro);

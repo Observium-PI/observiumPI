@@ -18,7 +18,17 @@ function verificarUser(id) {
   return database.executar(instrucao);
 }
 
+function listarUsers() {
+  var instrucao = `
+    SELECT nome FROM Usuario;
+    `;
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   fnEntrar,
   verificarUser,
+  listarUsers
 }
