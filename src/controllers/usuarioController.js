@@ -36,6 +36,40 @@ function fnEntrar(req, res) {
 
 }
 
+
+function verificarUser(req, res) {
+    var id = req.body.id;
+
+    if (!id) {
+        return res.status(400).send("Não há id desse user!");
+    }
+
+    usuarioModel.verificarUser(id)
+        .then(resultado => {
+            if (resultado.length == 0) {
+                return res.status(400).send("Id inexistente.");
+            }
+
+            return res.status(200).send(resultado[0]);
+        }).catch(erro => {
+            return res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
+function listarUsers(req, res) {
+    usuarioModel.listarUsers()
+        .then(resultado => {
+            return res.status(200).send(resultado[0]);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+
+}
 module.exports = {
-    fnEntrar
+    fnEntrar,
+    verificarUser,
+    listarUsers
 }
