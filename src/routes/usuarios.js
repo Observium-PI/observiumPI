@@ -27,4 +27,9 @@ router.get("/pesquisarUsuarios", function (req, res) {
     usuarioController.pesquisarUsers(req, res);
 })
 
+router.post("/desligarUsuarios", function (req, res) {
+    usuarioController.desligarUser(req, res);
+})
+
+
 module.exports = router;
