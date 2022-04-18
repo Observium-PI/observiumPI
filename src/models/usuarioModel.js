@@ -21,7 +21,7 @@ function verificarUser(id) {
 function listarUsers() {
   var instrucao = `
     SELECT idUsuario, nome, login, setor, tipoUsuario FROM Usuario ORDER BY nome;
-    `;
+  `;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -29,8 +29,8 @@ function listarUsers() {
 
 function pegarUsers(id) {
   var instrucao = `
-  SELECT * FROM Usuario WHERE idUsuario = '${id}';
-`;
+    SELECT * FROM Usuario WHERE idUsuario = '${id}';
+  `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
   return database.executar(instrucao);
@@ -45,10 +45,20 @@ function pesquisarUsers(pesquisa) {
   return database.executar(instrucao);
 }
 
+function desligarUser(id) {
+  var instrucao = `
+    DELETE FROM Usuario WHERE idUsuario = "${id}";
+  `;
+
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   fnEntrar,
   verificarUser,
   listarUsers,
   pegarUsers,
-  pesquisarUsers
+  pesquisarUsers,
+  desligarUser
 }

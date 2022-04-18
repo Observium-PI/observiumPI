@@ -21,7 +21,7 @@
             </div>
 
             <div class="boxes" id="boxes_links">
-                <a class="box"  href="tela_maquinas.html">
+                <a class="box" href="tela_maquinas.html">
                     <img src="assets/imgs/imac.png" alt="">
                 </a>
                 <a class="box" href="dashboard.html">
@@ -34,7 +34,7 @@
 
             <div class="boxes" id="boxes_logout">
                 <a class="box">
-                    <img src="assets/imgs/logout.png" alt="">
+                    <img src="assets/imgs/logout.png" alt="" onclick="fnDeslogar()">
                 </a>
             </div>
         </div>
@@ -72,38 +72,38 @@
         </div>
         <div class="add_modal" id="add_modal">
             <div class="content_add_modal">
-                    <a href="#" class="btn_fechar_add_modal">X</a>
+                <a href="#" class="btn_fechar_add_modal">X</a>
 
-                    <b>Cadastrar Novos Usuários</b>
+                <b>Cadastrar Novos Usuários</b>
 
-                    <div class="cadastroConteudo">
-                        <b>Nome</b>
-                        <input type="text">
-                    </div>
+                <div class="cadastroConteudo">
+                    <b>Nome</b>
+                    <input type="text">
+                </div>
 
-                    <div class="cadastroConteudo">
-                        <b>Setor</b>
-                        <input type="text">
-                    </div>
+                <div class="cadastroConteudo">
+                    <b>Setor</b>
+                    <input type="text">
+                </div>
 
-                    <div class="cadastroConteudo">
-                        <b>Login</b>
-                        <input type="text">
-                    </div>
+                <div class="cadastroConteudo">
+                    <b>Login</b>
+                    <input type="text">
+                </div>
 
-                    <div class="cadastroConteudo">
-                        <b>Senha</b>
-                        <input type="text">
-                    </div>
+                <div class="cadastroConteudo">
+                    <b>Senha</b>
+                    <input type="text">
+                </div>
 
-                    <div class="cadastroConteudo">
-                        <b>Confirmação De Senha</b>
-                        <input type="text">
-                    </div>
+                <div class="cadastroConteudo">
+                    <b>Confirmação De Senha</b>
+                    <input type="text">
+                </div>
 
-                    <div class="cadastroConteudo">
-                        <Button>Cadastrar</Button>
-                    </div>
+                <div class="cadastroConteudo">
+                    <Button>Cadastrar</Button>
+                </div>
 
             </div>
 
@@ -183,17 +183,17 @@
         }
     ];
 
-    if(sessionStorage.getItem("tipoUsuario") == "admin"){
+    if (sessionStorage.getItem("tipoUsuario") == "admin") {
         const boxes_links = document.getElementById("boxes_links")
         let link_tela_funcionario = document.createElement("a")
         let icon_tela_funcionario = document.createElement("img")
-        
+
         link_tela_funcionario.href = "tela_funcionarios.html"
         link_tela_funcionario.classList.add("box")
         link_tela_funcionario.setAttribute("id", "box_selected");
-        
+
         icon_tela_funcionario.src = "./assets/imgs/target.png"
-        
+
         boxes_links.appendChild(link_tela_funcionario)
         link_tela_funcionario.appendChild(icon_tela_funcionario)
     }
@@ -236,7 +236,16 @@
         btn_editar.classList.add("btn-edit-user")
         btn_excluir.classList.add("btn-delete-user")
 
-        btn_excluir.setAttribute("id", "delete_modal_"+listaUsuarios[i].nome);
-        btn_editar.setAttribute("id", "edit_modal_"+listaUsuarios[i].nome);
+        btn_excluir.setAttribute("id", "delete_modal_" + listaUsuarios[i].nome);
+        btn_editar.setAttribute("id", "edit_modal_" + listaUsuarios[i].nome);
+    }
+
+    function fnDeslogar() {
+        /* A função de deslogar consiste em limpar a sessão local do usuário, o que significa 
+        que ele não terá mais a váriavel booleana, indicando se ele está logado ou não, no 
+        sistema, sendo assim, ele não consegue mais voltar à Dashboard*/
+        sessionStorage.clear();
+        // Logo após, ele é direcionado para a tela inicial do site.
+        location = "index.html";
     }
 </script>

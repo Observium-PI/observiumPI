@@ -101,10 +101,26 @@ function pesquisarUsers(req, res) {
         });
 }
 
+function desligarUser(req, res) {
+    var id = req.body.id;
+
+    usuarioModel.desligarUser(id)
+        .then(resultado => {
+            if (resultado.length == 0) {
+                return res.status(400).send("Id inexistente.");
+            }
+
+            return res.status(200).send(resultado[0]);
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        })
+}
 module.exports = {
     fnEntrar,
     verificarUser,
     listarUsers,
     pegarUsers,
-    pesquisarUsers
+    pesquisarUsers,
+    desligarUser
 }
