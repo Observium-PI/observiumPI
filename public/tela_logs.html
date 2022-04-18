@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/logs.css">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic"
+        rel="stylesheet" />
     <title>Logs | Observium</title>
 </head>
+
 <body>
     <div class="side-bar">
         <div class="container">
@@ -36,7 +39,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="banner">
         <div class="container">
             <div class="data">
@@ -63,9 +66,23 @@
         </div>
     </div>
 </body>
+
 </html>
 
 <script>
+    if(sessionStorage.getItem("tipoUsuario") == "admin"){
+        const boxes_links = document.getElementById("boxes_links")
+        let link_tela_funcionario = document.createElement("a")
+        let icon_tela_funcionario = document.createElement("img")
+        
+        link_tela_funcionario.href = "tela_funcionarios.html"
+        link_tela_funcionario.classList.add("box")
+        
+        icon_tela_funcionario.src = "./assets/imgs/target.png"
+        
+        boxes_links.appendChild(link_tela_funcionario)
+        link_tela_funcionario.appendChild(icon_tela_funcionario)
+    }
     let listaLogs = [
         {
             data: "10/04/2022",
@@ -78,13 +95,13 @@
             componente: "Disco 1",
             maquina: "Máquina 2",
             descricao: "aviso"
-        },  
+        },
         {
             data: "10/04/2022",
             componente: "Memória RAM",
             maquina: "Máquina 3",
             descricao: "aviso"
-        },  
+        },
         {
             data: "10/04/2022",
             componente: "Memória RAM",
@@ -96,19 +113,19 @@
             componente: "CPU",
             maquina: "Máquina 5",
             descricao: "aviso"
-        },   
+        },
         {
             data: "10/04/2022",
             componente: "Disco 1",
             maquina: "Máquina 6",
             descricao: "aviso"
-        },  
+        },
         {
             data: "10/04/2022",
             componente: "Disco 1",
             maquina: "Máquina 7",
             descricao: "aviso"
-        },  
+        },
         {
             data: "10/04/2022",
             componente: "CPU",
@@ -120,19 +137,19 @@
             componente: "Memória RAM",
             maquina: "Máquina 9",
             descricao: "aviso"
-        },   
+        },
         {
             data: "10/04/2022",
             componente: "Disco 1",
             maquina: "Máquina 10",
             descricao: "aviso"
-        },  
+        },
         {
             data: "10/04/2022",
             componente: "Memória RAM",
             maquina: "Máquina 11",
             descricao: "aviso"
-        },  
+        },
         {
             data: "10/04/2022",
             componente: "Disco 1",
@@ -145,8 +162,8 @@
             maquina: "Máquina 13",
             descricao: "aviso"
         }
-    ]; 
-        
+    ];
+
     for (let i = 0; i < listaLogs.length; i++) {
         const log = document.getElementById("logs")
         let card = document.createElement("div")
@@ -154,7 +171,7 @@
         let componente = document.createElement("span")
         let maquina = document.createElement("span")
         let descricao = document.createElement("span")
-        
+
         data.innerHTML += listaLogs[i].data
         componente.innerHTML += listaLogs[i].componente
         maquina.innerHTML += listaLogs[i].maquina

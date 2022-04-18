@@ -23,6 +23,8 @@ body{
 
 .side-bar .container .boxes{
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .side-bar .container .boxes .box{
@@ -42,13 +44,12 @@ body{
 #box_selected{
     background-color: #003d78;
 }
-
 #boxes_links .box{
     height: 50%;
+    padding: 15px;
 }
-
 #boxes_links img{
-    width: 60%;
+    width: 100%;
 }
 
 #boxes_logout{
@@ -59,7 +60,6 @@ body{
     width: 60%;
     transform:scaleX(-1)
 }
-
 
 .conteudo{
     height: 100%;

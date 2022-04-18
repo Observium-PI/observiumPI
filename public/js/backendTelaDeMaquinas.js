@@ -1,6 +1,20 @@
 if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado") == null) {
     location = "index.html";
 } else {
+    if(sessionStorage.getItem("tipoUsuario") == "admin"){
+        const boxes_links = document.getElementById("boxes_links")
+        let link_tela_funcionario = document.createElement("a")
+        let icon_tela_funcionario = document.createElement("img")
+        
+        link_tela_funcionario.href = "tela_funcionarios.html"
+        link_tela_funcionario.classList.add("box")
+        
+        icon_tela_funcionario.src = "./assets/imgs/target.png"
+        
+        boxes_links.appendChild(link_tela_funcionario)
+        link_tela_funcionario.appendChild(icon_tela_funcionario)
+    }
+
     // Requisição do tipo GET para a listagem de computadores
     fetch("computador/listar", {
         method: 'GET',

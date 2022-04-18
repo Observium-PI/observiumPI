@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/funcionarios.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic"
+        rel="stylesheet" />
+    <title>Usuários | Observium</title>
+</head>
+
+<body>
+    <div class="side-bar">
+        <div class="container">
+            <div class="boxes" id="boxes_logo">
+                <div class="box">
+                    <img src="assets/imgs/Logo_Observium_Quadrado.png" alt="">
+                </div>
+            </div>
+
+            <div class="boxes" id="boxes_links">
+                <a class="box"  href="tela_maquinas.html">
+                    <img src="assets/imgs/imac.png" alt="">
+                </a>
+                <a class="box" href="dashboard.html">
+                    <img src="assets/imgs/graphic-arrow.png" alt="">
+                </a>
+                <a class="box" href="tela_logs.html">
+                    <img src="assets/imgs/files.png" alt="">
+                </a>
+            </div>
+
+            <div class="boxes" id="boxes_logout">
+                <a class="box">
+                    <img src="assets/imgs/logout.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner">
+
+        <div class="container">
+            <div class="lista">
+                <div class="pesquisa">
+                    <input type="text" class="realcePesquisa" placeholder="Ex: Atauine Dias">
+                    <button type="submit" class="botaoPesquisa">
+                        Pesquisar
+                    </button>
+
+                </div>
+                <div class="btn_add_user" onclick="window.location.replace('#add_modal')">
+
+                </div>
+            </div>
+
+            <div class="conteudo-users">
+                <div class="cabecalho-users">
+                    <b class="text">Nome</b>
+                    <b class="text">Login</b>
+                    <b class="text">E-mail</b>
+                    <b class="text">Setor</b>
+                    <b class="text">Tipo</b>
+                </div>
+
+                <div class="banner-users" id="users">
+
+                </div>
+            </div>
+        </div>
+        <div class="add_modal" id="add_modal">
+            <div class="content_add_modal">
+                    <a href="#" class="btn_fechar_add_modal">X</a>
+
+                    <b>Cadastrar Novos Usuários</b>
+
+                    <div class="cadastroConteudo">
+                        <b>Nome</b>
+                        <input type="text">
+                    </div>
+
+                    <div class="cadastroConteudo">
+                        <b>Setor</b>
+                        <input type="text">
+                    </div>
+
+                    <div class="cadastroConteudo">
+                        <b>Login</b>
+                        <input type="text">
+                    </div>
+
+                    <div class="cadastroConteudo">
+                        <b>Senha</b>
+                        <input type="text">
+                    </div>
+
+                    <div class="cadastroConteudo">
+                        <b>Confirmação De Senha</b>
+                        <input type="text">
+                    </div>
+
+                    <div class="cadastroConteudo">
+                        <Button>Cadastrar</Button>
+                    </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let listaUsuarios = [
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        },
+        {
+            nome: "Leandro de Sales Cotrim",
+            login: "leandro.cotrim",
+            email: "leandro.cotrim@linx.com.br",
+            setor: "Cloud digital",
+            tipo: "ADM",
+        }
+    ];
+
+    if(sessionStorage.getItem("tipoUsuario") == "admin"){
+        const boxes_links = document.getElementById("boxes_links")
+        let link_tela_funcionario = document.createElement("a")
+        let icon_tela_funcionario = document.createElement("img")
+        
+        link_tela_funcionario.href = "tela_funcionarios.html"
+        link_tela_funcionario.classList.add("box")
+        link_tela_funcionario.setAttribute("id", "box_selected");
+        
+        icon_tela_funcionario.src = "./assets/imgs/target.png"
+        
+        boxes_links.appendChild(link_tela_funcionario)
+        link_tela_funcionario.appendChild(icon_tela_funcionario)
+    }
+
+    for (let i = 0; i < listaUsuarios.length; i++) {
+        const user = document.getElementById("users")
+        let card = document.createElement("div")
+        let nome = document.createElement("span")
+        let login = document.createElement("span")
+        let email = document.createElement("span")
+        let setor = document.createElement("span")
+        let tipo = document.createElement("span")
+        let div_btns = document.createElement("div")
+        let btn_editar = document.createElement("div")
+        let btn_excluir = document.createElement("div")
+
+        nome.innerHTML += listaUsuarios[i].nome
+        login.innerHTML += listaUsuarios[i].login
+        email.innerHTML += listaUsuarios[i].email
+        setor.innerHTML += listaUsuarios[i].setor
+        tipo.innerHTML += listaUsuarios[i].tipo
+
+        user.appendChild(card)
+        card.appendChild(nome)
+        card.appendChild(login)
+        card.appendChild(email)
+        card.appendChild(setor)
+        card.appendChild(tipo)
+        card.appendChild(div_btns)
+        div_btns.appendChild(btn_editar)
+        div_btns.appendChild(btn_excluir)
+
+        card.classList.add("card-user")
+        nome.classList.add("text-user")
+        login.classList.add("text-user")
+        email.classList.add("text-user")
+        setor.classList.add("text-user")
+        tipo.classList.add("text-user")
+        div_btns.classList.add("div-btns")
+        btn_editar.classList.add("btn-edit-user")
+        btn_excluir.classList.add("btn-delete-user")
+
+        btn_excluir.setAttribute("id", "delete_modal_"+listaUsuarios[i].nome);
+        btn_editar.setAttribute("id", "edit_modal_"+listaUsuarios[i].nome);
+    }
+</script>
