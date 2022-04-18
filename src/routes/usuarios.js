@@ -35,4 +35,8 @@ router.post("/alterarNomeDeUsuarios", function (req, res) {
     usuarioController.alterarNomeDeUsers(req, res);
 })
 
+router.post("/alterarSenhaDeUsuarios", function (req, res) {
+    usuarioController.alterarSenhaDeUsers(req, res);
+})
+
 module.exports = router;

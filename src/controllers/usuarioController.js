@@ -118,17 +118,17 @@ function desligarUser(req, res) {
 }
 
 function alterarNomeDeUsers(req, res) {
-    var novoNome = req.body.novoNome;
     var id = req.body.id;
+    var novoNome = req.body.novoNome;
 
-    usuarioModel.alterarNomeDeUsers(novoNome, id)
+    if (novoNome == null) {
+        return res.status(400).send("Campo nome está vazio.");
+    }
+
+    usuarioModel.alterarNomeDeUsers(id, novoNome)
         .then(resultado => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id e nome inexistente.");
-            }
-
-            if (resultado.novoNome == null) {
-                return res.status(400).send("Campo nome está vazio.");
             }
 
             return res.status(200).send(resultado[0]);
@@ -137,6 +137,28 @@ function alterarNomeDeUsers(req, res) {
             res.status(500).json(erro.sqlMessage);
         })
 }
+
+function alterarSenhaDeUsers(req, res) {
+    var novaSenha = req.body.novaSenha;
+    var id = req.body.id;
+
+    if (novaSenha == null) {
+        return res.status(400).send("Campo senha está vazio.");
+    }
+
+    usuarioModel.alterarSenhaDeUsers(novaSenha, id)
+        .then(resultado => {
+            if (resultado.length == 0) {
+                return res.status(400).send("Id e senha inexistente.");
+            }
+
+            return res.status(200).send(resultado[0]);
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        })
+}
+
 module.exports = {
     fnEntrar,
     verificarUser,
@@ -144,5 +166,6 @@ module.exports = {
     pegarUsers,
     pesquisarUsers,
     desligarUser,
-    alterarNomeDeUsers
+    alterarNomeDeUsers,
+    alterarSenhaDeUsers
 }

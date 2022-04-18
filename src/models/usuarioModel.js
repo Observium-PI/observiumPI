@@ -64,6 +64,16 @@ function alterarNomeDeUsers(id, novoNome) {
 
 }
 
+function alterarSenhaDeUsers(id, novaSenha) {
+  var instrucao = `
+  UPDATE Usuario SET senha = "${novaSenha}" WHERE idUsuario = "${id}";
+`;
+
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+
+}
+
 module.exports = {
   fnEntrar,
   verificarUser,
@@ -71,5 +81,6 @@ module.exports = {
   pegarUsers,
   pesquisarUsers,
   desligarUser,
-  alterarNomeDeUsers
+  alterarNomeDeUsers,
+  alterarSenhaDeUsers
 }
