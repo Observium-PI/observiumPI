@@ -38,7 +38,7 @@ function pegarUsers(id) {
 
 function pesquisarUsers(pesquisa) {
   var instrucao = `
-    SELECT * FROM Usuario WHERE nome LIKE '${pesquisa}%';
+    SELECT idUsuario, nome, login, setor, tipoUsuario FROM Usuario WHERE nome LIKE '${pesquisa}%' ORDER BY nome;
   `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
