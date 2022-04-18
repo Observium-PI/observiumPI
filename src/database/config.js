@@ -20,7 +20,7 @@ var sqlServerConfig = {
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL e na máquina da faculdade)
 var mySqlConfigFaculdade = {
   host: "localhost",
-  user: "aluno",
+  user: "root",
   database: "Observium",
   password: "sptech"
 };
@@ -30,7 +30,11 @@ var mySqlConfigCasa = {
   host: "localhost",
   user: "root",
   database: "Observium",
-  password: "Alien19."
+<<<<<<< HEAD
+  password: "sptech"
+=======
+  password: "observium123"
+>>>>>>> 97d0afd5522523b4b9abc39571d46c6752fb8c4c
 };
 
 function executar(instrucao) {
@@ -56,7 +60,7 @@ function executar(instrucao) {
     });
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     return new Promise(function (resolve, reject) {
-      var conexao = mysql.createConnection(mySqlConfigCasa);
+      var conexao = mysql.createConnection(mySqlConfigFaculdade);
       conexao.connect();
       conexao.query(instrucao, function (erro, resultados) {
         conexao.end();
