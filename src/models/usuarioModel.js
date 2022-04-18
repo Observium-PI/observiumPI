@@ -54,11 +54,22 @@ function desligarUser(id) {
   return database.executar(instrucao);
 }
 
+function alterarNomeDeUsers(id, novoNome) {
+  var instrucao = `
+  UPDATE Usuario SET nome = "${novoNome}" WHERE idUsuario = "${id}";
+`;
+
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+
+}
+
 module.exports = {
   fnEntrar,
   verificarUser,
   listarUsers,
   pegarUsers,
   pesquisarUsers,
-  desligarUser
+  desligarUser,
+  alterarNomeDeUsers
 }

@@ -116,11 +116,33 @@ function desligarUser(req, res) {
             res.status(500).json(erro.sqlMessage);
         })
 }
+
+function alterarNomeDeUsers(req, res) {
+    var novoNome = req.body.novoNome;
+    var id = req.body.id;
+
+    usuarioModel.alterarNomeDeUsers(novoNome, id)
+        .then(resultado => {
+            if (resultado.length == 0) {
+                return res.status(400).send("Id e nome inexistente.");
+            }
+
+            if (resultado.novoNome == null) {
+                return res.status(400).send("Campo nome está vazio.");
+            }
+
+            return res.status(200).send(resultado[0]);
+        }).catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        })
+}
 module.exports = {
     fnEntrar,
     verificarUser,
     listarUsers,
     pegarUsers,
     pesquisarUsers,
-    desligarUser
+    desligarUser,
+    alterarNomeDeUsers
 }
