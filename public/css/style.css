@@ -67,6 +67,12 @@ body {
     margin-left: 6%;
 }
 
+/*Efeito de mudança de brilho no hover do elemento*/
+.box:hover {
+    cursor: pointer;
+    opacity: 0.4;
+}
+
 /* COLOCAR A ESTILIZAÇÃO DO CONTEUDO DA PAGINA ABAIXO */
 
 
