@@ -31,5 +31,8 @@ router.post("/desligarUsuarios", function (req, res) {
     usuarioController.desligarUser(req, res);
 })
 
+router.post("/alterarNomeDeUsuarios", function (req, res) {
+    usuarioController.alterarNomeDeUsers(req, res);
+})
 
 module.exports = router;
