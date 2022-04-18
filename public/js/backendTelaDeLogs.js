@@ -61,4 +61,14 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         .catch()
 
     }
+
+    function fnDeslogar() {
+        /* A função de deslogar consiste em limpar a sessão local do usuário, o que significa 
+        que ele não terá mais a váriavel booleana, indicando se ele está logado ou não, no 
+        sistema, sendo assim, ele não consegue mais voltar à Dashboard*/
+        sessionStorage.clear();
+        // Logo após, ele é direcionado para a tela inicial do site.
+        location = "index.html";
+    }
+
 }
