@@ -30,7 +30,7 @@ var mySqlConfigCasa = {
   host: "localhost",
   user: "root",
   database: "Observium",
-  password: "@Conta1245"
+  password: "#"
 };
 
 function executar(instrucao) {
