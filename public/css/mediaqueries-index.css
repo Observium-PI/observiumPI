@@ -1,0 +1,349 @@
+@media (min-width: 280px) and (max-width: 539px) {
+
+
+    .logo-observium {
+
+        width: 30%;
+        margin-left: 5%;
+        margin-top: 2%;
+    }
+
+    .banner .first-text {
+
+        font-size: 70%;
+    }
+
+    .banner {
+        height: 50vh;
+
+    }
+
+    .banner .container {
+        height: 65%;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 5vw;
+        margin-top: 25%;
+    }
+
+    .banner .first-text {
+
+        font-size: 65%;
+        margin-top: 5%;
+    }
+
+    .banner .sub-text {
+
+        font-size: 100%;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        margin-top: -5%;
+        margin-bottom: 35%;
+    }
+
+    .sobre-nos {
+
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .text-titulo {
+        margin-top: -40%;
+        font-size: 100%;
+    }
+
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 90vw;
+        margin-top: -60%;
+
+    }
+
+    .flipper-container {
+
+        width: 37%;
+        height: 54%;
+        perspective: 100vh;
+        margin-top: 10%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: -20%;
+        margin-right: 2%;
+
+
+    }
+
+    .produto {
+
+        width: 100%;
+    }
+
+    .container .boxes2 {
+
+        display: none;
+    }
+
+    .produto .container {
+
+        width: 98%;
+  
+    }
+
+    .produto .container .boxes {
+
+        width: 90%;
+        height: 75%;
+    }
+
+    .boxes .box {
+
+        width: 100%;
+    }
+
+    .linha1 {
+
+        margin-top: 15%;
+    }
+
+    .linha1 .box {
+        width: 100%;
+        height: 75%;
+
+    }
+
+    .linha1 .box .icon {
+
+        height: 15%;
+
+    }
+
+    .linha1 .box h3 {
+
+        font-size: 75%;
+    }
+
+
+    .linha1 .box p {
+
+        width: 95%;
+        font-size: 70%;
+    }
+
+
+    .hamburger{
+        display: block;
+      }
+   
+      .hamburger.active .bar:nth-child(2){
+       opacity: 0;
+      }
+   
+      .hamburger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+      }
+   
+      .hamburger.active .bar:nth-child(3){
+       transform: translateY(-8px) rotate(-45deg);
+     }
+
+}
+
+
+@media (min-width: 540px) and (max-width: 768px) {
+
+    .logo-observium {
+
+        width: 30%;
+        margin-left: 5%;
+        margin-top: 2%;
+    }
+
+    .banner .first-text {
+
+        font-size: 70%;
+    }
+
+    .banner {
+        height: 50vh;
+
+    }
+
+    .banner .container {
+        height: 65%;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 5vw;
+        margin-top: 25%;
+    }
+
+    .banner .first-text {
+
+        font-size: 65%;
+        margin-top: 5%;
+    }
+
+    .banner .sub-text {
+
+        font-size: 100%;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        margin-top: -5%;
+        margin-bottom: 35%;
+    }
+
+    .sobre-nos {
+
+        width: 100vw;
+        height: 40vh;
+
+    }
+
+    .text-titulo {
+        font-size: 100%;
+        margin-top: 7.5%;
+    }
+
+    .cards {
+        display: flex;
+        justify-content: center;
+        width: 80vw;
+        height: 50vh;
+    }
+
+    .flipper-container {
+
+        width: 100%;
+        height: 90%;
+        perspective: 100vh;
+        margin-top: 2.5%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: -10%;
+
+
+    }
+
+    .hamburger{
+        display: block;
+      }
+   
+      .hamburger.active .bar:nth-child(2){
+       opacity: 0;
+      }
+   
+      .hamburger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+      }
+   
+      .hamburger.active .bar:nth-child(3){
+       transform: translateY(-8px) rotate(-45deg);
+     }
+
+
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    .logo-observium {
+
+        width: 30%;
+        margin-left: 5%;
+        margin-top: 2%;
+    }
+
+    .banner .first-text {
+
+        font-size: 70%;
+    }
+
+    .banner {
+        height: 50vh;
+
+    }
+
+    .banner .container {
+        height: 65%;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 5vw;
+        margin-top: 25%;
+    }
+
+    .banner .first-text {
+
+        font-size: 65%;
+        margin-top: 5%;
+    }
+
+    .banner .sub-text {
+
+        font-size: 100%;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        margin-top: -5%;
+        margin-bottom: 35%;
+    }
+
+    .sobre-nos {
+
+        width: 100vw;
+        height: 40vh;
+
+    }
+
+    .text-titulo {
+        font-size: 100%;
+        margin-top: 7.5%;
+    }
+
+    .cards {
+        display: flex;
+        justify-content: center;
+        width: 80vw;
+        height: 50vh;
+    }
+
+    .flipper-container {
+
+        width: 100%;
+        height: 90%;
+        perspective: 100vh;
+        margin-top: 2.5%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: -10%;
+
+
+    }
+
+    .hamburger{
+        display: block;
+      }
+   
+      .hamburger.active .bar:nth-child(2){
+       opacity: 0;
+      }
+   
+      .hamburger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+      }
+   
+      .hamburger.active .bar:nth-child(3){
+       transform: translateY(-8px) rotate(-45deg);
+     }
+
+}

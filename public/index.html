@@ -8,31 +8,44 @@
     <title>Home | Observium</title>
     <link rel="shortcut icon" href="background/favicon.ico">
     <link rel="stylesheet" href="./css/styleHome.css">
+    <link rel="stylesheet" href="./css/mediaqueries-index.css">
 </head>
 
 <body>
-    <div class="header">
-        <div class="container">
-            <a href="index.html"><img class="logo-observium" src="assets/imgs/Logo_Observium_Azul.png"></a>
-            <ul class="navbar">
-                <li class="agora">
-                    <a href="index.html">Inicio</a>
+
+
+    <header>
+        <nav class="navbar">
+            <a href="#" class="nav-branding">
+                <img class="logo-observium" src="assets/imgs/Logo_Observium_Azul.png">
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
                 </li>
-                <li>
-                    <a href="#sobre-nos">Sobre nós</a>
+                <li class="nav-item">
+                    <a href="#sobre-nos" class="nav-link">Sobre nós</a>
                 </li>
-                <li>
-                    |
+                <li class="nav-item">
+                    <a href="#produto" class="nav-link">Nosso produto</a>
                 </li>
-                <li>
-                    <a href="#produto">Nosso produto</a>
-                </li>
-                <li>
-                    <a href="tela_login.html">Login</a>
+                <li class="nav-item">
+                    <a href="tela_login.html" class="nav-link">Login</a>
                 </li>
             </ul>
-        </div>
-    </div>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+    </nav>
+
+
 
     <div class="banner">
         <div class="container">
@@ -47,19 +60,15 @@
                 <span>
                     Somos uma empresa especializada em soluções de monitoração de computadores e
                     equipamentos computacionais, para fins de apoio nas decisões estratégicas da TI.
-                <span>
+                    <span>
             </div>
         </div>
     </div>
 
-    <div class="sobre-nos" id="sobre-nos">
-        <div class="container">
-            <div class="text-titulo">
-                <h1>
+        <div class="sobre-nos">
+                <h1 class="text-titulo">
                     SOBRE NÓS
                 </h1>
-            </div>
-
             <div class="cards">
                 <div class="flipper-container">
                     <div class="flipper">
@@ -97,12 +106,11 @@
                 </div>
             </div>
 
-        </div>
     </div>
 
-    <div class="produto" id="produto">
+    <div class="produto">
         <div class="container">
-            <div class="boxes" style="width:60%">
+            <div class="boxes">
                 <div class="box" style="background-color: white;">
                     <h1>O que oferecemos?</h1>
                     <p>
@@ -113,7 +121,7 @@
 
                     <div class="linha1">
                         <div class="box">
-                            <img src="assets/imgs/alertas.png" alt="">
+                            <img class="icon" src="assets/imgs/alertas.png" alt="">
                             <h3>Alertas</h4>
                                 <p>
                                     Notificações de alertas enviados diretamente para
@@ -121,22 +129,22 @@
                                 </p>
                         </div>
                         <div class="box">
-                            <img src="assets/imgs/monitoramento.png" alt="">
+                            <img class="icon" src="assets/imgs/monitoramento.png" alt="">
                             <h3>Monitoramento</h4>
-                                <p>O monitoramento das maquinas são feitos em tempo real, trazendo maior precisão na
-                                    rotina</p>
+                                <p>Monitoramento das maquinas em tempo real, trazendo maior precisão na
+                                    rotina.</p>
                         </div>
                         <div class="box">
-                            <img src="assets/imgs/log-document.png" alt="">
+                            <img class="icon" src="assets/imgs/log-document.png" alt="">
                             <h3>Logs</h4>
-                                <p>Incidentes registrados serão armazenados em logs
-                                    para a facilidade em futuras manutenções ou analise de dados.</p>
+                                <p>Incidentes registrados armazenados em logs
+                                    para facilitar manutenções ou análise de dados.</p>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div class="boxes">
+            <div class="boxes2">
                 <!--
                 horizontally push the elements to the left of the viewBox
                 vertically center same shapes
@@ -199,5 +207,7 @@
 </body>
 
 </html>
+
+<script src="./js/scriptHome.js"></script>
 
 <script src="js/main.js"></script>
