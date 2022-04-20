@@ -266,7 +266,7 @@ body{
 }
 
 .content_add_modal {
-    width: 60%;
+    width: 40%;
     height: 80%;
     margin: auto;
     padding: 15px 20px;
@@ -274,16 +274,15 @@ body{
     display: flex;
     flex-direction: column;
     border: #0a518f 10px double;
-    background-color: #0a518f6b;
+    background-color: #0c1622;
+    border-radius: 15px;
+    color:#f0f8ff;
 }
 
-.content_add_modal b{
-    color: #f0f8ff;
-}
 
 .btn_fechar_add_modal {
     height: 5%;
-    width: 4%;
+    width: 5%;
     display: flex;
     align-self: flex-end;
     justify-content: center;
@@ -322,12 +321,12 @@ body{
     border: none;
     cursor: pointer;
     background-color: #0a518f;
-    color: #fff;
+    color: #f0f8ff;
 }
 
 .cadastroConteudo input {
     width: 80%;
-    height: 0%;
+    height: 20%;
     margin-top: 1%;
     padding: 4%;
     border: none;

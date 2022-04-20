@@ -26,12 +26,8 @@ body {
 
 .side-bar .container .boxes{
     width: 100%;
-<<<<<<< Updated upstream
     display: flex;
     flex-direction: column;
-=======
-
->>>>>>> Stashed changes
 }
 
 .side-bar .container .boxes .box{
