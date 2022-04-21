@@ -96,7 +96,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
                         //Adicionando eventos para os clicks de excluir máquina
                         btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
-                        btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.nome));
+                        btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
 
 
 
@@ -193,7 +193,9 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
                          //Adicionando eventos para os clicks de excluir máquina
                          btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
-                         btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.nome));
+                         btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
+
+                        
 
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card)
@@ -251,9 +253,32 @@ function fnExcluir(idComputador){
     })
     .then(resposta => {
         console.log("Resposta: " + resposta);
+        alert("Máquina excluída com sucesso!");
         location = 'tela_maquinas.html';
     })
     .catch(error => {
         console.log("Erro: " + error)
     })
+}
+
+function fnEditar(idComputador, novoNome){
+
+    let body = JSON.stringify({idComputador: idComputador, novoNome: novoNome});
+
+    fetch("computador/editar", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
+    })
+    .then(resposta =>{
+        console.log("Resposta: " + resposta);
+        alert("Máquina atualizada com sucesso!");
+        location = 'tela_maquinas.html';
+    })
+    .catch(error => {
+        console.log("Erro: " + error)
+    })
+    
 }

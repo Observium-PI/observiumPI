@@ -14,7 +14,14 @@ function fnExcluir(id){
   return database.executar(instrucao);
 }
 
+function fnEditar(id, novoNome){
+  var instrucao = `UPDATE Computador set nome = "${novoNome}" where idComputador = ${id}`;
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
     fnListar,
-    fnExcluir
+    fnExcluir,
+    fnEditar
 }

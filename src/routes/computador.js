@@ -11,4 +11,8 @@ router.post("/excluir", function(req, res){
     computadorController.fnExcluir(req, res);
 });
 
+router.post("/editar", function(req, res){
+    computadorController.fnEditar(req, res);
+});
+
 module.exports = router;
