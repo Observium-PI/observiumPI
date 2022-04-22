@@ -1,4 +1,11 @@
-@media (min-width: 280px) and (max-width: 539px) {
+@media (min-width: 280px) and (max-width: 767px) {
+
+    body {
+
+        width: 100vw;
+        height: 100vh;
+        overflow: scroll;
+    }
 
 
     .logo-observium {
@@ -15,6 +22,8 @@
 
     .banner {
         height: 50vh;
+        display: flex;
+        align-items: center;
 
     }
 
@@ -25,62 +34,70 @@
         flex-direction: column;
         justify-content: center;
         margin-left: 5vw;
-        margin-top: 25%;
     }
 
     .banner .first-text {
 
         font-size: 65%;
-        margin-top: 5%;
+        margin-bottom: 0%;
     }
 
     .banner .sub-text {
 
         font-size: 100%;
         width: 90%;
+        padding: 5%;
         display: flex;
         justify-content: center;
-        margin-top: -5%;
-        margin-bottom: 35%;
+
     }
 
     .sobre-nos {
 
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
     }
 
     .text-titulo {
-        margin-top: -40%;
         font-size: 100%;
+        height: 12%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .cards {
+        width: 85%;
+        height: 65%;
+        margin-left: 5%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        width: 90vw;
-        margin-top: -60%;
+        justify-content: flex-start;
 
     }
 
     .flipper-container {
 
-        width: 37%;
-        height: 54%;
         perspective: 100vh;
-        margin-top: 10%;
+        width: 32%;
+        height: 60%;
+        perspective: 100vh;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        margin-bottom: -20%;
-        margin-right: 2%;
-
 
     }
 
     .produto {
 
         width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .container .boxes2 {
@@ -90,75 +107,175 @@
 
     .produto .container {
 
-        width: 98%;
-  
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .produto .container .boxes {
 
-        width: 90%;
-        height: 75%;
+        width: 100%;
+        height: 100%;
+        margin-left: 0%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        background-color: white;
     }
 
     .boxes .box {
 
-        width: 100%;
+        width: 90%;
+        border-radius: 0%;
+        padding: 0%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .boxes .box h1 {
+        font-size: 150%;
+    }
+
+    .boxes .box p {
+        text-align: center;
+        font-size: 90%;
     }
 
     .linha1 {
-
-        margin-top: 15%;
+        margin-top: 0%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 
     .linha1 .box {
         width: 100%;
-        height: 75%;
-
+        height: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .linha1 .box .icon {
 
-        height: 15%;
+        height: 30%;
 
     }
 
     .linha1 .box h3 {
 
-        font-size: 75%;
+        font-size: 100%;
     }
 
 
     .linha1 .box p {
 
         width: 95%;
-        font-size: 70%;
+        font-size: 90%;
     }
 
+    .social {
 
-    .hamburger{
+        height: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .social .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .social .container .boxes {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .lower {
+
+        height: 15%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .lower .container {
+        width: 100%;
+        height: 100%;
+        font-size: 75%;
+    }
+
+    .lower .rodape {
+
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lower .final {
+        height: 75%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lower .final b {
+
+        font-size: 125%;
+    }
+
+    .footer {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 5%;
+    }
+
+    .hamburger {
         display: block;
-      }
-   
-      .hamburger.active .bar:nth-child(2){
-       opacity: 0;
-      }
-   
-      .hamburger.active .bar:nth-child(1){
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
-      }
-   
-      .hamburger.active .bar:nth-child(3){
-       transform: translateY(-8px) rotate(-45deg);
-     }
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
 
 }
 
 
-@media (min-width: 540px) and (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+
+    body {
+
+        width: 100vw;
+        height: 100vh;
+        overflow: scroll;
+    }
 
     .logo-observium {
 
-        width: 30%;
+        width: 25%;
         margin-left: 5%;
         margin-top: 2%;
     }
@@ -169,181 +286,188 @@
     }
 
     .banner {
-        height: 50vh;
+        height: 30%;
+        display: flex;
+        align-items: center;
 
     }
 
     .banner .container {
-        height: 65%;
+        height: 100%;
         width: 75%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         margin-left: 5vw;
-        margin-top: 25%;
     }
 
     .banner .first-text {
 
         font-size: 65%;
-        margin-top: 5%;
+        margin-bottom: 0%;
     }
 
     .banner .sub-text {
 
         font-size: 100%;
-        width: 90%;
+        width: 60%;
+        padding: 3%;
         display: flex;
         justify-content: center;
-        margin-top: -5%;
-        margin-bottom: 35%;
     }
 
     .sobre-nos {
 
         width: 100vw;
-        height: 40vh;
+        height: 30%;
 
     }
 
     .text-titulo {
         font-size: 100%;
-        margin-top: 7.5%;
     }
 
     .cards {
         display: flex;
         justify-content: center;
+        align-items: center;
         width: 80vw;
-        height: 50vh;
+        margin-bottom: 0%;
     }
 
     .flipper-container {
 
         width: 100%;
-        height: 90%;
+        height: 100%;
         perspective: 100vh;
-        margin-top: 2.5%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin-bottom: -10%;
-
-
-    }
-
-    .hamburger{
-        display: block;
-      }
-   
-      .hamburger.active .bar:nth-child(2){
-       opacity: 0;
-      }
-   
-      .hamburger.active .bar:nth-child(1){
-        transform: translateY(8px) rotate(45deg);
-      }
-   
-      .hamburger.active .bar:nth-child(3){
-       transform: translateY(-8px) rotate(-45deg);
-     }
-
-
-}
-
-
-@media (min-width: 769px) and (max-width: 1024px) {
-
-    .logo-observium {
-
-        width: 30%;
-        margin-left: 5%;
-        margin-top: 2%;
-    }
-
-    .banner .first-text {
-
-        font-size: 70%;
-    }
-
-    .banner {
-        height: 50vh;
+        align-items: center;
 
     }
 
-    .banner .container {
-        height: 65%;
-        width: 75%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-left: 5vw;
-        margin-top: 25%;
-    }
 
-    .banner .first-text {
-
-        font-size: 65%;
-        margin-top: 5%;
-    }
-
-    .banner .sub-text {
-
-        font-size: 100%;
-        width: 90%;
-        display: flex;
-        justify-content: center;
-        margin-top: -5%;
-        margin-bottom: 35%;
-    }
-
-    .sobre-nos {
-
-        width: 100vw;
-        height: 40vh;
-
-    }
-
-    .text-titulo {
-        font-size: 100%;
-        margin-top: 7.5%;
-    }
-
-    .cards {
-        display: flex;
-        justify-content: center;
-        width: 80vw;
-        height: 50vh;
-    }
-
-    .flipper-container {
+    .produto {
 
         width: 100%;
-        height: 90%;
-        perspective: 100vh;
-        margin-top: 2.5%;
+        height: 30%;
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
-        margin-bottom: -10%;
+    }
 
+    .container .boxes2 {
+
+        display: none;
+    }
+
+    .produto .container {
+
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .produto .container .boxes {
+
+        width: 100%;
+        height: 100%;
+        margin-left: 0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .boxes .box {
+
+        width: 100%;
+        border-radius: 0%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .linha1 {
+        margin-top: 0%;
+        display: flex;
+        align-items: center;
+    }
+
+    .linha1 .box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .linha1 .box .icon {
+
+        height: 30%;
 
     }
 
-    .hamburger{
+    .linha1 .box h3 {
+
+        font-size: 100%;
+    }
+
+
+    .linha1 .box p {
+
+        width: 95%;
+        font-size: 90%;
+    }
+
+    .social {
+
+        height: 15%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .social .container {
+        width: 100%;
+    }
+
+    .lower {
+
+        height: 15%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .lower .container {
+        width: 100%;
+    }
+
+    .footer {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 5%;
+    }
+
+    .hamburger {
         display: block;
-      }
-   
-      .hamburger.active .bar:nth-child(2){
-       opacity: 0;
-      }
-   
-      .hamburger.active .bar:nth-child(1){
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
-      }
-   
-      .hamburger.active .bar:nth-child(3){
-       transform: translateY(-8px) rotate(-45deg);
-     }
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
 
 }

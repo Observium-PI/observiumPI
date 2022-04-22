@@ -83,8 +83,6 @@ header {
  
   @media(max-width:912px){
  
-   
- 
    .nav-menu{
    position: fixed;
    left: -200%;
@@ -191,14 +189,14 @@ header {
 /*1*/
 .front1{
     background-image: url("../assets/imgs/1.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
 }
 
 .back1{
     background-image: url("../assets/imgs/um.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
     transform: rotateY(180deg);
@@ -215,14 +213,14 @@ header {
 /*2*/
 .front2{
     background-image: url("../assets/imgs/2.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
 }
 
 .back2{
     background-image: url("../assets/imgs/dois.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
     transform: rotateY(180deg);
@@ -239,14 +237,14 @@ header {
 /*3*/
 .front3{
     background-image: url("../assets/imgs/3.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
 }
 
 .back3{
     background-image: url("../assets/imgs/tres.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
     transform: rotateY(180deg);
@@ -263,14 +261,14 @@ header {
 /*4*/
 .front4{
     background-image: url("../assets/imgs/4.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
 }
 
 .back4{
     background-image: url("../assets/imgs/quatro.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
     transform: rotateY(180deg);
@@ -287,14 +285,14 @@ header {
 /*5*/
 .front5{
     background-image: url("../assets/imgs/5.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
 }
 
 .back5{
     background-image: url("../assets/imgs/cinco.jpg");
-    background-size: 100%;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
     transform: rotateY(180deg);
