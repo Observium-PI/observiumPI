@@ -21,6 +21,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         })
             .then(response => {
                 response.json().then(dados => {
+                    console.log(dados)
                     for (let i = 0; i < dados.length; i++) {
                         const log = document.getElementById("logs")
                         let card = document.createElement("div")
@@ -40,7 +41,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
                         data.innerHTML += dataHoraFormatada
                         componente.innerHTML += dados[i].tipoComponente
-                        maquina.innerHTML += dados[i].nome
+                        maquina.innerHTML += dados[i].hostname
                         descricao.innerHTML += dados[i].descricao
                 
                         log.appendChild(card)
