@@ -22,6 +22,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
     })
         .then(response => {
             response.json().then(dados => {
+                console.log(dados)
                 // Com cada computador retornado, adicionamos ele à tela
                 dados.forEach(element => {
                     if (element.sistemaOperacional == "Windows") {
@@ -50,17 +51,17 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         let btn_confirmar_edit_modal = document.createElement("a")
                         
                         //ADICIONANDO TEXTO EM CADA ELEMENTO A CADA VOLTA DO LAÇO
-                        tituloMaquina.innerHTML += element.nome
-                        txt_delete_modal.innerHTML = "Deseja mesmo excluir a "+element.nome+" ?"
-                        txt_edit_modal.innerHTML = "Alterar o nome de "+element.nome+ " para: "
+                        tituloMaquina.innerHTML += element.hostname
+                        txt_delete_modal.innerHTML = "Deseja mesmo excluir a "+element.hostname+" ?"
+                        txt_edit_modal.innerHTML = "Alterar o nome de "+element.hostname+ " para: "
                         btn_fechar_delete_modal.innerHTML = "X"
                         btn_fechar_edit_modal.innerHTML = "X"
                         btn_confirmar_delete_modal.innerHTML = "CONFIRMAR"
                         btn_confirmar_edit_modal.innerHTML = "CONFIRMAR"
 
                         //ATUALIZANDO O HREF DOS ELEMENTOS
-                        img_edit.href = "#edit_modal_"+element.nome
-                        img_delete.href = "#delete_modal_"+element.nome
+                        img_edit.href = "#edit_modal_"+element.hostname
+                        img_delete.href = "#delete_modal_"+element.hostname
                         btn_fechar_delete_modal.href = "#fechar"
                         btn_fechar_edit_modal.href = "#fechar"
                         btn_confirmar_delete_modal.href = "#confirmar"
@@ -86,8 +87,8 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         input_modal_edit.classList.add("input_modal_edit")
 
                         //ATUALIZANDO O IDNAME DO ELEMENTO
-                        div_delete_modal.setAttribute("id", "delete_modal_"+element.nome);
-                        div_edit_modal.setAttribute("id", "edit_modal_"+element.nome);
+                        div_delete_modal.setAttribute("id", "delete_modal_"+element.hostname);
+                        div_edit_modal.setAttribute("id", "edit_modal_"+element.hostname);
 
                         //CONFIGURANDO URL DAS DIV COM IMAGENS
                         divSO.style.backgroundImage = "url(" + element.imagemSO + ")"
@@ -97,8 +98,6 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         //Adicionando eventos para os clicks de excluir máquina
                         btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
                         btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
-
-
 
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card)
@@ -120,7 +119,6 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         content_edit_modal.appendChild(btn_confirmar_edit_modal)  
 
                     } else {
-
                         element.imagemSO = "./assets/imgs/monitor-linux.png"
                         element.img_edit = "./assets/imgs/editar.png"
                         element.img_delete = "./assets/imgs/garbage.png"
@@ -146,18 +144,18 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         let btn_confirmar_edit_modal = document.createElement("a")
 
                         //ADICIONANDO TEXTO EM CADA ELEMENTO A CADA VOLTA DO LAÇO
-                        tituloMaquina.innerHTML += element.nome
-                        txt_delete_modal.innerHTML = "Deseja mesmo excluir a "+element.nome+" ?";
+                        tituloMaquina.innerHTML += element.hostname
+                        txt_delete_modal.innerHTML = "Deseja mesmo excluir a "+element.hostname+" ?";
                         btn_fechar_delete_modal.innerHTML = "X";
                         btn_confirmar_delete_modal.innerHTML = "CONFIRMAR";
                         btn_confirmar_edit_modal.innerHTML = "CONFIRMAR";
-                        txt_edit_modal.innerHTML = "Alterar o nome de"+element.nome+ " para: ";
+                        txt_edit_modal.innerHTML = "Alterar o nome de "+element.hostname+ " para: ";
                         btn_fechar_edit_modal.innerHTML = "X";
                         btn_confirmar_edit_modal.innerHTML = "CONFIRMAR"
 
                         //ATUALIZANDO O HREF DOS ELEMENTOS
-                        img_edit.href = "#edit_modal_"+element.nome
-                        img_delete.href = "#delete_modal_"+element.nome
+                        img_edit.href = "#edit_modal_"+element.hostname
+                        img_delete.href = "#delete_modal_"+element.hostname
                         btn_fechar_delete_modal.href = "#fechar"
                         btn_fechar_edit_modal.href = "#fechar"
                         btn_confirmar_delete_modal.href = "#confirmar"
@@ -183,19 +181,17 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         input_modal_edit.classList.add("input_modal_edit")
 
                         //ATUALIZANDO O IDNAME DO ELEMENTO
-                        div_delete_modal.setAttribute("id", "delete_modal_"+element.nome);
-                        div_edit_modal.setAttribute("id", "edit_modal_"+element.nome);
+                        div_delete_modal.setAttribute("id", "delete_modal_"+element.hostname);
+                        div_edit_modal.setAttribute("id", "edit_modal_"+element.hostname);
 
                         //CONFIGURANDO URL DAS DIV COM IMAGENS
                         divSO.style.backgroundImage = "url(" + element.imagemSO + ")"
                         img_edit.style.backgroundImage = "url(" + element.img_edit + ")"
                         img_delete.style.backgroundImage = "url(" + element.img_delete + ")"
 
-                         //Adicionando eventos para os clicks de excluir máquina
-                         btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
-                         btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
-
-                        
+                        //Adicionando eventos para os clicks de excluir máquina
+                        btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
+                        btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
 
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card)
@@ -217,7 +213,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         content_edit_modal.appendChild(btn_confirmar_edit_modal)
                     }
 
-                    console.log(element.nome);
+                    console.log(element.hostname);
 
                 });
 

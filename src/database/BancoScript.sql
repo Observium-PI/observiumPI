@@ -20,6 +20,7 @@ select * from Hospital;
 create table Usuario(
 	idUsuario int primary key auto_increment,
     nome varchar(45) not null,
+    email varchar(100) not null,
     setor varchar(40) not null,
 	tipoUsuario varchar(20) not null,
     login varchar(20) not null,
@@ -32,7 +33,7 @@ select * from Usuario;
 
 create table Computador(
 	idComputador int auto_increment,
-    nome varchar(50) not null unique,
+    hostname varchar(50) not null unique,
     endMAC varchar(50) not null,
     fabricante varchar(30) not null,
     arquitetura varchar(30) not null,
@@ -44,13 +45,12 @@ create table Computador(
 select * from Computador;
 -- desc Computador;
 
-delete from Computador where idComputador = 6;
-
 create table Componente(
 	idComponente int primary key auto_increment,
     tipoComponente varchar(20),
     fkComputador int,
     foreign key (fkComputador) references Computador(idComputador)
+    ON DELETE CASCADE
 );
 select * from Componente;
 -- desc Componente;
@@ -62,6 +62,7 @@ create table Monitoramento(
     medida double not null,
     unidadeDeMedida varchar(5) not null,
     foreign key (fkComponente) references Componente(idComponente)
+    ON DELETE CASCADE
 );
 select * from Monitoramento;
 -- desc Monitoramento;
@@ -71,6 +72,7 @@ create table Historico(
     descricao text(200) not null,
     fkMonitoramento int not null,
     foreign key (fkMonitoramento) references Monitoramento(idMonitoramento)
+    ON DELETE CASCADE
 );
 select * from Historico;
 -- desc Historico;
@@ -81,20 +83,19 @@ insert into Hospital values
     (null, 'Hospital Santa Isabel', 43808692000101, 1121767434, 'Maria Dulce', 'Rua Dr Cesario Mota Junior', 'Santa Cecilia', 01221900, 'São Paulo', 'SP', 112);
     
 insert into Usuario values
-	(null, 'Marcela Oliveira', 'TI', 'admin', 'MARCOLI', 'm123o', 1),
-    (null, 'Roberto Moraes', 'TI', 'comum', 'ROBEMOR', 'r123m', 1),
-    (null, 'José Pereira', 'TI', 'comum', 'JOSEPER', 'j123p', 1),
-    (null, 'Christian Almeida', 'TI', 'admin', 'CHRIALM', 'c123a', 2),
-    (null, 'Livia Santos', 'TI', 'comum', 'LIVISAN', 'l123s', 2),
-    (null, 'Eduardo Cavalcanti', 'TI', 'comum', 'EDUACAV', 'e123c', 3),
-    (null, 'Melissa Macedo', 'TI', 'admin', 'MELIMAC', 'm123m', 3);
+	(null, 'Marcela Oliveira', 'marcela.oliveira@observium.com.br', 'TI', 'admin', 'MARCOLI', 'm123o', 1),
+    (null, 'Roberto Moraes', 'roberto.moraes@observium.com.br', 'TI', 'comum', 'ROBEMOR', 'r123m', 1),
+    (null, 'José Pereira', 'jose.pereira@observium.com.br', 'TI', 'comum', 'JOSEPER', 'j123p', 1),
+    (null, 'Christian Almeida', 'christian.almeida@observium.com.br', 'TI', 'admin', 'CHRIALM', 'c123a', 2),
+    (null, 'Livia Santos', 'livia.santos@observium.com.br', 'TI', 'comum', 'LIVISAN', 'l123s', 2),
+    (null, 'Eduardo Cavalcanti', 'eduardo.cavalcanti@observium.com.br', 'TI', 'comum', 'EDUACAV', 'e123c', 3),
+    (null, 'Melissa Macedo', 'melissa.macedo@observium.com.br', 'TI', 'admin', 'MELIMAC', 'm123m', 3);
     
 insert into Computador values
 	(null, 'computador-recepcao-1', 'E0-D7-5H-A0-BB-F9', 'Microsoft', '64', 'Windows', 1),
     (null, 'computador-medico-1', 'B0-D5-FG-E0-BB-G9', 'Microsoft', '64', 'Linux', 2),
     (null, 'computador-triagem-1', 'A0-D6-5E-F0-BB-E4', 'Microsoft', '64', 'Windows', 1),
     (null, 'computador-recepcao-2', 'F0-D3-5F-B0-BB-E7', 'Microsoft', '64', 'Linux', 3);
-select * from Computador;
     
 insert into Componente values
 	(null, 'cpu', 1),
@@ -114,21 +115,21 @@ insert into Componente values
     
 insert into Monitoramento values
 	(null, 1, '2022-04-06 20:52:30', 21.4, '%'),
-    (null, 2, '2022-04-06 21:35:20', 9.7, 'Gb'),
-    (null, 6, '2022-04-07 14:33:00', 7.5, 'Gb'),
+    (null, 2, '2022-04-06 21:35:20', 9.7, 'GB'),
+    (null, 6, '2022-04-07 14:33:00', 7.5, 'GB'),
     (null, 4, '2022-04-07 13:21:25', 61, '%'),
     (null, 5, '2022-04-06 20:53:05', 35.7, '%'),
     (null, 7, '2022-04-07 14:52:35', 87, '%'),
     (null, 10, '2022-04-08 21:58:10', 64, '%'),
     (null, 8, '2022-04-07 18:47:10', 21.4, '%'),
-    (null, 9, '2022-04-07 20:47:25', 10.1, 'Gb'),
+    (null, 9, '2022-04-07 20:47:25', 10.1, 'GB'),
     (null, 13, '2022-04-08 22:11:25', 80.5, '%'),
-    (null, 12, '2022-04-08 22:11:25', 7.8, 'Gb'),
+    (null, 12, '2022-04-08 22:11:25', 7.8, 'GB'),
     (null, 3, '2022-04-06 22:23:15', 90, '%'),
     (null, 14, '2022-04-08 22:11:25', 95, '%');
     
 insert into Historico values
-	(null, 'Alerta Emergente, Armazenamento do disco quase no limite', 14),
+	(null, 'Alerta Emergente, Armazenamento do disco quase no limite', 13),
     (null, 'Alerta Urgente, Armazenamento do disco quase cheio', 13),
     (null, 'Alerta Urgente, Uso alto da memória RAM', 9);
 
@@ -144,7 +145,7 @@ where U.tipoUsuario = 'admin';
 
 -- SELECT COM ID DOS COMPUTADORES, ENDEREÇO MAC, SISTEMA OPERACIONAL E SEUS RESPECTIVOS COMPONENTES 
 -- ONDE O SISTEMA OPERACIONAL É WINDOWNS
-select PC.idComputador, PC.nome as 'Nome PC', PC.endMAC as 'Endereço MAC', PC.sistemaOperacional 
+select PC.idComputador, PC.hostname as 'Nome PC', PC.endMAC as 'Endereço MAC', PC.sistemaOperacional 
 as 'Sistema Operacional', C.tipoComponente as 'Componente' from Computador as PC
 join Componente as C on idComputador = fkComputador 
 where PC.sistemaOperacional = 'windows';
@@ -165,4 +166,4 @@ as 'Medida', M.unidadeDeMedida as 'Unidade de Medida'
 from Computador as PC
 join Componente as C on idComputador = fkComputador 
 join Monitoramento as M on idComponente = fkComponente
-where C.tipoComponente = 'disco' and PC.idComputador = 4;
+where C.tipoComponente = 'disco' and PC.idComputador = 2;

@@ -15,7 +15,7 @@ function fnExcluir(id){
 }
 
 function fnEditar(id, novoNome){
-  var instrucao = `UPDATE Computador set nome = "${novoNome}" where idComputador = ${id}`;
+  var instrucao = `UPDATE Computador set hostname = "${novoNome}" where idComputador = ${id}`;
   console.log('Executando a instrução SQL: \n' + instrucao);
   return database.executar(instrucao);
 }
