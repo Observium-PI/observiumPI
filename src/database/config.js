@@ -30,7 +30,11 @@ var mySqlConfigCasa = {
   host: "localhost",
   user: "root",
   database: "Observium",
+<<<<<<< Updated upstream
   password: "observium123"
+=======
+  password: "Alien19."
+>>>>>>> Stashed changes
 };
 
 function executar(instrucao) {
