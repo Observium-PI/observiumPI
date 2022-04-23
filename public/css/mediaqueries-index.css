@@ -1,12 +1,11 @@
 @media (min-width: 280px) and (max-width: 767px) {
 
     body {
-
-        width: 100vw;
-        height: 100vh;
-        overflow: scroll;
-    }
-
+        min-height: 100vh;
+        max-width: 100vw;
+        overflow:scroll;
+      }
+      
 
     .logo-observium {
 
@@ -21,14 +20,15 @@
     }
 
     .banner {
-        height: 50vh;
+        height: 45vh;
+        width: 100%;
         display: flex;
         align-items: center;
 
     }
 
     .banner .container {
-        height: 65%;
+        height: 100%;
         width: 75%;
         display: flex;
         flex-direction: column;
@@ -38,7 +38,7 @@
 
     .banner .first-text {
 
-        font-size: 65%;
+        font-size: 60%;
         margin-bottom: 0%;
     }
 
@@ -54,8 +54,8 @@
 
     .sobre-nos {
 
+        height:50vh;
         width: 100%;
-        height: 50%;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -64,7 +64,7 @@
 
     .text-titulo {
         font-size: 100%;
-        height: 12%;
+        height: 15%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -72,7 +72,7 @@
 
     .cards {
         width: 85%;
-        height: 65%;
+        height: 60%;
         margin-left: 5%;
         display: flex;
         flex-wrap: wrap;
@@ -95,7 +95,7 @@
     .produto {
 
         width: 100%;
-        height: 100%;
+        height: 80vh;
         display: flex;
         justify-content: center;
     }
@@ -137,6 +137,7 @@
 
     .boxes .box h1 {
         font-size: 150%;
+
     }
 
     .boxes .box p {
@@ -160,7 +161,7 @@
 
     .linha1 .box .icon {
 
-        height: 30%;
+        height: 25%;
 
     }
 
@@ -178,7 +179,7 @@
 
     .social {
 
-        height: 50%;
+        height: 60vh;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -203,10 +204,9 @@
 
     .lower {
 
-        height: 15%;
+        height: 20vh;
         width: 100%;
         display: flex;
-        align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
     }
@@ -215,6 +215,7 @@
         width: 100%;
         height: 100%;
         font-size: 75%;
+
     }
 
     .lower .rodape {
@@ -242,7 +243,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 5%;
+        height: 5vh;
     }
 
     .hamburger {
