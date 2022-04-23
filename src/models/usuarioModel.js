@@ -20,21 +20,21 @@ function verificarUser(id) {
 
 function listarUsers() {
   var instrucao = `
-    SELECT idUsuario, nome, login, setor, tipoUsuario FROM Usuario ORDER BY nome;
+    SELECT idUsuario, nome, login, setor, tipoUsuario, senha FROM Usuario ORDER BY nome;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
-function pegarUsers(id) {
-  var instrucao = `
-    SELECT * FROM Usuario WHERE idUsuario = '${id}';
-  `;
+// function pegarUsers(id) {
+//   var instrucao = `
+//     SELECT * FROM Usuario WHERE idUsuario = '${id}';
+//   `;
 
-  console.log('Executando a instrução SQL: \n' + instrucao);
-  return database.executar(instrucao);
-}
+//   console.log('Executando a instrução SQL: \n' + instrucao);
+//   return database.executar(instrucao);
+// }
 
 function pesquisarUsers(pesquisa) {
   var instrucao = `
@@ -54,9 +54,9 @@ function desligarUser(id) {
   return database.executar(instrucao);
 }
 
-function alterarNomeDeUsers(id, novoNome) {
+function alterarUsers(id, novoNome, novaSenha) {
   var instrucao = `
-  UPDATE Usuario SET nome = "${novoNome}" WHERE idUsuario = "${id}";
+  UPDATE Usuario SET nome = "${novoNome}", senha = "${novaSenha}" WHERE idUsuario = "${id}";
 `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
@@ -64,23 +64,23 @@ function alterarNomeDeUsers(id, novoNome) {
 
 }
 
-function alterarSenhaDeUsers(id, novaSenha) {
-  var instrucao = `
-  UPDATE Usuario SET senha = "${novaSenha}" WHERE idUsuario = "${id}";
-`;
+// function alterarSenhaDeUsers(id, novaSenha) {
+//   var instrucao = `
+//   UPDATE Usuario SET senha = "${novaSenha}" WHERE idUsuario = "${id}";
+// `;
 
-  console.log('Executando a instrução SQL: \n' + instrucao);
-  return database.executar(instrucao);
+//   console.log('Executando a instrução SQL: \n' + instrucao);
+//   return database.executar(instrucao);
 
-}
+// }
 
 module.exports = {
   fnEntrar,
   verificarUser,
   listarUsers,
-  pegarUsers,
+  // pegarUsers,
   pesquisarUsers,
   desligarUser,
-  alterarNomeDeUsers,
-  alterarSenhaDeUsers
+  alterarUsers,
+  // alterarSenhaDeUsers
 }

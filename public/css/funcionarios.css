@@ -336,3 +336,234 @@ body{
 }
 
 
+
+
+.div_modal_edit{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity: 0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    
+}
+.div_modal_edit:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+
+.btn_fechar_edit_modal {
+    height: 5%;
+    width: 5%;
+    display: flex;
+    align-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 16px;
+    color:#0c1622;
+    text-decoration: none;
+    font-weight: bolder;
+    border-style: solid;
+    border-width: 3px;
+    border-color: white;
+    color: #fff;
+}
+
+.txt_edit_modal{
+    align-self: center;
+    margin: auto;
+}
+
+.editarConteudo{
+    margin: auto;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 12%;
+}
+
+#btn_confirmar_editar{
+    width: 30%;
+    height: 90%;
+    margin-top: 2vh;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #0a518f;
+    color: #f0f8ff;
+}
+
+.editarConteudo input {
+    width: 80%;
+    height: 40%;
+    margin-top: 1%;
+    padding: 4%;
+    border: none;
+    background-color: #0a518f;
+    color: #f0f8ff;
+    border-radius: 8px; 
+}
+
+.delete_modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity: 0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
+.delete_modal:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.content_delete_modal {
+    width: 30%;
+    height: 30%;
+    position: relative;
+    margin: 10% auto;
+    padding: 15px 20px;
+    background: #fff;
+    text-align: center;
+    color: #0c1622;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn_fechar_delete_modal {
+    position: absolute;
+    width: 8%;
+    height: 15%;
+    right: -15px;
+    top: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a518f;
+    border-radius: 50%;
+    font-size: 16px;
+    color:#fff;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.txt_delete_modal{
+    align-self: center;
+    margin: auto;
+}
+
+.btn_confirmar_delete_modal {
+    width: 40%;
+    height: 20%;
+    background: #0a518f;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color:#fff;
+    font-weight: bold;
+    border-radius: 3%;
+}
+
+.btn_confirmar_edit_modal {
+    width: 40%;
+    height: 20%;
+    background: #0a518f;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color:#fff;
+    font-weight: bold;
+    border-radius: 3%;
+}
+
+.edit_modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity: 0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
+.edit_modal:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.content_edit_modal {
+    width: 30%;
+    height: 30%;
+    position: relative;
+    margin: auto;
+    padding: 15px 20px;
+    background: #fff;
+    text-align: center;
+    color: #0c1622;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn_fechar_edit_modal {
+    position: absolute;
+    width: 8%;
+    height: 15%;
+    right: -15px;
+    top: -20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a518f;
+    border-radius: 50%;
+    font-size: 16px;
+    color:#fff;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.txt_edit_modal{
+    align-self: center;
+    margin: auto;
+}
+
+.input_modal_edit{
+    width: 50%; 
+    padding: 10px;   
+    border-radius: 8px;
+    border-color: black;
+    border-style: solid;
+    margin: auto;
+}

@@ -91,7 +91,7 @@ function pegarUsers(req, res) {
 
 function pesquisarUsers(req, res) {
     var pesquisa = req.body.pesquisa;
-
+    
     usuarioModel.pesquisarUsers(pesquisa)
         .then(resultado => {
             return res.status(200).send(resultado);
@@ -102,7 +102,7 @@ function pesquisarUsers(req, res) {
 }
 
 function desligarUser(req, res) {
-    var id = req.body.id;
+    var id = req.body.idUsuario;
 
     usuarioModel.desligarUser(id)
         .then(resultado => {
@@ -117,15 +117,19 @@ function desligarUser(req, res) {
         })
 }
 
-function alterarNomeDeUsers(req, res) {
-    var id = req.body.id;
+function alterarUsers(req, res) {
+    var id = req.body.idUsuario;
     var novoNome = req.body.novoNome;
+    var novaSenha = req.body.novaSenha;
 
     if (novoNome == null) {
         return res.status(400).send("Campo nome está vazio.");
     }
+    if (novaSenha == null) {
+        return res.status(400).send("Campo senha está vazio.");
+    }
 
-    usuarioModel.alterarNomeDeUsers(id, novoNome)
+    usuarioModel.alterarUsers(id, novoNome, novaSenha)
         .then(resultado => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id e nome inexistente.");
@@ -138,26 +142,26 @@ function alterarNomeDeUsers(req, res) {
         })
 }
 
-function alterarSenhaDeUsers(req, res) {
-    var novaSenha = req.body.novaSenha;
-    var id = req.body.id;
+// function alterarSenhaDeUsers(req, res) {
+//     var novaSenha = req.body.novaSenha;
+//     var id = req.body.id;
 
-    if (novaSenha == null) {
-        return res.status(400).send("Campo senha está vazio.");
-    }
+//     if (novaSenha == null) {
+//         return res.status(400).send("Campo senha está vazio.");
+//     }
 
-    usuarioModel.alterarSenhaDeUsers(novaSenha, id)
-        .then(resultado => {
-            if (resultado.length == 0) {
-                return res.status(400).send("Id e senha inexistente.");
-            }
+//     usuarioModel.alterarSenhaDeUsers(novaSenha, id)
+//         .then(resultado => {
+//             if (resultado.length == 0) {
+//                 return res.status(400).send("Id e senha inexistente.");
+//             }
 
-            return res.status(200).send(resultado[0]);
-        }).catch(function (erro) {
-            console.log(erro);
-            res.status(500).json(erro.sqlMessage);
-        })
-}
+//             return res.status(200).send(resultado[0]);
+//         }).catch(function (erro) {
+//             console.log(erro);
+//             res.status(500).json(erro.sqlMessage);
+//         })
+// }
 
 module.exports = {
     fnEntrar,
@@ -166,6 +170,6 @@ module.exports = {
     pegarUsers,
     pesquisarUsers,
     desligarUser,
-    alterarNomeDeUsers,
-    alterarSenhaDeUsers
+    alterarUsers,
+    // alterarSenhaDeUsers
 }
