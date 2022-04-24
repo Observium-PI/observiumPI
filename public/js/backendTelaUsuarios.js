@@ -414,7 +414,7 @@ function fnExcluir(idUsuario) {
     })
         .then(resposta => {
             console.log("Resposta: " + resposta);
-            alert("Máquina excluída com sucesso!");
+            alert("Usuário excluído com sucesso!");
             location = 'tela_funcionarios.html';
         })
         .catch(error => {

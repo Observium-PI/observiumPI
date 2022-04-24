@@ -20,7 +20,7 @@ function verificarUser(id) {
 
 function listarUsers() {
   var instrucao = `
-    SELECT idUsuario, nome, login, setor, tipoUsuario, senha FROM Usuario ORDER BY nome;
+    SELECT idUsuario, nome, login, setor, tipoUsuario, email, senha FROM Usuario ORDER BY nome;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -38,7 +38,7 @@ function listarUsers() {
 
 function pesquisarUsers(pesquisa) {
   var instrucao = `
-    SELECT idUsuario, nome, login, setor, tipoUsuario FROM Usuario WHERE nome LIKE '${pesquisa}%' ORDER BY nome;
+    SELECT idUsuario, nome, login, setor, tipoUsuario, email FROM Usuario WHERE nome LIKE '${pesquisa}%' ORDER BY nome;
   `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
