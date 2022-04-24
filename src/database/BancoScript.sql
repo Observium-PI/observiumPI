@@ -34,7 +34,7 @@ select * from Usuario;
 create table Computador(
 	idComputador int auto_increment,
     hostname varchar(50) not null unique,
-    endMAC varchar(50) not null,
+    endMAC varchar(50) not null unique,
     fabricante varchar(30) not null,
     arquitetura varchar(30) not null,
     sistemaOperacional varchar(30) not null,
@@ -167,3 +167,8 @@ from Computador as PC
 join Componente as C on idComputador = fkComputador 
 join Monitoramento as M on idComponente = fkComponente
 where C.tipoComponente = 'disco' and PC.idComputador = 2;
+
+select M.datahora, C.tipoComponente, mq.hostname, H.descricao from Historico as H 
+join Monitoramento as M on fkMonitoramento = idMonitoramento 
+join Componente as C on fkComponente = idComponente 
+join Computador as mq on fkComputador = idComputador;
