@@ -19,10 +19,6 @@ router.get("/listarUsuarios", function (req, res) {
     usuarioController.listarUsers(req, res);
 })
 
-// router.get("/pegarUsuarios", function (req, res) {
-//     usuarioController.pegarUsers(req, res);
-// })
-
 router.post("/pesquisarUsuarios", function (req, res) {
     usuarioController.pesquisarUsers(req, res);
 })
@@ -35,8 +31,8 @@ router.post("/alterarUsuarios", function (req, res) {
     usuarioController.alterarUsers(req, res);
 })
 
-// router.post("/alterarSenhaDeUsuarios", function (req, res) {
-//     usuarioController.alterarSenhaDeUsers(req, res);
-// })
+router.post("/cadastrarUsuarios", function (req, res) {
+    usuarioController.cadastrarUsers(req, res);
+})
 
 module.exports = router;

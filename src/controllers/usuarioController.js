@@ -58,6 +58,12 @@ function verificarUser(req, res) {
 
 
 function listarUsers(req, res) {
+    var hospital = req.body.hospital;
+
+    if (!hospital) {
+        return res.status(400).send("Não há id desse user!");
+    }
+
     usuarioModel.listarUsers()
         .then(resultado => {
             return res.status(200).send(resultado);
@@ -91,7 +97,7 @@ function pegarUsers(req, res) {
 
 function pesquisarUsers(req, res) {
     var pesquisa = req.body.pesquisa;
-    
+
     usuarioModel.pesquisarUsers(pesquisa)
         .then(resultado => {
             return res.status(200).send(resultado);
@@ -142,26 +148,51 @@ function alterarUsers(req, res) {
         })
 }
 
-// function alterarSenhaDeUsers(req, res) {
-//     var novaSenha = req.body.novaSenha;
-//     var id = req.body.id;
+function cadastrarUsers(req, res) {
+    var nome = req.body.nome;
+    var setor = req.body.setor;
+    var tipoUsuario = req.body.tipoUsuario;
+    var login = req.body.login;
+    var senha = req.body.senha;
+    var hospital = req.body.hospital;
 
-//     if (novaSenha == null) {
-//         return res.status(400).send("Campo senha está vazio.");
-//     }
+    if (!nome) {
+        return res.status(400).send("Campo nome está vazio.");
+    }
 
-//     usuarioModel.alterarSenhaDeUsers(novaSenha, id)
-//         .then(resultado => {
-//             if (resultado.length == 0) {
-//                 return res.status(400).send("Id e senha inexistente.");
-//             }
+    if (!setor) {
+        return res.status(400).send("Campo setor está vazio.");
+    }
 
-//             return res.status(200).send(resultado[0]);
-//         }).catch(function (erro) {
-//             console.log(erro);
-//             res.status(500).json(erro.sqlMessage);
-//         })
-// }
+    if (!tipoUsuario) {
+        return res.status(400).send("Campo tipo de usuário está vazio.");
+    }
+
+    if (!login) {
+        return res.status(400).send("Campo login está vazio.");
+    }
+
+    if (!senha) {
+        return res.status(400).send("Campo senha está vazio.");
+    }
+
+    if (!hospital) {
+        return res.status(400).send("Campo hospital está vazio.");
+    }
+
+    usuarioModel.cadastrar(nome, email, setor, tipoUsuario, login, senha, hospital)
+        .then(resultado => {
+            if (resultado.length == 0) {
+                return res.status(400).send("Id e nome inexistente.");
+            }
+
+            return res.status(200).send(resultado[0]);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 module.exports = {
     fnEntrar,
@@ -171,5 +202,5 @@ module.exports = {
     pesquisarUsers,
     desligarUser,
     alterarUsers,
-    // alterarSenhaDeUsers
+    cadastrarUsers
 }
