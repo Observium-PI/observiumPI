@@ -267,9 +267,9 @@ body{
 
 .content_add_modal {
     width: 40%;
-    height: 80%;
+    height: 90%;
     margin: auto;
-    padding: 15px 20px;
+    /* padding: 15px 20px; */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -333,6 +333,21 @@ body{
     background-color: #0a518f;
     color: #f0f8ff;
     border-radius: 8px; 
+}
+
+.cadastroConteudo select {
+    width: 80%;
+    height: 20%;
+    margin-top: 1%;
+    padding: 4%;
+    border: none;
+    background-color: #0a518f;
+    color: #f0f8ff;
+    border-radius: 8px; 
+}
+
+.cadastroConteudo option {
+    color: #f0f8ff;
 }
 
 

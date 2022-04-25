@@ -78,31 +78,45 @@
 
                 <div class="cadastroConteudo">
                     <b>Nome</b>
-                    <input type="text">
+                    <input id="nomeUser" type="text">
                 </div>
 
                 <div class="cadastroConteudo">
                     <b>Setor</b>
-                    <input type="text">
+                    <input id="setorUser" type="text">
+                </div>
+
+                <div class="cadastroConteudo">
+                    <b>Tipo De Usuário</b>
+                    <select name="tatu" id="tipoUsuario">
+                        <option value="0">--Selecione--</option>
+                        <option value="admin">Administrador</option>
+                        <option value="Comum">Comum</option>
+                    </select>
                 </div>
 
                 <div class="cadastroConteudo">
                     <b>Login</b>
-                    <input type="text">
+                    <input id="loginUser" type="text">
+                </div>
+
+                <div class="cadastroConteudo">
+                    <b>Email</b>
+                    <input id="emailUser" type="text">
                 </div>
 
                 <div class="cadastroConteudo">
                     <b>Senha</b>
-                    <input type="text">
+                    <input id="senhaUser" type="password">
                 </div>
 
                 <div class="cadastroConteudo">
                     <b>Confirmação De Senha</b>
-                    <input type="text">
+                    <input id="confirmacaoSenhaUser" type="password">
                 </div>
 
                 <div class="cadastroConteudo">
-                    <Button>Cadastrar</Button>
+                    <Button onclick="cadastrar()">Cadastrar</Button>
                 </div>
 
             </div>

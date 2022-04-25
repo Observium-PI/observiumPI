@@ -15,7 +15,9 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         link_tela_funcionario.appendChild(icon_tela_funcionario)
     }
 
-    const myInput = document.querySelector('input')
+    const myInput = document.querySelector('input');
+
+    var hospital = sessionStorage.getItem("Hospital");
 
     function debounce(func, wait) {
         let timer = null;
@@ -148,9 +150,9 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             const user = document.getElementById("users")
             user.innerHTML = "";
 
-            fetch("usuarios/listarUsuarios", {
+            fetch(`usuarios/listarUsuarios?hospital=${hospital}`, {
                 method: 'GET',
-                mode: 'cors'
+                mode: 'cors',
             })
                 .then(response => {
                     response.json().then(dados => {
@@ -258,9 +260,12 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
     }, 500));
 
-    fetch("usuarios/listarUsuarios", {
+    fetch(`usuarios/listarUsuarios?hospital=${hospital}`, {
         method: 'GET',
-        mode: 'cors'
+        mode: 'cors',
+        // body: JSON.stringify({
+        //     hospital: hospital
+        // })
     })
         .then(response => {
             response.json().then(dados => {
@@ -367,6 +372,89 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         .catch()
 
 }
+
+function cadastrar() {
+    var hospital = sessionStorage.getItem("Hospital");
+    var nome = nomeUser.value;
+    var email = emailUser.value;
+    var setor = setorUser.value;
+    var tipoUser = tipoUsuario.value;
+    var login = loginUser.value;
+    var senha = senhaUser.value;
+    var confirmacaoSenha = confirmacaoSenhaUser.value;
+
+    // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS
+    if (tipoUser == "0") {
+        window.alert("Tipo De Usuario não selecionado.");
+      }
+      
+    if (
+      nome == "" ||
+      email == "" ||
+      setor == "" ||
+      tipoUser == "0" ||
+      login == "" ||
+      senha == "" ||
+      confirmacaoSenha == ""
+    ) {
+      if (nome == "") {
+        window.alert("Nome está em branco");
+      }
+      if (email == "") {
+        window.alert("Email está em branco");
+      }
+      if (setor == "") {
+        window.alert("Setor está em branco");
+      }
+      if (tipoUser == "0") {
+        window.alert("Tipo De Usuario não selecionado.");
+      }
+      if (login == "") {
+        window.alert("Login está em branco");
+      }
+      if (senha == "") {
+        window.alert("senha está em branco");
+      }
+      if (confirmacaoSenha == "") {
+        window.alert("confirmacaoSenha está em branco");
+      }
+      return;
+    }
+
+    if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+      window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+      return;
+    }
+
+    if (senha != confirmacaoSenha) {
+      window.alert("As senhas inseridas devem ser iguais para prosseguir!");
+      return;
+    }
+
+    fetch("/usuarios/cadastrarUsuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome: nome,
+        email: email,
+        setor: setor,
+        tipoUsuario: tipoUser,
+        login: login,
+        senha: senha,
+        hospital: hospital
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
 function fnDeslogar() {
     /* A função de deslogar consiste em limpar a sessão local do usuário, o que significa 

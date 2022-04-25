@@ -58,13 +58,13 @@ function verificarUser(req, res) {
 
 
 function listarUsers(req, res) {
-    var hospital = req.body.hospital;
+    var hospital = req.query.hospital;
 
     if (!hospital) {
         return res.status(400).send("Não há id desse user!");
     }
 
-    usuarioModel.listarUsers()
+    usuarioModel.listarUsers(hospital)
         .then(resultado => {
             return res.status(200).send(resultado);
         })
@@ -151,7 +151,7 @@ function alterarUsers(req, res) {
 function cadastrarUsers(req, res) {
     var nome = req.body.nome;
     var setor = req.body.setor;
-    var tipoUsuario = req.body.tipoUsuario;
+    var tipoUsuario = req.body.tipoUser;
     var login = req.body.login;
     var senha = req.body.senha;
     var hospital = req.body.hospital;
