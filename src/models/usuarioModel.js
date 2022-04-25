@@ -47,7 +47,7 @@ function desligarUser(id) {
 
 function alterarUsers(id, novoNome, novaSenha) {
   var instrucao = `
-  UPDATE Usuario SET nome = "${novoNome}", senha = "${novaSenha}" WHERE idUsuario = "${id}";
+    UPDATE Usuario SET nome = "${novoNome}", senha = "${novaSenha}" WHERE idUsuario = "${id}";
 `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
@@ -57,11 +57,27 @@ function alterarUsers(id, novoNome, novaSenha) {
 
 function cadastrarUsers(nome, email, setor, tipoUsuario, login, senha, hospital) {
   var instrucao = `
-        INSERT INTO Usuario (nome, email, setor, tipoUsuario, login, senha, fkHospital) VALUES ('${nome}', '${email}', '${setor}', '${tipoUsuario}', '${login}', '${senha}', ${hospital});
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
+  INSERT INTO Usuario (nome, email, setor, tipoUsuario, login, senha, fkHospital) VALUES ('${nome}', '${email}', '${setor}', '${tipoUsuario}', '${login}', '${senha}', ${hospital});
+  `;
 
   return database.executar(instrucao);
+}
+
+function validarEmail ( email){
+  
+  var emailExistente = `
+  SELECT email FROM Usuario WHERE email = '${email}';
+  `;
+
+  return database.executar( emailExistente);
+}
+
+function validarLogin (login) {
+  var loginExistente = `
+  SELECT login FROM Usuario WHERE login = '${login}';
+  `;
+
+  return database.executar(loginExistente);
 }
 
 module.exports = {
@@ -71,5 +87,7 @@ module.exports = {
   pesquisarUsers,
   desligarUser,
   alterarUsers,
-  cadastrarUsers
+  cadastrarUsers,
+  validarLogin,
+  validarEmail
 }

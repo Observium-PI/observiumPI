@@ -177,15 +177,40 @@ function cadastrarUsers(req, res) {
         return res.status(400).send("Campo senha está vazio.");
     }
 
-    usuarioModel.cadastrarUsers(nome, email, setor, tipoUsuario, login, senha, hospital)
+    usuarioModel.validarLogin(login)
         .then(resultado => {
+            console.log(resultado);
+            if (resultado.length == 0) {
+                usuarioModel.validarEmail(email)
+                    .then(resultado => {
+                        if (resultado.length == 0) {
+                            usuarioModel.cadastrarUsers(nome, email, setor, tipoUsuario, login, senha, hospital)
+                                .then(resultado => {
+                                    console.log(resultado);
 
-            return res.status(200).send(resultado[0]);
+                                    return res.status(200).send(resultado[0]);
+                                })
+                                .catch(function (erro) {
+                                    console.log(erro);
+                                    res.status(500).json(erro.sqlMessage);
+                                });
+                        } else {
+                            return res.status(409).send("Email Existente");
+                        }
+                    })
+                    .catch(function (erro) {
+                        console.log(erro);
+                        res.status(500).json(erro.sqlMessage);
+                    });
+            } else {
+                return res.status(409).send("Login Existente");
+            }
         })
         .catch(function (erro) {
             console.log(erro);
             res.status(500).json(erro.sqlMessage);
         });
+
 }
 
 module.exports = {
