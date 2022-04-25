@@ -2,10 +2,21 @@
 
     body {
         min-height: 100vh;
-        max-width: 100vw;
-        overflow:scroll;
+        width: 100vw;
+        overflow-x: hidden;
       }
-      
+
+    header {
+        width: 100vw;
+        height: 10vh;
+        justify-content: center;
+    }
+    
+
+    .nav-branding {
+        font-size: 2rem;
+        padding-left: 0%;    
+    }
 
     .logo-observium {
 
