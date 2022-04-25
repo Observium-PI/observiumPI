@@ -1,4 +1,4 @@
-@media (min-width: 280px) and (max-width: 428px) {
+@media (min-width: 279px) and (max-width: 428px) {
 
     .side-bar {
 
@@ -38,6 +38,7 @@
     .item_container_SO {
 
         width: 40%;
+        height: 55%;
     }
 
     .hostname {
@@ -79,6 +80,7 @@
         flex-wrap: wrap;
         justify-content: center;
         margin: auto;
+        overflow: scroll;
     }
 
     .banner {
@@ -91,6 +93,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        height: 75%;
     }
 
     .item_container {
@@ -104,6 +107,7 @@
     .item_container_SO {
 
         width: 40%;
+        height: 50%;
         margin-top: 5%;
     }
 
