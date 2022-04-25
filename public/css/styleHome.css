@@ -9,7 +9,6 @@ body {
 .logo-observium {
     width: 20vh;
     height: auto;
-    padding: 1rem;
     text-decoration: none;
     float: left;
 }
@@ -91,6 +90,21 @@ li {
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     background-color: rgb(49, 125, 201);
+}
+
+.login .banner .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 0%;
+}
+
+.login .banner .container .box-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0%;
 }
 
 @media(max-width:912px) {
