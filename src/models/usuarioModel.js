@@ -57,7 +57,7 @@ function alterarUsers(id, novoNome, novaSenha) {
 
 function cadastrarUsers(nome, email, setor, tipoUsuario, login, senha, hospital) {
   var instrucao = `
-        INSERT INTO usuario VALUES (null, '${nome}', '${email}', '${setor}', '${tipoUsuario}', ${login}, ${senha}, ${hospital});
+        INSERT INTO Usuario (nome, email, setor, tipoUsuario, login, senha, fkHospital) VALUES ('${nome}', '${email}', '${setor}', '${tipoUsuario}', '${login}', '${senha}', ${hospital});
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
 

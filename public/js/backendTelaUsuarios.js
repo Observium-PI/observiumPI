@@ -262,10 +262,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
     fetch(`usuarios/listarUsuarios?hospital=${hospital}`, {
         method: 'GET',
-        mode: 'cors',
-        // body: JSON.stringify({
-        //     hospital: hospital
-        // })
+        mode: 'cors'
     })
         .then(response => {
             response.json().then(dados => {
@@ -438,9 +435,9 @@ function cadastrar() {
       },
       body: JSON.stringify({
         nome: nome,
-        email: email,
+        emailUser: email,
         setor: setor,
-        tipoUsuario: tipoUser,
+        tipoUser: tipoUser,
         login: login,
         senha: senha,
         hospital: hospital
@@ -448,6 +445,7 @@ function cadastrar() {
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
+        window.alert("Cadastro concluido.");
 
         
       })
