@@ -1,4 +1,6 @@
+// Validação do ntipo de usuário
 if (sessionStorage.getItem("tipoUsuario") == "admin") {
+    //Se o usuário for o admin, haverá a criação dos componentes relacionados à tela de usuários
     const boxes_links = document.getElementById("boxes_links")
     let link_tela_funcionario = document.createElement("a")
     let icon_tela_funcionario = document.createElement("img")
@@ -12,8 +14,20 @@ if (sessionStorage.getItem("tipoUsuario") == "admin") {
     link_tela_funcionario.appendChild(icon_tela_funcionario)
 }
 
+// Definição inicial do gráfico de memória RAM
+let usoDisc = 50;
+let dispDisc = 50;
+discDisp.innerHTML = `Disp: X`;
+discUso.innerHTML = `Em uso: X`;
 
-var graficoDeProcessador = new Chart("lineChart", {
+// Definição inicial do gráfico de memória RAM
+let usoMem = 50;
+let dispMem = 50;
+memDisp.innerHTML = `Disp: X`;
+memUso.innerHTML = `Em uso: X`;
+
+// Configuração do gráfico principal, o de processador
+let graficoDeProcessador = new Chart("lineChart", {
     type: "line",
     data: {
         labels: [],
@@ -51,9 +65,44 @@ var graficoDeProcessador = new Chart("lineChart", {
     }
 });
 
-setInterval(atualizarGraficoProcessador, 10000);
+// Configuração do gráfico de memória RAM
+let graficoDeMemoria = new Chart("donutChartOne", {
+    type: "doughnut",
+    data: {
+        labels: ["Em uso", "Restante"],
+        datasets: [{
+            data: [usoMem, dispMem],
+            borderColor: "#0a518f",
+            backgroundColor: ["white", "#0c1622"],
+            fill: false
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        }
+    }
+});
 
+let graficoDeDisco = new Chart("donutChartTwo", {
+    type: "doughnut",
+    data: {
+        labels: ["Em uso", "Restante"],
+        datasets: [{
+            data: [usoDisc, dispDisc],
+            borderColor: "#0a518f",
+            backgroundColor: ["white", "#0c1622"],
+            fill: false
+        }]
+    },
+    options: {
+        legend: {
+            display: false
+        }
+    }
+}); 
 
+ // Função que gera os dados no gráfico
 function atualizarGraficoProcessador() {
     let data = new Date();
     let minutos = data.getMinutes();
@@ -73,15 +122,7 @@ function atualizarGraficoProcessador() {
     graficoDeProcessador.update();
 }
 
-setInterval(atualizarGraficoRAM, 10000);
-
-
-var usoMem = 50;
-var dispMem = 50;
-
-memDisp.innerHTML = `Disp: X`;
-memUso.innerHTML = `Em uso: X`;
-
+// Função que gera dados no gráfico
 function atualizarGraficoRAM() {
     usoMem = Math.random() * 10;
     dispMem = Math.random() * 10;
@@ -93,33 +134,7 @@ function atualizarGraficoRAM() {
     escreverTexto();
 }
 
-
-var graficoDeMemoria = new Chart("donutChartOne", {
-    type: "doughnut",
-    data: {
-        labels: ["Em uso", "Restante"],
-        datasets: [{
-            data: [usoMem, dispMem],
-            borderColor: "#0a518f",
-            backgroundColor: ["white", "#0c1622"],
-            fill: false
-        }]
-    },
-    options: {
-        legend: {
-            display: false
-        }
-    }
-});
-
-var usoDisc = 50;
-var dispDisc = 50;
-
-setInterval(atualizarGraficoDisco, 10000);
-
-discDisp.innerHTML = `Disp: X`;
-discUso.innerHTML = `Em uso: X`;
-
+// Função que atualiza os dados do gráfico de Disco
 function atualizarGraficoDisco() {
     usoDisc = Math.random() * 10;
     dispDisc = Math.random() * 10;
@@ -131,27 +146,19 @@ function atualizarGraficoDisco() {
     escreverTexto();
 }
 
+/*Descomente essa linha parar gerar dados a cada 10 segundos no gráfico de memória RAM 
+ setInterval(atualizarGraficoRAM, 10000);
+*/
 
-var graficoDeDisco = new Chart("donutChartTwo", {
-    type: "doughnut",
-    data: {
-        labels: ["Em uso", "Restante"],
-        datasets: [{
-            data: [usoDisc, dispDisc],
-            borderColor: "#0a518f",
-            backgroundColor: ["white", "#0c1622"],
-            fill: false
-        }]
-    },
-    options: {
-        legend: {
-            display: false
-        }
-    }
-});
+/* Descomente essa linha para gerar dados no gráfico de disco
+setInterval(atualizarGraficoDisco, 10000);
+*/
+
+//Descomente essa linha para gerar dados a cada 10 segundos
+// setInterval(atualizarGraficoProcessador, 10000);
 
 
-
+// Atualiza textos na div dos dois gráficos pizza (Memória RAM e Disco)
 function escreverTexto() {
     memDisp.innerHTML = `Disp: ${dispMem.toFixed(1)}Gb`;
     memUso.innerHTML = `Em uso: ${usoMem.toFixed(1)}Gb`;
