@@ -9,6 +9,8 @@ function fnEntrar(usuario, senha) {
   return database.executar(instrucao);
 }
 
+
+/* Função comentada por não haver uso dela
 function verificarUser(id) {
   var instrucao = `
     SELECT tipoUsuario FROM Usuario WHERE idUsuario = '${id}';
@@ -16,7 +18,7 @@ function verificarUser(id) {
 
   console.log('Executando a instrução SQL: \n' + instrucao);
   return database.executar(instrucao);
-}
+}*/
 
 function listarUsers(hospital) {
   var instrucao = `
@@ -82,7 +84,7 @@ function validarLogin (login) {
 
 module.exports = {
   fnEntrar,
-  verificarUser,
+  //verificarUser,
   listarUsers,
   pesquisarUsers,
   desligarUser,

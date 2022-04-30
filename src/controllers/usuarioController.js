@@ -37,11 +37,12 @@ function fnEntrar(req, res) {
 }
 
 
+/* Função comentada por não haver uso dela
 function verificarUser(req, res) {
     var id = req.body.id;
 
     if (!id) {
-        return res.status(400).send("Não há id desse user!");
+        return res.status(404).send("Não há id desse user!");
     }
 
     usuarioModel.verificarUser(id)
@@ -54,14 +55,14 @@ function verificarUser(req, res) {
         }).catch(erro => {
             return res.status(500).json(erro.sqlMessage);
         });
-}
+}*/
 
 
 function listarUsers(req, res) {
     var hospital = req.query.hospital;
 
     if (!hospital) {
-        return res.status(400).send("Não há id desse user!");
+        return res.status(404).send("Não há id desse user!");
     }
 
     usuarioModel.listarUsers(hospital)
@@ -69,7 +70,6 @@ function listarUsers(req, res) {
             return res.status(200).send(resultado);
         })
         .catch(function (erro) {
-            console.log(erro);
             res.status(500).json(erro.sqlMessage);
         });
 
@@ -214,8 +214,9 @@ function cadastrarUsers(req, res) {
 }
 
 module.exports = {
+    fnTestar,
     fnEntrar,
-    verificarUser,
+   // verificarUser,
     listarUsers,
     pegarUsers,
     pesquisarUsers,

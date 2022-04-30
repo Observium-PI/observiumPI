@@ -26,7 +26,6 @@ let dispMem = 50;
 memDisp.innerHTML = `Disp: X`;
 memUso.innerHTML = `Em uso: X`;
 
-// Configuração do gráfico principal, o de processador
 let graficoDeProcessador = new Chart("lineChart", {
     type: "line",
     data: {
@@ -122,7 +121,11 @@ function atualizarGraficoProcessador() {
     graficoDeProcessador.update();
 }
 
-// Função que gera dados no gráfico
+setInterval(atualizarGraficoRAM, 10000);
+
+
+
+
 function atualizarGraficoRAM() {
     usoMem = Math.random() * 10;
     dispMem = Math.random() * 10;
@@ -167,85 +170,6 @@ function escreverTexto() {
     discUso.innerHTML = `Em uso: ${usoDisc.toFixed(1)}%`;
 }
 
-
-/*
-let listaStatus = [
-    {
-        nome: "Máquina 1",
-        sistemaOperacional: "windows"
-    },
-    {
-        nome: "Máquina 2",
-        sistemaOperacional: "windows"
-    },
-    {
-        nome: "Máquina 3",
-        sistemaOperacional: "linux"
-    },
-    {
-        nome: "Máquina 4",
-        sistemaOperacional: "linux"
-    },
-    {
-        nome: "Máquina 5",
-        sistemaOperacional: "windows"
-    },
-    {
-        nome: "Máquina 6",
-        sistemaOperacional: "linux"
-    },
-    {
-        nome: "Máquina 7",
-        sistemaOperacional: "windows"
-    },
-    {
-        nome: "Máquina 8",
-        sistemaOperacional: "windows"
-    },
-    {
-        nome: "Máquina 9",
-        sistemaOperacional: "linux"
-    },
-    {
-        nome: "Máquina 10",
-        sistemaOperacional: "linux"
-    },
-    {
-        nome: "Máquina 11",
-        sistemaOperacional: "windows"
-    },
-    {
-        nome: "Máquina 12",
-        sistemaOperacional: "linux"
-    },
-    {
-        nome: "Máquina 13",
-        sistemaOperacional: "linux"
-    }
-];
-
-for (let i = 0; i < listaStatus.length; i++) {
-    const container = document.getElementById("select_windows")
-
-    if (listaStatus[i].sistemaOperacional == "windows") {
-        let option = document.createElement("option")
-        option.innerHTML += listaStatus[i].nome
-        container.appendChild(option)
-        option.classList.add("option-box")
-    }
-}
-
-for (let i = 0; i < listaStatus.length; i++) {
-    const container = document.getElementById("select_linux")
-
-    if (listaStatus[i].sistemaOperacional == "linux") {
-        let option = document.createElement("option")
-        option.innerHTML += listaStatus[i].nome
-        container.appendChild(option)
-        option.classList.add("option-box")
-    }
-}
-*/
 function fnDeslogar() {
     /* A função de deslogar consiste em limpar a sessão local do usuário, o que significa 
     que ele não terá mais a váriavel booleana, indicando se ele está logado ou não, no 

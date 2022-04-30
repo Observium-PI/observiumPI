@@ -8,6 +8,7 @@ var PORTA = 3334;
 
 var app = express();
 
+// Armazenando os módulos dos arquivos dentro da função require nas variaveis
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var computadorRouter = require("./src/routes/computador");
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
+// O primeiro argumento define a URL que será acessada e o segundo para qual rota levará 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/computador", computadorRouter);
