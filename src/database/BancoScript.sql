@@ -38,6 +38,7 @@ create table Computador(
     fabricante varchar(30) not null,
     arquitetura varchar(30) not null,
     sistemaOperacional varchar(30) not null,
+    localidade varchar(50),
     fkHospital int not null,
     foreign key (fkHospital) references Hospital(idHospital),
     primary key (idComputador, endMAC)
