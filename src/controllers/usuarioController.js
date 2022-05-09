@@ -13,29 +13,27 @@ function fnEntrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel.fnEntrar(usuario, senha)
-            .then(
-                function (resultado) {
-
-                    if (resultado.length == 1) {
-                        res.status(200).json(resultado[0]);
-                    } else if (resultado.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
+        usuarioModel
+            .fnEntrar(usuario, senha)
+            .then(function (resultado) {
+                if (resultado.length == 1) {
+                    res.status(200).json(resultado[0]);
+                } else if (resultado.length == 0) {
+                    res.status(403).send("Email e/ou senha inválido(s)");
+                } else {
+                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o login! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            });
     }
-
 }
-
 
 /* Função comentada por não haver uso dela
 function verificarUser(req, res) {
@@ -57,7 +55,6 @@ function verificarUser(req, res) {
         });
 }*/
 
-
 function listarUsers(req, res) {
     var hospital = req.query.hospital;
 
@@ -65,14 +62,14 @@ function listarUsers(req, res) {
         return res.status(404).send("Não há id desse user!");
     }
 
-    usuarioModel.listarUsers(hospital)
-        .then(resultado => {
+    usuarioModel
+        .listarUsers(hospital)
+        .then((resultado) => {
             return res.status(200).send(resultado);
         })
         .catch(function (erro) {
             res.status(500).json(erro.sqlMessage);
         });
-
 }
 
 function pegarUsers(req, res) {
@@ -82,26 +79,29 @@ function pegarUsers(req, res) {
         return res.status(400).send("Não há id desse user!");
     }
 
-    usuarioModel.pegarUsers(id)
-        .then(resultado => {
+    usuarioModel
+        .pegarUsers(id)
+        .then((resultado) => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id inexistente.");
             }
 
             return res.status(200).send(resultado[0]);
-        }).catch(erro => {
+        })
+        .catch((erro) => {
             return res.status(500).json(erro.sqlMessage);
         });
-
 }
 
 function pesquisarUsers(req, res) {
     var pesquisa = req.body.pesquisa;
 
-    usuarioModel.pesquisarUsers(pesquisa)
-        .then(resultado => {
+    usuarioModel
+        .pesquisarUsers(pesquisa)
+        .then((resultado) => {
             return res.status(200).send(resultado);
-        }).catch(function (erro) {
+        })
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).json(erro.sqlMessage);
         });
@@ -110,17 +110,19 @@ function pesquisarUsers(req, res) {
 function desligarUser(req, res) {
     var id = req.body.idUsuario;
 
-    usuarioModel.desligarUser(id)
-        .then(resultado => {
+    usuarioModel
+        .desligarUser(id)
+        .then((resultado) => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id inexistente.");
             }
 
             return res.status(200).send(resultado[0]);
-        }).catch(function (erro) {
+        })
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).json(erro.sqlMessage);
-        })
+        });
 }
 
 function alterarUsers(req, res) {
@@ -135,17 +137,19 @@ function alterarUsers(req, res) {
         return res.status(400).send("Campo senha está vazio.");
     }
 
-    usuarioModel.alterarUsers(id, novoNome, novaSenha)
-        .then(resultado => {
+    usuarioModel
+        .alterarUsers(id, novoNome, novaSenha)
+        .then((resultado) => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id e nome inexistente.");
             }
 
             return res.status(200).send(resultado[0]);
-        }).catch(function (erro) {
+        })
+        .catch(function (erro) {
             console.log(erro);
             res.status(500).json(erro.sqlMessage);
-        })
+        });
 }
 
 function cadastrarUsers(req, res) {
@@ -178,49 +182,57 @@ function cadastrarUsers(req, res) {
     }
 
     usuarioModel.validarLogin(login)
-        .then(resultado => {
-            console.log(resultado);
-            if (resultado.length == 0) {
-                usuarioModel.validarEmail(email)
-                    .then(resultado => {
-                        if (resultado.length == 0) {
-                            usuarioModel.cadastrarUsers(nome, email, setor, tipoUsuario, login, senha, hospital)
-                                .then(resultado => {
-                                    console.log(resultado);
-
-                                    return res.status(200).send(resultado[0]);
-                                })
-                                .catch(function (erro) {
-                                    console.log(erro);
-                                    res.status(500).json(erro.sqlMessage);
-                                });
-                        } else {
-                            return res.status(409).send("Email Existente");
-                        }
-                    })
-                    .catch(function (erro) {
-                        console.log(erro);
-                        res.status(500).json(erro.sqlMessage);
-                    });
-            } else {
-                return res.status(409).send("Login Existente");
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                return res
+                    .status(409)
+                    .json({ message: `Login ${login} já cadastrado.` });
             }
+
+            usuarioModel.validarEmail(email)
+                .then((resultado) => {
+                    if (resultado.length > 0) {
+                        return res
+                            .status(409)
+                            .json({ message: `Email ${email} já cadastrado.` });
+                    }
+                    usuarioModel.cadastrarUsers(
+                        nome,
+                        email,
+                        setor,
+                        tipoUsuario,
+                        login,
+                        senha,
+                        hospital
+                    )
+                        .then((resultado) => {
+                            console.log(resultado);
+                            return res.status(200).send(resultado[0]);
+                        })
+                        .catch(function (erro) {
+                            console.log(erro);
+                            res.status(500).json(erro.sqlMessage);
+                        });
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                    res.status(500).json(erro.sqlMessage);
+                });
         })
         .catch(function (erro) {
             console.log(erro);
             res.status(500).json(erro.sqlMessage);
         });
-
 }
 
 module.exports = {
     fnTestar,
     fnEntrar,
-   // verificarUser,
+    // verificarUser,
     listarUsers,
     pegarUsers,
     pesquisarUsers,
     desligarUser,
     alterarUsers,
-    cadastrarUsers
-}
+    cadastrarUsers,
+};
