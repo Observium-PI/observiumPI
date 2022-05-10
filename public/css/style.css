@@ -120,6 +120,7 @@ body {
     justify-content: center;
     border-radius: 1vh;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .item_container_SO {

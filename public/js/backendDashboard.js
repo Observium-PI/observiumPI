@@ -26,44 +26,6 @@ let dispMem = 50;
 memDisp.innerHTML = `Disp: X`;
 memUso.innerHTML = `Em uso: X`;
 
-let graficoDeProcessador = new Chart("lineChart", {
-    type: "line",
-    data: {
-        labels: [],
-        datasets: [{
-            data: [],
-            borderColor: "white",
-            fill: false,
-            grid: false
-        }]
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                ticks: {
-                    fontColor: "#FFF"
-                },
-                gridLines: {
-                    display: true,
-                    color: "#0c1622"
-                }
-            }],
-            yAxes: [{
-                ticks: {
-                    fontColor: "#FFF"
-                },
-                gridLines: {
-                    display: true,
-                    color: "#0c1622"
-                }
-            }]
-        },
-        legend: {
-            display: false
-        }
-    }
-});
-
 // Configuração do gráfico de memória RAM
 let graficoDeMemoria = new Chart("donutChartOne", {
     type: "doughnut",
@@ -177,4 +139,145 @@ function fnDeslogar() {
     sessionStorage.clear();
     // Logo após, ele é direcionado para a tela inicial do site.
     location = "index.html";
+}
+
+var grafico = 1;
+
+if (sessionStorage.ID_GRAFICO[0] != 1) {
+    grafico = sessionStorage.ID_GRAFICO[0];
+    idComputador = sessionStorage.ID_GRAFICO[0];
+}
+
+// variável de proxima atualização
+let proximaAtualizacao;    
+
+// quando a janela carregar, executar a função obterDadosGrafico(1)
+window.onload = obterDadosGrafico(grafico);
+
+// função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
+function obterDadosGrafico(idComputador) {
+    if (proximaAtualizacao != undefined) {
+        clearTimeout(proximaAtualizacao);
+    }
+
+    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
+    fetch(`/medida/tempo-real/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                // inverter a ordem dos dados
+                //resposta.reverse();
+
+                // após trazer a resposta, levar ela para a função de plotar o gráfico
+                plotarGrafico(resposta, idComputador);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA GELADEIRA
+function plotarGrafico(resposta, idComputador) {
+    console.log('iniciando plotagem do gráfico...');
+
+    // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
+    var dados = {
+        labels: [],
+        datasets: [
+            {
+                yAxisID: 'y-processamento',
+                label: 'Processamento',
+                borderColor: '#ab30398f',
+                backgroundColor: '#cb5b578f',
+                fill: true,
+                data: [],
+                position: 'right'
+            }
+        ]
+    };
+
+    // LAÇO DE REPETIÇÃO PARA ARMAZENAR OS DADOS DE HORA EM "LABELS"
+    // OS DADOS UMIDADE NO DATASET(0).DATA
+    // OS DADOS DE TEMPERATURA NO DATASET(1).DATA
+    for (i = 0; i < 7; i++) {
+        var registro = resposta[i];
+        dados.labels.push(registro.momento_grafico);
+        dados.datasets[0].data.push(registro.medida);
+    }
+
+    // CONSOLE IMPRIMIRÁ OS DADOS
+    console.log(JSON.stringify(dados));
+
+    // CONFIGURAÇÃO DO GRÁFICO DO TIPO 2D
+    var ctx = lineChart.getContext('2d');
+    window.grafico_linha = Chart.Line(ctx, {
+        data: dados,
+        //Configurações do gráfico
+        options: {
+            responsive: true,
+            animation: { duration: 500 },
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: true,
+                text: 'Histórico recente de processamento'
+            },
+            scales: {
+                yAxes: [{
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    id: 'y-processamento',
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        min: 0
+                    }                  
+                }],
+            }
+        }
+    });
+    
+    //Atualiza os dados de 2 em 2 segundos
+    setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+}
+
+
+
+// só mexer se quiser alterar o tempo de atualização
+// ou se souber o que está fazendo!
+var i = 6;
+function atualizarGrafico(idComputador, dados) {
+    fetch(`/medida/tempo-real/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
+
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                console.log(`Dados atuais do gráfico: ${dados}`);
+
+               
+                // tirando e colocando valores no gráfico
+                dados.labels.shift(); // apagar o primeiro
+                dados.labels.push(novoRegistro[i + 1].momento_grafico); // incluir um novo momento
+                dados.datasets[0].data.shift();  // apagar o primeiro 
+                dados.datasets[0].data.push(novoRegistro[i + 1].medida); // incluir uma nova medida
+                i++;
+                window.grafico_linha.update();
+
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
 }

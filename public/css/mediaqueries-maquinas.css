@@ -33,6 +33,8 @@
 
         margin: auto;
         margin-bottom: 10%;
+        
+        cursor: pointer;
     }
 
     .item_container_SO {

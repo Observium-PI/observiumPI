@@ -20,7 +20,7 @@ var sqlServerConfig = {
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL e na máquina da faculdade)
 var mySqlConfigFaculdade = {
   host: "localhost",
-  user: "aluno",
+  user: "root",
   database: "Observium",
   password: "sptech"
 };
@@ -30,7 +30,7 @@ var mySqlConfigCasa = {
   host: "localhost",
   user: "root",
   database: "Observium",
-  password: "observium123"
+  password: "sptech"
 };
 
 function executar(instrucao) {

@@ -87,6 +87,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         //ATUALIZANDO O IDNAME DO ELEMENTO
                         div_delete_modal.setAttribute("id", "delete_modal_"+element.hostname);
                         div_edit_modal.setAttribute("id", "edit_modal_"+element.hostname);
+                        card.setAttribute("id", +element.idComputador)
 
                         //CONFIGURANDO URL DAS DIV COM IMAGENS
                         divSO.style.backgroundImage = "url(" + element.imagemSO + ")";
@@ -96,6 +97,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         //Adicionando eventos para os clicks de excluir máquina
                         btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
                         btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
+                        card.addEventListener("click", () => id_grafico(element.idComputador));
 
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card);
@@ -136,6 +138,12 @@ function fnDeslogar(){
     // Logo após, ele é direcionado para a tela inicial do site.
     location = "index.html";
 }
+
+function id_grafico(idComputador){
+    sessionStorage.setItem("ID_GRAFICO", idComputador);
+    location.href = "../dashboard.html"
+}
+
 
 function fnExcluir(idComputador){
     let body = JSON.stringify({idComputador: idComputador});
