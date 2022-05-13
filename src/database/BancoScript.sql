@@ -93,10 +93,10 @@ insert into Usuario values
     (null, 'Melissa Macedo', 'melissa.macedo@observium.com.br', 'TI', 'admin', 'MELIMAC', 'm123m', 3);
     
 insert into Computador values
-	(null, 'computador-recepcao-1', 'E0-D7-5H-A0-BB-F9', 'Microsoft', '64', 'Windows', 1),
-    (null, 'computador-medico-1', 'B0-D5-FG-E0-BB-G9', 'Microsoft', '64', 'Linux', 2),
-    (null, 'computador-triagem-1', 'A0-D6-5E-F0-BB-E4', 'Microsoft', '64', 'Windows', 1),
-    (null, 'computador-recepcao-2', 'F0-D3-5F-B0-BB-E7', 'Microsoft', '64', 'Linux', 3);
+	(null, 'computador-recepcao-1', 'E0-D7-5H-A0-BB-F9', 'Microsoft', '64', 'Windows', 'recepcao-01', 1),
+    (null, 'computador-medico-1', 'B0-D5-FG-E0-BB-G9', 'Microsoft', '64', 'Linux', 'alaMedica-03', 2),
+    (null, 'computador-triagem-1', 'A0-D6-5E-F0-BB-E4', 'Microsoft', '64', 'Windows', 'triagem-01', 1),
+    (null, 'computador-recepcao-2', 'F0-D3-5F-B0-BB-E7', 'Microsoft', '64', 'Linux', 'recepcao-01', 3);
     
 insert into Componente values
 	(null, 'cpu', 1),
@@ -128,6 +128,41 @@ insert into Monitoramento values
     (null, 12, '2022-04-08 22:11:25', 7.8, 'GB'),
     (null, 3, '2022-04-06 22:23:15', 90, '%'),
     (null, 14, '2022-04-08 22:11:25', 95, '%');
+
+-- INSERINDO DADOS MOCADOS PARA A CPU DO COMPUTADOR 1
+insert into Monitoramento values
+	(null, 1, '2022-04-06 20:52:30', 21.4, '%'),
+    (null, 1, '2022-04-06 20:55:00', 25.5, '%'),
+    (null, 1, '2022-04-07 20:55:10', 30.1, '%'),
+    (null, 1, '2022-04-07 20:55:20', 29.4, '%'),
+    (null, 1, '2022-04-06 20:55:30', 43.2, '%'),
+    (null, 1, '2022-04-07 20:55:40', 40.3, '%'),
+    (null, 1, '2022-04-08 20:55:50', 42.8, '%'),
+    (null, 1, '2022-04-07 20:56:00', 27.4, '%'),
+    (null, 1, '2022-04-07 20:56:10', 22.3, '%'),
+    (null, 1, '2022-04-08 20:56:20', 80.4, '%'),
+    (null, 1, '2022-04-08 20:56:30', 85.7, '%'),
+    (null, 1, '2022-04-06 20:56:40', 55.7, '%'),
+    (null, 1, '2022-04-08 20:56:50', 31.8, '%'),
+    (null, 1, '2022-04-08 20:57:00', 44.3, '%'),
+    (null, 1, '2022-04-08 20:57:10', 26.7, '%'),
+    (null, 1, '2022-04-08 20:57:20', 20.7, '%'),
+    (null, 1, '2022-04-08 20:57:30', 15, '%'),
+    (null, 1, '2022-04-08 20:57:40', 16.9, '%'),
+    (null, 1, '2022-04-08 20:57:50', 22.4, '%'),
+    (null, 1, '2022-04-08 20:58:00', 31.8, '%'),
+    (null, 1, '2022-04-08 20:58:10', 82.4, '%'),
+    (null, 1, '2022-04-08 20:58:20', 95.7, '%'),
+    (null, 1, '2022-04-08 20:58:30', 74.9, '%'),
+    (null, 1, '2022-04-08 20:58:40', 41.7, '%'),
+    (null, 1, '2022-04-08 20:58:50', 22.8, '%'),
+    (null, 1, '2022-04-08 20:59:00', 16.3, '%'),
+    (null, 1, '2022-04-08 20:59:10', 25.5, '%'),
+    (null, 1, '2022-04-08 20:59:20', 31.8, '%'),
+    (null, 1, '2022-04-08 20:59:30', 20.7, '%'),
+    (null, 1, '2022-04-08 20:59:40', 29.4, '%'),
+    (null, 1, '2022-04-08 20:59:50', 14, '%'),
+    (null, 1, '2022-04-08 21:00:00', 47.3, '%');
     
 insert into Historico values
 	(null, 'Alerta Emergente, Armazenamento do disco quase no limite', 13),
@@ -173,3 +208,9 @@ select M.datahora, C.tipoComponente, mq.hostname, H.descricao from Historico as 
 join Monitoramento as M on fkMonitoramento = idMonitoramento 
 join Componente as C on fkComponente = idComponente 
 join Computador as mq on fkComputador = idComputador;
+
+select medida, DATE_FORMAT(dataHora,'%H:%i:%s') as 'momento_grafico' 
+from monitoramento join componente on fkComponente = idComponente 
+join Computador on fkComputador = idComputador 
+where tipoComponente = 'cpu' and idComputador = 1
+order by 'momento_grafico' desc;

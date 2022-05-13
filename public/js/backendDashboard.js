@@ -181,7 +181,7 @@ function obterDadosGrafico(idComputador) {
         });
 }
 
-// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA GELADEIRA
+// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA MÁQUINA
 function plotarGrafico(resposta, idComputador) {
     console.log('iniciando plotagem do gráfico...');
 
@@ -202,8 +202,7 @@ function plotarGrafico(resposta, idComputador) {
     };
 
     // LAÇO DE REPETIÇÃO PARA ARMAZENAR OS DADOS DE HORA EM "LABELS"
-    // OS DADOS UMIDADE NO DATASET(0).DATA
-    // OS DADOS DE TEMPERATURA NO DATASET(1).DATA
+    // OS DADOS DA CPU NO DATASET(0).DATA
     for (i = 0; i < 7; i++) {
         var registro = resposta[i];
         dados.labels.push(registro.momento_grafico);
@@ -244,7 +243,7 @@ function plotarGrafico(resposta, idComputador) {
     });
     
     //Atualiza os dados de 2 em 2 segundos
-    setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+    setTimeout(() => atualizarGrafico(idComputador, dados), 5000);
 }
 
 

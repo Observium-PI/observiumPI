@@ -85,9 +85,9 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         input_modal_edit.classList.add("input_modal_edit");
 
                         //ATUALIZANDO O IDNAME DO ELEMENTO
-                        div_delete_modal.setAttribute("id", "delete_modal_"+element.hostname);
-                        div_edit_modal.setAttribute("id", "edit_modal_"+element.hostname);
-                        card.setAttribute("id", +element.idComputador)
+                        div_delete_modal.setAttribute("id", "delete_modal_"+ element.hostname);
+                        div_edit_modal.setAttribute("id", "edit_modal_"+ element.hostname);
+                        card.setAttribute("id", + element.idComputador)
 
                         //CONFIGURANDO URL DAS DIV COM IMAGENS
                         divSO.style.backgroundImage = "url(" + element.imagemSO + ")";
@@ -97,7 +97,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         //Adicionando eventos para os clicks de excluir máquina
                         btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
                         btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
-                        card.addEventListener("click", () => id_grafico(element.idComputador));
+                        divSO.addEventListener("click", () => id_grafico(element.idComputador));
 
                         //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
                         container.appendChild(card);
