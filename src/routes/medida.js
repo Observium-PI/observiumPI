@@ -6,7 +6,7 @@ var router = express.Router();
 var medidaController = require("../controllers/medidaController");
 
 // ROTA DO TIPO "GET", PARA OBTER AS MEDIDAS EM TEMPO REAL DE ACORDO COM O ID DA MAQUINA QUE É UM PARÂMETRO PASSADO NAS FUNÇÕES
-router.get("/tempo-real/:idComputador", function (req, res) {
+router.get("/tempo-real/:idComputador/:contagem_linha", function (req, res) {
     medidaController.buscarMedidasEmTempoRealCpu(req, res);
 })
 

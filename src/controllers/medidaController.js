@@ -7,13 +7,14 @@ function buscarMedidasEmTempoRealCpu(req, res) {
     // REQUERIMENTO DO PARÂMETRO PASSADO NA HTML, SENDO obterDadosGrafico(1), obterDadosGrafico(2) etc...
     // Os números que estão entre parênteses são parâmetros   
     var idComputador = req.params.idComputador;
+    var contagem_linha = req.params.contagem_linha;
 
     // Console apresentará Recuperando medidas em tempo real
     console.log(`Recuperando medidas em tempo real`);
 
     // Aqui está levando o parâmetro do idGeladeira para os comandos SQL
     // dentro de medidaModel
-    medidaModel.buscarMedidasEmTempoRealCpu(idComputador).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoRealCpu(idComputador, contagem_linha).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

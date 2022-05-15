@@ -212,5 +212,5 @@ join Computador as mq on fkComputador = idComputador;
 select medida, DATE_FORMAT(dataHora,'%H:%i:%s') as 'momento_grafico' 
 from monitoramento join componente on fkComponente = idComponente 
 join Computador on fkComputador = idComputador 
-where tipoComponente = 'cpu' and idComputador = 1
-order by 'momento_grafico' desc;
+where tipoComponente = 'cpu' and idComputador = 14
+order by 'momento_grafico' desc limit 0, 7;

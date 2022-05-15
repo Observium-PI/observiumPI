@@ -141,27 +141,27 @@ function fnDeslogar() {
     location = "index.html";
 }
 
-var grafico = 1;
+var idGrafico = 1;
+var contagem_linha = 0;
 
-if (sessionStorage.ID_GRAFICO[0] != 1) {
-    grafico = sessionStorage.ID_GRAFICO[0];
-    idComputador = sessionStorage.ID_GRAFICO[0];
+if (sessionStorage.ID_GRAFICO != 1) {
+    var idGrafico = sessionStorage.ID_GRAFICO;
 }
 
 // variável de proxima atualização
 let proximaAtualizacao;    
 
 // quando a janela carregar, executar a função obterDadosGrafico(1)
-window.onload = obterDadosGrafico(grafico);
+window.onload = obterDadosGrafico(idGrafico, contagem_linha);
 
 // função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
-function obterDadosGrafico(idComputador) {
+function obterDadosGrafico(idComputador, contagem_linha) {
     if (proximaAtualizacao != undefined) {
         clearTimeout(proximaAtualizacao);
     }
 
     // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/tempo-real/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/medida/tempo-real/${idComputador}/${contagem_linha}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
             response.json().then(function (resposta) {
@@ -170,7 +170,7 @@ function obterDadosGrafico(idComputador) {
                 //resposta.reverse();
 
                 // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarGrafico(resposta, idComputador);
+                plotarGrafico(resposta, idComputador, contagem_linha);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -182,7 +182,7 @@ function obterDadosGrafico(idComputador) {
 }
 
 // FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA MÁQUINA
-function plotarGrafico(resposta, idComputador) {
+function plotarGrafico(resposta, idComputador, contagem_linha) {
     console.log('iniciando plotagem do gráfico...');
 
     // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
@@ -242,17 +242,17 @@ function plotarGrafico(resposta, idComputador) {
         }
     });
     
-    //Atualiza os dados de 2 em 2 segundos
-    setTimeout(() => atualizarGrafico(idComputador, dados), 5000);
+    //Atualiza os dados de 7 em 7 segundos
+    contagem_linha++;
+    setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 10000);
 }
 
 
 
 // só mexer se quiser alterar o tempo de atualização
 // ou se souber o que está fazendo!
-var i = 6;
-function atualizarGrafico(idComputador, dados) {
-    fetch(`/medida/tempo-real/${idComputador}`, { cache: 'no-store' }).then(function (response) {
+function atualizarGrafico(idComputador, contagem_linha, dados) {
+    fetch(`/medida/tempo-real/${idComputador}/${contagem_linha}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
 
@@ -262,17 +262,18 @@ function atualizarGrafico(idComputador, dados) {
                
                 // tirando e colocando valores no gráfico
                 dados.labels.shift(); // apagar o primeiro
-                dados.labels.push(novoRegistro[i + 1].momento_grafico); // incluir um novo momento
+                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
                 dados.datasets[0].data.shift();  // apagar o primeiro 
-                dados.datasets[0].data.push(novoRegistro[i + 1].medida); // incluir uma nova medida
+                dados.datasets[0].data.push(novoRegistro[0].medida); // incluir uma nova medida
                 i++;
+                contagem_linha++;
                 window.grafico_linha.update();
 
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 2000);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, dados), 2000);
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 2000);
         }
     })
         .catch(function (error) {
