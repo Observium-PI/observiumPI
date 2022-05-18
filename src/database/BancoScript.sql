@@ -116,16 +116,16 @@ insert into Componente values
     
 insert into Monitoramento values
 	(null, 1, '2022-04-06 20:52:30', 21.4, '%'),
-    (null, 2, '2022-04-06 21:35:20', 9.7, 'GB'),
-    (null, 6, '2022-04-07 14:33:00', 7.5, 'GB'),
+    (null, 2, '2022-04-06 21:35:20', 43, '%'),
+    (null, 6, '2022-04-07 14:33:00', 55.6, '%'),
     (null, 4, '2022-04-07 13:21:25', 61, '%'),
     (null, 5, '2022-04-06 20:53:05', 35.7, '%'),
     (null, 7, '2022-04-07 14:52:35', 87, '%'),
     (null, 10, '2022-04-08 21:58:10', 64, '%'),
     (null, 8, '2022-04-07 18:47:10', 21.4, '%'),
-    (null, 9, '2022-04-07 20:47:25', 10.1, 'GB'),
+    (null, 9, '2022-04-07 20:47:25', 10.1, '%'),
     (null, 13, '2022-04-08 22:11:25', 80.5, '%'),
-    (null, 12, '2022-04-08 22:11:25', 7.8, 'GB'),
+    (null, 12, '2022-04-08 22:11:25', 67.8, '%'),
     (null, 3, '2022-04-06 22:23:15', 90, '%'),
     (null, 14, '2022-04-08 22:11:25', 95, '%');
 
@@ -212,5 +212,9 @@ join Computador as mq on fkComputador = idComputador;
 select medida, DATE_FORMAT(dataHora,'%H:%i:%s') as 'momento_grafico' 
 from monitoramento join componente on fkComponente = idComponente 
 join Computador on fkComputador = idComputador 
-where tipoComponente = 'cpu' and idComputador = 14
+where tipoComponente = 'cpu' and idComputador = 1
 order by 'momento_grafico' desc limit 0, 7;
+
+select truncate(medida, 0) from monitoramento join componente on fkComponente = idComponente 
+join Computador on fkComputador = idComputador where tipoComponente = 'memoriaRAM' 
+and idComputador = 5 order by medida desc limit 0, 1;

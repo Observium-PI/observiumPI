@@ -14,124 +14,6 @@ if (sessionStorage.getItem("tipoUsuario") == "admin") {
     link_tela_funcionario.appendChild(icon_tela_funcionario)
 }
 
-// Definição inicial do gráfico de memória RAM
-let usoDisc = 50;
-let dispDisc = 50;
-discDisp.innerHTML = `Disp: X`;
-discUso.innerHTML = `Em uso: X`;
-
-// Definição inicial do gráfico de memória RAM
-let usoMem = 50;
-let dispMem = 50;
-memDisp.innerHTML = `Disp: X`;
-memUso.innerHTML = `Em uso: X`;
-
-// Configuração do gráfico de memória RAM
-let graficoDeMemoria = new Chart("donutChartOne", {
-    type: "doughnut",
-    data: {
-        labels: ["Em uso", "Restante"],
-        datasets: [{
-            data: [usoMem, dispMem],
-            borderColor: "#0a518f",
-            backgroundColor: ["white", "#0c1622"],
-            fill: false
-        }]
-    },
-    options: {
-        legend: {
-            display: false
-        }
-    }
-});
-
-let graficoDeDisco = new Chart("donutChartTwo", {
-    type: "doughnut",
-    data: {
-        labels: ["Em uso", "Restante"],
-        datasets: [{
-            data: [usoDisc, dispDisc],
-            borderColor: "#0a518f",
-            backgroundColor: ["white", "#0c1622"],
-            fill: false
-        }]
-    },
-    options: {
-        legend: {
-            display: false
-        }
-    }
-}); 
-
- // Função que gera os dados no gráfico
-function atualizarGraficoProcessador() {
-    let data = new Date();
-    let minutos = data.getMinutes();
-    let segundos = data.getSeconds();
-
-    if (minutos < 10) {
-        minutos = "0" + data.getMinutes();
-    }
-
-    if (segundos < 10) {
-        segundos = "0" + data.getSeconds();
-    }
-
-
-    graficoDeProcessador.data.labels.push(data.getHours() + ":" + minutos + ":" + segundos);
-    graficoDeProcessador.data.datasets[0].data.push(Math.random() * 80);
-    graficoDeProcessador.update();
-}
-
-setInterval(atualizarGraficoRAM, 10000);
-
-
-
-
-function atualizarGraficoRAM() {
-    usoMem = Math.random() * 10;
-    dispMem = Math.random() * 10;
-
-    graficoDeMemoria.data.labels = ["Em uso", "Restante"];
-    graficoDeMemoria.data.datasets[0].data = [usoMem, dispMem];
-    graficoDeMemoria.update();
-
-    escreverTexto();
-}
-
-// Função que atualiza os dados do gráfico de Disco
-function atualizarGraficoDisco() {
-    usoDisc = Math.random() * 10;
-    dispDisc = Math.random() * 10;
-
-    graficoDeDisco.data.labels = ["Em uso", "Restante"];
-    graficoDeDisco.data.datasets[0].data = [usoDisc, dispDisc];
-    graficoDeDisco.update();
-
-    escreverTexto();
-}
-
-/*Descomente essa linha parar gerar dados a cada 10 segundos no gráfico de memória RAM 
- setInterval(atualizarGraficoRAM, 10000);
-*/
-
-/* Descomente essa linha para gerar dados no gráfico de disco
-setInterval(atualizarGraficoDisco, 10000);
-*/
-
-//Descomente essa linha para gerar dados a cada 10 segundos
-// setInterval(atualizarGraficoProcessador, 10000);
-
-
-// Atualiza textos na div dos dois gráficos pizza (Memória RAM e Disco)
-function escreverTexto() {
-    memDisp.innerHTML = `Disp: ${dispMem.toFixed(1)}Gb`;
-    memUso.innerHTML = `Em uso: ${usoMem.toFixed(1)}Gb`;
-
-    discDisp.innerHTML = `Disp: ${dispDisc.toFixed(1)}%`;
-    discUso.innerHTML = `Em uso: ${usoDisc.toFixed(1)}%`;
-}
-
 function fnDeslogar() {
     /* A função de deslogar consiste em limpar a sessão local do usuário, o que significa 
     que ele não terá mais a váriavel booleana, indicando se ele está logado ou não, no 
@@ -143,18 +25,146 @@ function fnDeslogar() {
 
 var idGrafico = 1;
 var contagem_linha = 0;
+var contagem_linha_mem = 0;
 
 if (sessionStorage.ID_GRAFICO != 1) {
     var idGrafico = sessionStorage.ID_GRAFICO;
 }
 
 // variável de proxima atualização
-let proximaAtualizacao;    
+let proximaAtualizacao;
+let proximaAtualizacaoMem; 
 
 // quando a janela carregar, executar a função obterDadosGrafico(1)
 window.onload = obterDadosGrafico(idGrafico, contagem_linha);
+window.onload = obterDadosGraficoMemoria(idGrafico, contagem_linha_mem);
 
+//GRAFICO MEMORIA
 // função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
+function obterDadosGraficoMemoria(idComputador, contagem_linha_mem) {
+    if (proximaAtualizacaoMem != undefined) {
+        clearTimeout(proximaAtualizacaoMem);
+    }
+
+    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
+    fetch(`/medida/tempo-real-memoria/${idComputador}/${contagem_linha_mem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                // inverter a ordem dos dados
+                //resposta.reverse();
+
+                // após trazer a resposta, levar ela para a função de plotar o gráfico
+                plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA MÁQUINA
+function plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem) {
+    console.log('iniciando plotagem do gráfico...');
+
+    // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
+    var dadosM = {
+        labels: [],
+        datasets: [
+            {
+                borderColor: '#ab30398f',
+                backgroundColor: '#cb5b578f',
+                fill: true,
+                data: []
+            }
+        ]
+    };
+
+    // LAÇO DE REPETIÇÃO PARA ARMAZENAR OS DADOS DE HORA EM "LABELS"
+    // OS DADOS DA CPU NO DATASET(0).DATA
+    for (i = 0; i <= 0; i++) {
+        var registroMem = resposta[i];
+        var registroMemDois = (100 - resposta[i].medida).toFixed(2);
+        dadosM.labels.push(registroMem.medida);
+        dadosM.datasets.push(registroMemDois);
+    }
+
+    // Definição inicial do gráfico de memória RAM
+    let usoMem = dadosM.labels[0];
+    let dispMem = dadosM.datasets[1];
+    memDisp.innerHTML = `Disp: ${dispMem}`;
+    memUso.innerHTML = `Em uso: ${usoMem}`;
+
+    // CONSOLE IMPRIMIRÁ OS DADOS
+    console.log(JSON.stringify(dadosM));
+
+    // CONFIGURAÇÃO DO GRÁFICO DO TIPO 2D
+    // Configuração do gráfico de memória RAM
+    var ctx = donutChartOne.getContext('2d');
+    window.grafico_donut_mem = Chart.Doughnut(ctx, {
+        type: "doughnut",
+        data: {
+            labels: ["Em uso", "Restante"],
+            datasets: [{
+                data: [dadosM.labels[0], dadosM.datasets[1]],
+                borderColor: "#0a518f",
+                backgroundColor: ["white", "#0c1622"],
+                fill: false
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            }
+        }
+    });
+    
+    //Atualiza os dados de 7 em 7 segundos
+    contagem_linha_mem++;
+    setTimeout(() => atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM), 10000);
+}
+
+function atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM) {
+    fetch(`/medida/tempo-real-memoria/${idComputador}/${contagem_linha_mem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistroMem) {
+
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistroMem)}`);
+                console.log(`Dados atuais do gráfico: ${dadosM}`);
+
+                // tirando e colocando valores no gráfico
+                grafico_donut_mem.data.datasets[0].data[0] = novoRegistroMem[0].medida; //incluir um novo momento
+                
+                var registroMemDois = (100 - novoRegistroMem[0].medida).toFixed(2);
+                
+                grafico_donut_mem.data.datasets[0].data[1] = registroMemDois; // incluir uma nova medida
+
+                memDisp.innerHTML = `Disp: ${registroMemDois}`;
+                memUso.innerHTML = `Em uso: ${novoRegistroMem[0].medida}`;
+
+                i++;
+                contagem_linha_mem++;
+                window.grafico_donut_mem.update();
+
+                proximaAtualizacaoMem = setTimeout(() => atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM), 2000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            proximaAtualizacaoMem = setTimeout(() => atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM), 2000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+}
+
+//GRAFICO CPU
+//função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
 function obterDadosGrafico(idComputador, contagem_linha) {
     if (proximaAtualizacao != undefined) {
         clearTimeout(proximaAtualizacao);
@@ -192,8 +202,8 @@ function plotarGrafico(resposta, idComputador, contagem_linha) {
             {
                 yAxisID: 'y-processamento',
                 label: 'Processamento',
-                borderColor: '#ab30398f',
-                backgroundColor: '#cb5b578f',
+                borderColor: '#0c1622',
+                backgroundColor: 'rgba(12, 22, 34, 0.5)',
                 fill: true,
                 data: [],
                 position: 'right'
@@ -224,10 +234,12 @@ function plotarGrafico(resposta, idComputador, contagem_linha) {
             stacked: false,
             title: {
                 display: true,
-                text: 'Histórico recente de processamento'
+                text: 'Histórico recente de processamento',
+                fontSize: 14,
+                fontColor: 'white'
             },
             scales: {
-                yAxes: [{
+                yAxes: [{                  
                     type: 'linear',
                     display: true,
                     position: 'left',
@@ -235,9 +247,23 @@ function plotarGrafico(resposta, idComputador, contagem_linha) {
                     ticks: {
                         beginAtZero: true,
                         max: 100,
-                        min: 0
+                        min: 0,
+                        fontSize: 12, 
+                        fontColor: "#FFF"
                     }                  
                 }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        min: 0,
+                        fontSize: 12, 
+                        fontColor: "#FFF"
+                    }
+                }]
+            },
+            legend: {
+                display: false
             }
         }
     });
@@ -246,8 +272,6 @@ function plotarGrafico(resposta, idComputador, contagem_linha) {
     contagem_linha++;
     setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 10000);
 }
-
-
 
 // só mexer se quiser alterar o tempo de atualização
 // ou se souber o que está fazendo!

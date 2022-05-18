@@ -3,7 +3,7 @@ var database = require("../database/config");
 
 // FUNÇÃO DE BUSCAR MEDIDAS EM TEMPO REAL FAZENDO UM SELECT E RETORNANDO A EXECUÇÃO DO COMANDO SQL
 function buscarMedidasEmTempoRealCpu(idComputador, contagem_linha) {
-    instrucaoSql = `select medida, DATE_FORMAT(dataHora,'%H:%i:%s') as 'momento_grafico' 
+    instrucaoSql = `select truncate(medida, 0) as medida, DATE_FORMAT(dataHora,'%H:%i:%s') as 'momento_grafico' 
                         from monitoramento join componente on fkComponente = idComponente 
 	                        join Computador on fkComputador = idComputador 
                                 where tipoComponente = 'cpu' and idComputador = ${idComputador}
@@ -13,7 +13,27 @@ function buscarMedidasEmTempoRealCpu(idComputador, contagem_linha) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMedidasEmTempoRealMemoria(idComputador, contagem_linha_mem) {
+    instrucaoSql = `select truncate(medida, 2) as medida from monitoramento join componente on fkComponente = idComponente 
+                        join Computador on fkComputador = idComputador where tipoComponente = 'memoriaRAM' 
+                            and idComputador = ${idComputador} order by medida desc limit ${contagem_linha_mem}, 1;`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedidasEmTempoRealDisco(idComputador, contagem_linha_disc, disco_atual) {
+    instrucaoSql = `select truncate(medida, 2) as medida from monitoramento join componente on fkComponente = idComponente 
+                        join Computador on fkComputador = idComputador where tipoComponente = 'disco ${disco_atual}' 
+                            and idComputador = ${idComputador} order by medida desc limit ${contagem_linha_disc}, 1;`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 // EXPORTAÇÃO DE MÓDULOS USADOS NA CONTROLLER
 module.exports = {
-    buscarMedidasEmTempoRealCpu
+    buscarMedidasEmTempoRealCpu,
+    buscarMedidasEmTempoRealMemoria,
+    buscarMedidasEmTempoRealDisco
 }
