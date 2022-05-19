@@ -43,27 +43,23 @@
         <div class="container">
             <!-- Filtros -->
             <div id="filtros" class="filters">
-                <div id="maquina-alerta" class="filters-box">
-                    <h3 class="text">Máquinas em Alerta</h3>
-                    <select class="select-filter" id="select_alerta"></select>
-                    <div class="btt-filter">
-                        <button>OK</button>
-                    </div>
-                </div>
-
                 <div id="maquina-windows" class="filters-box">
                     <h3 class="text">Máquinas Windows</h3>
-                    <select class="select-filter" id="select_windows"></select>
+                    <select onchange="botaoAttGraficoW()" class="select-filter" id="select_windows">
+                        <option value="0">Selecione --</option>
+                    </select>
                     <div class="btt-filter">
-                        <button>OK</button>
+                        <button onclick="botaoAttGraficoW()">OK</button>
                     </div>
                 </div>
 
                 <div id="maquina-linux" class="filters-box">
                     <h3 class="text">Máquinas Linux</h3>
-                    <select class="select-filter" id="select_linux"></select>
+                    <select onchange="botaoAttGraficoL()" class="select-filter" id="select_linux">
+                        <option value="0">Selecione --</option>
+                    </select>
                     <div class="btt-filter">
-                        <button>OK</button>
+                        <button onclick="botaoAttGraficoL()">OK</button>
                     </div>
                 </div>
             </div>
@@ -90,14 +86,6 @@
 
             <div class="line-graph">
                 <canvas id="lineChart" style="width:100%;max-width:85%"></canvas>
-                <div class="right-sidebar">
-                    <!-- <select id="select_maquina">
-                        <option value="obterDadosGrafico(1)">1</option>
-                        <option value="obterDadosGrafico(2)">2</option>
-                        <option value="obterDadosGrafico(3)">3</option>
-                        <option value="obterDadosGrafico(4)">4</option>
-                    </select> -->
-                </div>
             </div>
 
             <div class="text-mem">
@@ -116,6 +104,4 @@
 </body>
 </html>
 
-<script src="js/backendDashboard.js">
-    
-</script>
+<script src="js/backendDashboard.js"></script>

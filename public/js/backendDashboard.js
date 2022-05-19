@@ -36,8 +36,88 @@ let proximaAtualizacao;
 let proximaAtualizacaoMem; 
 
 // quando a janela carregar, executar a função obterDadosGrafico(1)
+window.onload = buscarMaquinas();
 window.onload = obterDadosGrafico(idGrafico, contagem_linha);
 window.onload = obterDadosGraficoMemoria(idGrafico, contagem_linha_mem);
+
+function buscarMaquinas() {
+    
+    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
+    fetch(`/medida/buscar-maquinas/`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                // inverter a ordem dos dados
+                //resposta.reverse();
+
+                // após trazer a resposta, levar ela para a função de plotar o gráfico
+                plotarNaCombo(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+// FUNÇÃO DE PLOTAGEM NA COMBOBOX DAS MÁQUINAS
+function plotarNaCombo(resposta) {
+    console.log('iniciando plotagem nas combos...');
+
+    var maquinasLinux = [];
+    var maquinasWindows = [];
+    var comboW = document.getElementById("select_windows");
+    var comboL = document.getElementById("select_linux");
+
+    for (i = 0; i < resposta.length; i++) {
+        if (resposta[i].sistemaOperacional == "Windows") {
+            maquinasWindows.push(resposta[i])
+            var optionW = new Option(resposta[i].hostname, resposta[i].idComputador)
+            comboW.add(optionW)
+        } else {
+            maquinasLinux.push(resposta[i])
+            var optionL = new Option(resposta[i].hostname, resposta[i].idComputador)
+            comboL.add(optionL)
+        }
+    }
+}
+
+function botaoAttGraficoW() {
+    var teste = select_windows.value;
+    
+    if (teste != 0) {
+        sessionStorage.ID_GRAFICO = teste;
+
+        clearTimeout(proximaAtualizacao);
+        clearTimeout(proximaAtualizacaoMem);
+
+        document.getElementById("lineChart").innerHTML = "";
+        document.getElementById("donutChartOne").innerHTML = "";
+
+        obterDadosGrafico(sessionStorage.ID_GRAFICO, contagem_linha)
+        obterDadosGraficoMemoria(sessionStorage.ID_GRAFICO, contagem_linha_mem)
+    }
+}
+
+function botaoAttGraficoL() {
+    var teste2 = select_linux.value;
+
+    if (teste2 != 0) {
+        sessionStorage.ID_GRAFICO = teste2;
+    
+        clearTimeout(proximaAtualizacao);
+        clearTimeout(proximaAtualizacaoMem);
+
+        document.getElementById("lineChart").innerHTML = "";
+        document.getElementById("donutChartOne").innerHTML = "";
+
+        obterDadosGrafico(sessionStorage.ID_GRAFICO, contagem_linha)
+        obterDadosGraficoMemoria(sessionStorage.ID_GRAFICO, contagem_linha_mem)
+    }
+}
 
 //GRAFICO MEMORIA
 // função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
@@ -88,7 +168,7 @@ function plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem) {
     // OS DADOS DA CPU NO DATASET(0).DATA
     for (i = 0; i <= 0; i++) {
         var registroMem = resposta[i];
-        var registroMemDois = (100 - resposta[i].medida).toFixed(2);
+        var registroMemDois = (100 - resposta[i].medida).toFixed(1);
         dadosM.labels.push(registroMem.medida);
         dadosM.datasets.push(registroMemDois);
     }
@@ -96,8 +176,8 @@ function plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem) {
     // Definição inicial do gráfico de memória RAM
     let usoMem = dadosM.labels[0];
     let dispMem = dadosM.datasets[1];
-    memDisp.innerHTML = `Disp: ${dispMem}`;
-    memUso.innerHTML = `Em uso: ${usoMem}`;
+    memDisp.innerHTML = `Disp: ${dispMem}%`;
+    memUso.innerHTML = `Em uso: ${usoMem}%`;
 
     // CONSOLE IMPRIMIRÁ OS DADOS
     console.log(JSON.stringify(dadosM));
@@ -139,12 +219,12 @@ function atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM) {
                 // tirando e colocando valores no gráfico
                 grafico_donut_mem.data.datasets[0].data[0] = novoRegistroMem[0].medida; //incluir um novo momento
                 
-                var registroMemDois = (100 - novoRegistroMem[0].medida).toFixed(2);
+                var registroMemDois = (100 - novoRegistroMem[0].medida).toFixed(1);
                 
                 grafico_donut_mem.data.datasets[0].data[1] = registroMemDois; // incluir uma nova medida
 
-                memDisp.innerHTML = `Disp: ${registroMemDois}`;
-                memUso.innerHTML = `Em uso: ${novoRegistroMem[0].medida}`;
+                memDisp.innerHTML = `Disp: ${registroMemDois}%`;
+                memUso.innerHTML = `Em uso: ${novoRegistroMem[0].medida}%`;
 
                 i++;
                 contagem_linha_mem++;

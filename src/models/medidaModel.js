@@ -14,7 +14,7 @@ function buscarMedidasEmTempoRealCpu(idComputador, contagem_linha) {
 }
 
 function buscarMedidasEmTempoRealMemoria(idComputador, contagem_linha_mem) {
-    instrucaoSql = `select truncate(medida, 2) as medida from monitoramento join componente on fkComponente = idComponente 
+    instrucaoSql = `select truncate(medida, 1) as medida from monitoramento join componente on fkComponente = idComponente 
                         join Computador on fkComputador = idComputador where tipoComponente = 'memoriaRAM' 
                             and idComputador = ${idComputador} order by medida desc limit ${contagem_linha_mem}, 1;`
 
@@ -31,9 +31,17 @@ function buscarMedidasEmTempoRealDisco(idComputador, contagem_linha_disc, disco_
     return database.executar(instrucaoSql);
 }
 
+function buscarMaquinas() {
+    instrucaoSql = `select idComputador, hostname, sistemaOperacional from Computador;`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 // EXPORTAÇÃO DE MÓDULOS USADOS NA CONTROLLER
 module.exports = {
     buscarMedidasEmTempoRealCpu,
     buscarMedidasEmTempoRealMemoria,
-    buscarMedidasEmTempoRealDisco
+    buscarMedidasEmTempoRealDisco,
+    buscarMaquinas
 }

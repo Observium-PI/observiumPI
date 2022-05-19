@@ -14,5 +14,9 @@ router.get("/tempo-real-memoria/:idComputador/:contagem_linha_mem", function (re
     medidaController.buscarMedidasEmTempoRealMemoria(req, res);
 })
 
+router.get("/buscar-maquinas/", function (req, res) {
+    medidaController.buscarMaquinas(req, res);
+})
+
 // EXPORTAÇÃO DESTE ARQUIVO COMO ROTA
 module.exports = router;
