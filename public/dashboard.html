@@ -45,22 +45,20 @@
             <div id="filtros" class="filters">
                 <div id="maquina-windows" class="filters-box">
                     <h3 class="text">Máquinas Windows</h3>
-                    <select onchange="botaoAttGraficoW()" class="select-filter" id="select_windows">
+                    <select onchange="selectAttGraficoW()" class="select-filter" id="select_windows">
                         <option value="0">Selecione --</option>
                     </select>
-                    <div class="btt-filter">
-                        <button onclick="botaoAttGraficoW()">OK</button>
-                    </div>
                 </div>
 
                 <div id="maquina-linux" class="filters-box">
                     <h3 class="text">Máquinas Linux</h3>
-                    <select onchange="botaoAttGraficoL()" class="select-filter" id="select_linux">
+                    <select onchange="selectAttGraficoL()" class="select-filter" id="select_linux">
                         <option value="0">Selecione --</option>
                     </select>
-                    <div class="btt-filter">
-                        <button onclick="botaoAttGraficoL()">OK</button>
-                    </div>
+                </div>
+
+                <div class="filters-box text-titulo-maq">
+                    <h1 id="hostname_maquina" class="text text-titulo-maq"></h1>
                 </div>
             </div>
             

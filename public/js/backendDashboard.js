@@ -44,7 +44,6 @@ window.onload = obterDadosGraficoMemoria(idGrafico, contagem_linha_mem);
 window.onload = obterDadosGraficoDisco(idGrafico, contagem_linha_disco);
 
 function buscarMaquinas() {
-
     // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
     fetch(`/medida/buscar-maquinas/`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -85,14 +84,19 @@ function plotarNaCombo(resposta) {
             var optionL = new Option(resposta[i].hostname, resposta[i].idComputador)
             comboL.add(optionL)
         }
+
+        if (resposta[i].idComputador == sessionStorage.ID_GRAFICO) {
+            hostname_maquina.innerHTML = resposta[i].hostname
+        }
     }
 }
 
-function botaoAttGraficoW() {
-    var teste = select_windows.value;
+function selectAttGraficoW() {
+    var selectWindows = select_windows.value;
+    hostname_maquina.innerHTML = select_windows.options[select_windows.selectedIndex].text
 
-    if (teste != 0) {
-        sessionStorage.ID_GRAFICO = teste;
+    if (selectWindows != 0) {
+        sessionStorage.ID_GRAFICO = selectWindows;
 
         clearTimeout(proximaAtualizacao);
         clearTimeout(proximaAtualizacaoMem);
@@ -110,11 +114,12 @@ function botaoAttGraficoW() {
     }
 }
 
-function botaoAttGraficoL() {
-    var teste2 = select_linux.value;
-
-    if (teste2 != 0) {
-        sessionStorage.ID_GRAFICO = teste2;
+function selectAttGraficoL() {
+    var selectLinux = select_linux.value;
+    hostname_maquina.innerHTML = select_linux.options[select_linux.selectedIndex].text
+    
+    if (selectLinux != 0) {
+        sessionStorage.ID_GRAFICO = selectLinux;
 
         clearTimeout(proximaAtualizacao);
         clearTimeout(proximaAtualizacaoMem);

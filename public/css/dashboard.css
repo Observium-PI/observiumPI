@@ -244,3 +244,9 @@ body {
     font-family: 'Ubuntu';
     color: white;
 }
+
+.text-titulo-maq {
+    font-size: 1.6rem;
+    align-items: center;
+    justify-content: flex-end;
+}
