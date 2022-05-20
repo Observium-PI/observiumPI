@@ -22,10 +22,10 @@ function buscarMedidasEmTempoRealMemoria(idComputador, contagem_linha_mem) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoRealDisco(idComputador, contagem_linha_disc, disco_atual) {
+function buscarMedidasEmTempoRealDisco(idComputador, contagem_linha_disco) {
     instrucaoSql = `select truncate(medida, 2) as medida from monitoramento join componente on fkComponente = idComponente 
-                        join Computador on fkComputador = idComputador where tipoComponente = 'disco ${disco_atual}' 
-                            and idComputador = ${idComputador} order by medida desc limit ${contagem_linha_disc}, 1;`
+                        join Computador on fkComputador = idComputador where tipoComponente = 'disco 1' 
+                            and idComputador = ${idComputador} order by medida desc limit ${contagem_linha_disco}, 1;`
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
