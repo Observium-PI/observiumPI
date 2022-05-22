@@ -13,8 +13,7 @@ function fnEntrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        usuarioModel
-            .fnEntrar(usuario, senha)
+        usuarioModel.fnEntrar(usuario, senha)
             .then(function (resultado) {
                 if (resultado.length == 1) {
                     res.status(200).json(resultado[0]);
@@ -62,8 +61,7 @@ function listarUsers(req, res) {
         return res.status(404).send("Não há id desse user!");
     }
 
-    usuarioModel
-        .listarUsers(hospital)
+    usuarioModel.listarUsers(hospital)
         .then((resultado) => {
             return res.status(200).send(resultado);
         })
@@ -79,8 +77,7 @@ function pegarUsers(req, res) {
         return res.status(400).send("Não há id desse user!");
     }
 
-    usuarioModel
-        .pegarUsers(id)
+    usuarioModel.pegarUsers(id)
         .then((resultado) => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id inexistente.");
@@ -110,8 +107,7 @@ function pesquisarUsers(req, res) {
 function desligarUser(req, res) {
     var id = req.body.idUsuario;
 
-    usuarioModel
-        .desligarUser(id)
+    usuarioModel.desligarUser(id)
         .then((resultado) => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id inexistente.");
@@ -137,8 +133,7 @@ function alterarUsers(req, res) {
         return res.status(400).send("Campo senha está vazio.");
     }
 
-    usuarioModel
-        .alterarUsers(id, novoNome, novaSenha)
+    usuarioModel.alterarUsers(id, novoNome, novaSenha)
         .then((resultado) => {
             if (resultado.length == 0) {
                 return res.status(400).send("Id e nome inexistente.");
