@@ -394,7 +394,7 @@ function cadastrar() {
     }
 
     if (nome.length < 3 || nome.length > 100) {
-        window.alert("Quantidade de caracteres no campo nome transportadora inválido");
+        window.alert("Quantidade de caracteres no campo nome inválido");
         return;
     }
 
@@ -481,11 +481,11 @@ function cadastrar() {
         .then(function (resposta) {
             if (resposta.status != 409) {
                 window.alert("Cadastro Efetuado!!");
+                window.location.reload();
                 return;
             }
 
-            window.alert("Email ou Login Existente!");
-            window.location.reload();
+           resposta.json().then((a) => alert(a.message));
         })
         .catch(error => {
             console.log("Estamos no catch!\nErro: " + error);
