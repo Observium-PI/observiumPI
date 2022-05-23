@@ -40,7 +40,7 @@ function pesquisarUsers(pesquisa) {
 
 function desligarUser(id) {
   var instrucao = `
-    DELETE FROM Usuario WHERE idUsuario = "${id}";
+    DELETE FROM Usuario WHERE idUsuario = ${id};
   `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
@@ -49,7 +49,7 @@ function desligarUser(id) {
 
 function alterarUsers(id, novoNome, novaSenha) {
   var instrucao = `
-    UPDATE Usuario SET nome = "${novoNome}", senha = "${novaSenha}" WHERE idUsuario = "${id}";
+    UPDATE Usuario SET nome = '${novoNome}', senha = '${novaSenha}' WHERE idUsuario = ${id};
 `;
 
   console.log('Executando a instrução SQL: \n' + instrucao);
