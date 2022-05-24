@@ -18,8 +18,12 @@ router.get("/buscar-maquinas/", function (req, res) {
     medidaController.buscarMaquinas(req, res);
 })
 
-router.get("/tempo-real-disco/:idComputador/:contagem_linha_disco", function (req, res) {
+router.get("/tempo-real-disco/:idComputador/:contagem_linha_disco/:discoSelecionado/", function (req, res) {
     medidaController.buscarMedidasEmTempoRealDisco(req, res);
+})
+
+router.get("/buscar-discos/:idComputador/", function (req, res) {
+    medidaController.buscarDiscos(req, res);
 })
 
 // EXPORTAÇÃO DESTE ARQUIVO COMO ROTA

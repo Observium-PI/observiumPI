@@ -27,6 +27,7 @@ var idGrafico = 1;
 var contagem_linha = 0;
 var contagem_linha_mem = 0;
 var contagem_linha_disco = 0;
+var discoSelecionado = "disco 1";
 
 if (sessionStorage.ID_GRAFICO != 1) {
     var idGrafico = sessionStorage.ID_GRAFICO;
@@ -39,10 +40,13 @@ let proximaAtualizacaoDisco;
 
 // quando a janela carregar, executar a função obterDadosGrafico(1)
 window.onload = buscarMaquinas();
+window.onload = buscarDiscos(idGrafico);
 window.onload = obterDadosGrafico(idGrafico, contagem_linha);
 window.onload = obterDadosGraficoMemoria(idGrafico, contagem_linha_mem);
-window.onload = obterDadosGraficoDisco(idGrafico, contagem_linha_disco);
+window.onload = obterDadosGraficoDisco(idGrafico, contagem_linha_disco, discoSelecionado);
 
+//FUNÇÃO PARA IMPLEMENTAR OPTION NO SELECT DAS MÁQUINAS
+//E FUNÇÃO PARA PLOTAGEM NA COMBOBOX DAS MÁQUINAS
 function buscarMaquinas() {
     // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
     fetch(`/medida/buscar-maquinas/`, { cache: 'no-store' }).then(function (response) {
@@ -65,7 +69,6 @@ function buscarMaquinas() {
         });
 }
 
-// FUNÇÃO DE PLOTAGEM NA COMBOBOX DAS MÁQUINAS
 function plotarNaCombo(resposta) {
     console.log('iniciando plotagem nas combos...');
 
@@ -102,13 +105,16 @@ function selectAttGraficoW() {
         clearTimeout(proximaAtualizacaoMem);
         clearTimeout(proximaAtualizacaoDisco);
 
-        document.getElementById("lineChart").innerHTML = "";
-        document.getElementById("donutChartOne").innerHTML = "";
-        document.getElementById("donutChartTwo").innerHTML = "";
+        this.grafico_linha.destroy();
+        this.grafico_donut_mem.destroy();
+        this.grafico_donut_Disco.destroy();
+        
+        document.getElementById("select_discos_pc").options.length = 0;
 
         obterDadosGrafico(sessionStorage.ID_GRAFICO, contagem_linha)
         obterDadosGraficoMemoria(sessionStorage.ID_GRAFICO, contagem_linha_mem)
-        obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco)
+        obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco, discoSelecionado)
+        buscarDiscos(sessionStorage.ID_GRAFICO)
 
         select_linux.selectedIndex = 0;
     }
@@ -125,20 +131,69 @@ function selectAttGraficoL() {
         clearTimeout(proximaAtualizacaoMem);
         clearTimeout(proximaAtualizacaoDisco);
 
-        document.getElementById("lineChart").innerHTML = "";
-        document.getElementById("donutChartOne").innerHTML = "";
-        document.getElementById("donutChartTwo").innerHTML = "";
+        this.grafico_linha.destroy();
+        this.grafico_donut_mem.destroy();
+        this.grafico_donut_Disco.destroy();
+        
+        document.getElementById("select_discos_pc").options.length = 0;
 
         obterDadosGrafico(sessionStorage.ID_GRAFICO, contagem_linha)
         obterDadosGraficoMemoria(sessionStorage.ID_GRAFICO, contagem_linha_mem)
-        obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco)
+        obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco, discoSelecionado)
+        buscarDiscos(sessionStorage.ID_GRAFICO)
 
         select_windows.selectedIndex = 0;
     }
 }
 
+//FUNÇÕES PARA COLOCAR DISCOS NA COMBOBOX
+function buscarDiscos(idComputador) {
+    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
+    fetch(`/medida/buscar-discos/${idComputador}/`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                // inverter a ordem dos dados
+                //resposta.reverse();
+
+                // após trazer a resposta, levar ela para a função de plotar o gráfico
+                plotarNaComboDisco(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos discos: ${error.message}`);
+        });
+}
+
+function plotarNaComboDisco(resposta) {
+    console.log('iniciando plotagem nas combos...');
+
+    var selectDisco = [];
+    var comboDisc = document.getElementById("select_discos_pc");
+
+    for (i = 0; i < resposta.length; i++) {
+        selectDisco.push(resposta[i])
+        var optionDisc = new Option(`Disco ${i + 1}`, resposta[i].tipoComponente)
+        comboDisc.add(optionDisc)
+    }
+}
+
+function selectAttDisco() {
+    var selectDisk = select_discos_pc.value;
+
+    this.grafico_donut_Disco.destroy();
+    clearTimeout(proximaAtualizacaoDisco);
+    proximaAtualizacaoDisco = 0;
+
+    obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco, selectDisk)
+}
+
 //GRAFICO MEMORIA
-// função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
+//função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
 function obterDadosGraficoMemoria(idComputador, contagem_linha_mem) {
     if (proximaAtualizacaoMem != undefined) {
         clearTimeout(proximaAtualizacaoMem);
@@ -165,7 +220,6 @@ function obterDadosGraficoMemoria(idComputador, contagem_linha_mem) {
         });
 }
 
-// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA MÁQUINA
 function plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem) {
     console.log('iniciando plotagem do gráfico...');
 
@@ -262,13 +316,14 @@ function atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM) {
 }
 
 //GRAFICO DISCO
-function obterDadosGraficoDisco(idComputador, contagem_linha_disco) {
+//função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
+function obterDadosGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado) {
     if (proximaAtualizacaoDisco != undefined) {
         clearTimeout(proximaAtualizacaoDisco);
     }
 
     // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/tempo-real-disco/${idComputador}/${contagem_linha_disco}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/medida/tempo-real-disco/${idComputador}/${contagem_linha_disco}/${discoSelecionado}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
             response.json().then(function (resposta) {
@@ -277,7 +332,7 @@ function obterDadosGraficoDisco(idComputador, contagem_linha_disco) {
                 //resposta.reverse();
 
                 // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarGraficoDisco(resposta, idComputador, contagem_linha_disco);
+                plotarGraficoDisco(resposta, idComputador, contagem_linha_disco, discoSelecionado);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -288,8 +343,7 @@ function obterDadosGraficoDisco(idComputador, contagem_linha_disco) {
         });
 }
 
-// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA MÁQUINA
-function plotarGraficoDisco(resposta, idComputador, contagem_linha_disco) {
+function plotarGraficoDisco(resposta, idComputador, contagem_linha_disco, discoSelecionado) {
     console.log('iniciando plotagem do gráfico...');
 
     // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
@@ -346,11 +400,11 @@ function plotarGraficoDisco(resposta, idComputador, contagem_linha_disco) {
 
     //Atualiza os dados de 7 em 7 segundos
     contagem_linha_disco++;
-    setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, dadosD), 10000);
+    setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD), 10000);
 }
 
-function atualizarGraficoDisco(idComputador, contagem_linha_disco, dadosD) {
-    fetch(`/medida/tempo-real-disco/${idComputador}/${contagem_linha_disco}`, { cache: 'no-store' }).then(function (response) {
+function atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD) {
+    fetch(`/medida/tempo-real-disco/${idComputador}/${contagem_linha_disco}/${discoSelecionado}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (novoRegistroDisco) {
 
@@ -371,11 +425,11 @@ function atualizarGraficoDisco(idComputador, contagem_linha_disco, dadosD) {
                 contagem_linha_disco++;
                 window.grafico_donut_Disco.update();
 
-                proximaAtualizacaoDisco = setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, dadosD), 2000);
+                proximaAtualizacaoDisco = setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD), 2000);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
-            proximaAtualizacaoDisco = setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, dadosD), 2000);
+            proximaAtualizacaoDisco = setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD), 2000);
         }
     })
         .catch(function (error) {
@@ -412,7 +466,6 @@ function obterDadosGrafico(idComputador, contagem_linha) {
         });
 }
 
-// FUNÇÃO DE PLOTAGEM DE GRÁFICO TRAZENDO A RESPOSTA E O ID DA MÁQUINA
 function plotarGrafico(resposta, idComputador, contagem_linha) {
     console.log('iniciando plotagem do gráfico...');
 
@@ -494,8 +547,6 @@ function plotarGrafico(resposta, idComputador, contagem_linha) {
     setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 10000);
 }
 
-// só mexer se quiser alterar o tempo de atualização
-// ou se souber o que está fazendo!
 function atualizarGrafico(idComputador, contagem_linha, dados) {
     fetch(`/medida/tempo-real/${idComputador}/${contagem_linha}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
