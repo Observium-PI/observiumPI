@@ -1,8 +1,12 @@
 var computadorModel = require("../models/computadorModel");
 
 
-function fnListar(req, res) {
-        computadorModel.fnListar()
+function listarPorHospital(req, res) {
+    let idHospital = req.params.idHospital;
+    if(idHospital == null){
+        res.status(400).send("idHospital não pode ser undefined");
+    }else{
+        computadorModel.listarPorHospital(idHospital)
             .then(
                 function (resultado) {
                     res.status(200).json(resultado);     
@@ -14,6 +18,7 @@ function fnListar(req, res) {
                     res.status(500).json(erro.sqlMessage);
                 }
             );
+        }
 }
 
 function fnExcluir(req, res){
@@ -45,7 +50,7 @@ function fnEditar(req, res){
 }
 
 module.exports = {
-    fnListar,
+    listarPorHospital,
     fnExcluir,
     fnEditar
 }

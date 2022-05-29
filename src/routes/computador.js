@@ -3,8 +3,8 @@ var router = express.Router();
 
 var computadorController = require("../controllers/computadorController.js");
 
-router.get("/listar", function (req, res) {
-    computadorController.fnListar(req, res);
+router.get("/listar/:idHospital", function(req, res){
+    computadorController.listarPorHospital(req, res);
 });
 
 router.post("/excluir", function(req, res){

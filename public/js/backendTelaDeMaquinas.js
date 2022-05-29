@@ -15,8 +15,11 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         link_tela_funcionario.appendChild(icon_tela_funcionario);
     }
 
+    //Resgatando hospital do usuário logado 
+    let idHospital = sessionStorage.getItem('Hospital'); 
+
     // Requisição do tipo GET para a listagem de computadores
-    fetch("computador/listar", {
+    fetch(`computador/listar/${idHospital}`, {
         method: "GET",
         mode: "cors"
     })
@@ -140,7 +143,7 @@ function fnDeslogar(){
 }
 
 function id_grafico(idComputador){
-    sessionStorage.setItem("ID_GRAFICO", idComputador);
+    sessionStorage.setItem("idComputador", idComputador);
     location.href = "../dashboard.html"
 }
 

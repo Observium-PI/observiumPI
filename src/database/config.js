@@ -28,9 +28,9 @@ var mySqlConfigFaculdade = {
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL e na máquina de casa)
 var mySqlConfigCasa = {
   host: "localhost",
-  user: "aluno",
+  user: "root",
   database: "Observium",
-  password: "sptech"
+  password: "observium123"
 };
 
 function executar(instrucao) {
@@ -63,7 +63,7 @@ function executar(instrucao) {
         if (erro) {
           reject(erro);
         }
-        console.log(resultados);
+        // console.log("Resultado da consulta: " + resultados);
         resolve(resultados);
       });
       conexao.on("error", function (erro) {

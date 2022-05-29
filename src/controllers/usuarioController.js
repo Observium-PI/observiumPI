@@ -11,7 +11,7 @@ function fnEntrar(req, res) {
     if (usuario == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
+        res.status(400).send("Sua senha está undefined!");
     } else {
         usuarioModel.fnEntrar(usuario, senha)
             .then(function (resultado) {

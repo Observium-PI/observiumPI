@@ -23,557 +23,405 @@ function fnDeslogar() {
     location = "index.html";
 }
 
-var idGrafico = 1;
-var contagem_linha = 0;
-var contagem_linha_mem = 0;
-var contagem_linha_disco = 0;
-var discoSelecionado = "disco 1";
+function getMaquinas(hospital) {
 
-if (sessionStorage.ID_GRAFICO != 1) {
-    var idGrafico = sessionStorage.ID_GRAFICO;
-}
-
-// variável de proxima atualização
-let proximaAtualizacao;
-let proximaAtualizacaoMem;
-let proximaAtualizacaoDisco;
-
-// quando a janela carregar, executar a função obterDadosGrafico(1)
-window.onload = buscarMaquinas();
-window.onload = buscarDiscos(idGrafico);
-window.onload = obterDadosGrafico(idGrafico, contagem_linha);
-window.onload = obterDadosGraficoMemoria(idGrafico, contagem_linha_mem);
-window.onload = obterDadosGraficoDisco(idGrafico, contagem_linha_disco, discoSelecionado);
-
-//FUNÇÃO PARA IMPLEMENTAR OPTION NO SELECT DAS MÁQUINAS
-//E FUNÇÃO PARA PLOTAGEM NA COMBOBOX DAS MÁQUINAS
-function buscarMaquinas() {
-    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/buscar-maquinas/`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                // inverter a ordem dos dados
-                //resposta.reverse();
-
-                // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarNaCombo(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
+    fetch(`computador/listar/${hospital}`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache'
     })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+        .then((resultado) => {
+            resultado.json().then(
+                (dados) => {
+                    let comboW = document.getElementById("select_windows");
+                    let comboL = document.getElementById("select_linux");
+
+                    dados.forEach(maquina => {
+                        if (maquina.sistemaOperacional == "Windows") {
+                            let opcao = new Option(maquina.hostname, maquina.idComputador);
+                            comboW.add(opcao);
+                        } else {
+                            let opcao = new Option(maquina.hostname, maquina.idComputador);
+                            comboL.add(opcao);
+                        }
+                    });
+                })
+        })
+        .catch((erro) => {
+            console.log(erro);
+        })
+
+
 }
 
-function plotarNaCombo(resposta) {
-    console.log('iniciando plotagem nas combos...');
+// Vetor que armazenará as medidas dos componentes
+let idMonitoramentos = [];
+let dataHoraMonitoramentos = [];
+let medidasCPU = [];
+let medidasMemoria = [];
+let medidasDisco = [];
 
-    var maquinasLinux = [];
-    var maquinasWindows = [];
-    var comboW = document.getElementById("select_windows");
-    var comboL = document.getElementById("select_linux");
-
-    for (i = 0; i < resposta.length; i++) {
-        if (resposta[i].sistemaOperacional == "Windows") {
-            maquinasWindows.push(resposta[i])
-            var optionW = new Option(resposta[i].hostname, resposta[i].idComputador)
-            comboW.add(optionW)
-        } else {
-            maquinasLinux.push(resposta[i])
-            var optionL = new Option(resposta[i].hostname, resposta[i].idComputador)
-            comboL.add(optionL)
-        }
-
-        if (resposta[i].idComputador == sessionStorage.ID_GRAFICO) {
-            hostname_maquina.innerHTML = resposta[i].hostname
-        }
-    }
-}
-
-function selectAttGraficoW() {
-    var selectWindows = select_windows.value;
-    hostname_maquina.innerHTML = select_windows.options[select_windows.selectedIndex].text
-
-    if (selectWindows != 0) {
-        sessionStorage.ID_GRAFICO = selectWindows;
-
-        clearTimeout(proximaAtualizacao);
-        clearTimeout(proximaAtualizacaoMem);
-        clearTimeout(proximaAtualizacaoDisco);
-
-        this.grafico_linha.destroy();
-        this.grafico_donut_mem.destroy();
-        this.grafico_donut_Disco.destroy();
+// Criação dos gráficos para posterior manipulação
+// CPU
+const cpuChart = document.getElementById('lineChart').getContext('2d');
+let graficoCPU = new Chart(cpuChart, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: 'Uso da CPU',
+            data: [],
+            backgroundColor: "rgba(10, 20, 30, 0.5)",
+            fontColor: "#ffffff"
+        }],
         
-        document.getElementById("select_discos_pc").options.length = 0;
-
-        obterDadosGrafico(sessionStorage.ID_GRAFICO, contagem_linha)
-        obterDadosGraficoMemoria(sessionStorage.ID_GRAFICO, contagem_linha_mem)
-        obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco, discoSelecionado)
-        buscarDiscos(sessionStorage.ID_GRAFICO)
-
-        select_linux.selectedIndex = 0;
+    },
+    options:{
+        legend: {
+            labels: {
+                fontColor: "white",
+            }
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    stepSize: 1,
+                    fontSize: 11,
+                    
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "white",
+                    stepSize: 1,
+                    
+                }
+            }]
+        }
     }
-}
 
-function selectAttGraficoL() {
-    var selectLinux = select_linux.value;
-    hostname_maquina.innerHTML = select_linux.options[select_linux.selectedIndex].text
+});
+// Memoria
+const memoriaChart = document.getElementById('donutChartOne').getContext('2d');
+let graficoMemoria = new Chart(memoriaChart, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            label: "Uso da RAM",
+            data: [],
+            backgroundColor: ["white", "#0c1622"],
+            borderWidth: 1,
+            hoverOffset: 4
+        }]
+    }, 
+    options:{
+        legend: {
+            labels: {
+                fontColor: "white",
+            }
+        }
+    }
+});
+// Disco
+const discoChart = document.getElementById('donutChartTwo').getContext('2d');
+let graficoDisco = new Chart(discoChart, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            label: "Armazenamento do disco",
+            data: [],
+            backgroundColor: ["white", "#0c1622"],
+            borderWidth: 1,
+            hoverOffset: 4
+        }]
+    },
+    options:{
+        legend: {
+            labels: {
+                fontColor: "white",
+            }
+        }
+    }
+});
+
+async function getMedidas(idComputador) {
+   let resposta = await fetch(`medida/buscar-medidas/${idComputador}`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache'
+    })
+    let dados = await resposta.json(); 
+    //Verificando se há medidas
+        // Limpando os vetores antes de preenchê-los
+        idMonitoramentos = [];
+        dataHoraMonitoramentos = [];
+        medidasCPU = [];
+        medidasMemoria = [];
+        medidasDisco = [];
+        dados.forEach(medidas => {
+            
+            // Preenchendo os vetores
+            idMonitoramentos.push(medidas.idMonitoramento);
+            dataHoraMonitoramentos.push(medidas.dataHora);
+            medidasCPU.push(medidas.processador);
+            medidasMemoria.push(medidas.memoria);
+            medidasDisco.push(medidas.disco);
+        });
     
-    if (selectLinux != 0) {
-        sessionStorage.ID_GRAFICO = selectLinux;
+    plotarDadosCPU();
+    plotarDadosMemoria();
+    plotarDadosDisco();
 
-        clearTimeout(proximaAtualizacao);
-        clearTimeout(proximaAtualizacaoMem);
-        clearTimeout(proximaAtualizacaoDisco);
+}
 
-        this.grafico_linha.destroy();
-        this.grafico_donut_mem.destroy();
-        this.grafico_donut_Disco.destroy();
+function plotarDadosCPU() {
+    //Antes de plotar os dados na CPU, vamos formatar a data e hora que vem por padrão do banco
+    for(let i = 0; i < dataHoraMonitoramentos.length; i++){
+        dataHoraMonitoramentos[i] = dataHoraMonitoramentos[i].substring(11, 19); 
+    }
+
+    switch (medidasCPU.length) {
+        case 0:
+         // Limpando todo o gráfico
+         graficoCPU.data.labels = [];
+         graficoCPU.data.datasets[0].data = [];
+
+
+        break;
+        case 1:
+            // Limpando todo o gráfico
+            graficoCPU.data.labels = [];
+            graficoCPU.data.datasets[0].data = [];
+
+            // Incluindo labels no gráfico
+            dataHoraMonitoramentos.forEach(dataHora => {
+                graficoCPU.data.labels.push(dataHora);
+            });
+
+
+
+            //Incluindo dados no gráfico
+            medidasCPU.forEach(medida => {
+                graficoCPU.data.datasets[0].data.push(medida);
+            })
+
+
+      
+            break;
+
+        case 2:
+            // Limpando todo o gráfico
+            graficoCPU.data.labels = [];
+            graficoCPU.data.datasets[0].data = [];
+
+            // Incluindo labels no gráfico
+            dataHoraMonitoramentos.forEach(dataHora => {
+                graficoCPU.data.labels.push(dataHora);
+            });
+
+
+
+            //Incluindo dados no gráfico
+            medidasCPU.forEach(medida => {
+                graficoCPU.data.datasets[0].data.push(medida);
+            })
+
+
+          
+            break;
+
+        case 3:
+            // Limpando todo o gráfico
+            graficoCPU.data.labels = [];
+            graficoCPU.data.datasets[0].data = [];
+
+            // Incluindo labels no gráfico
+            dataHoraMonitoramentos.forEach(dataHora => {
+                graficoCPU.data.labels.push(dataHora);
+            });
+
+
+
+            //Incluindo dados no gráfico
+            medidasCPU.forEach(medida => {
+                graficoCPU.data.datasets[0].data.push(medida);
+            })
+
+
+            
+            break;
+
+        case 4:
+           // Limpando todo o gráfico
+           graficoCPU.data.labels = [];
+           graficoCPU.data.datasets[0].data = [];
+
+           // Incluindo labels no gráfico
+           dataHoraMonitoramentos.forEach(dataHora => {
+               graficoCPU.data.labels.push(dataHora);
+           });
+
+           //Incluindo dados no gráfico
+           medidasCPU.forEach(medida => {
+               graficoCPU.data.datasets[0].data.push(medida);
+           })
+            break;
+
+        case 5:
+            // Limpando todo o gráfico
+            graficoCPU.data.labels = [];
+            graficoCPU.data.datasets[0].data = [];
+
+            // Incluindo labels no gráfico
+            dataHoraMonitoramentos.forEach(dataHora => {
+                graficoCPU.data.labels.push(dataHora);
+            });
+
+            //Incluindo dados no gráfico
+            medidasCPU.forEach(medida => {
+                graficoCPU.data.datasets[0].data.push(medida);
+            })
+
+            break;
+
+        case 6:
+            // Limpando todo o gráfico
+            graficoCPU.data.labels = [];
+            graficoCPU.data.datasets[0].data = [];
+
+            // Incluindo labels no gráfico
+            dataHoraMonitoramentos.forEach(dataHora => {
+                graficoCPU.data.labels.push(dataHora);
+            });
+
+
+
+            //Incluindo dados no gráfico
+            medidasCPU.forEach(medida => {
+                graficoCPU.data.datasets[0].data.push(medida);
+            })
+
+
+            
+            break;
+
+        case 7:
+            // Limpando todo o gráfico
+            graficoCPU.data.labels = [];
+            graficoCPU.data.datasets[0].data = [];
+
+            // Incluindo labels no gráfico
+            dataHoraMonitoramentos.forEach(dataHora => {
+                graficoCPU.data.labels.push(dataHora);
+            });
+
+
+
+            //Incluindo dados no gráfico
+            medidasCPU.forEach(medida => {
+                graficoCPU.data.datasets[0].data.push(medida);
+            })
+
+
         
-        document.getElementById("select_discos_pc").options.length = 0;
+            break;
 
-        obterDadosGrafico(sessionStorage.ID_GRAFICO, contagem_linha)
-        obterDadosGraficoMemoria(sessionStorage.ID_GRAFICO, contagem_linha_mem)
-        obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco, discoSelecionado)
-        buscarDiscos(sessionStorage.ID_GRAFICO)
-
-        select_windows.selectedIndex = 0;
-    }
-}
-
-//FUNÇÕES PARA COLOCAR DISCOS NA COMBOBOX
-function buscarDiscos(idComputador) {
-    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/buscar-discos/${idComputador}/`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                // inverter a ordem dos dados
-                //resposta.reverse();
-
-                // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarNaComboDisco(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos discos: ${error.message}`);
-        });
-}
-
-function plotarNaComboDisco(resposta) {
-    console.log('iniciando plotagem nas combos...');
-
-    var selectDisco = [];
-    var comboDisc = document.getElementById("select_discos_pc");
-
-    for (i = 0; i < resposta.length; i++) {
-        selectDisco.push(resposta[i])
-        var optionDisc = new Option(`Disco ${i + 1}`, resposta[i].tipoComponente)
-        comboDisc.add(optionDisc)
-    }
-}
-
-function selectAttDisco() {
-    var selectDisk = select_discos_pc.value;
-
-    this.grafico_donut_Disco.destroy();
-    clearTimeout(proximaAtualizacaoDisco);
-    proximaAtualizacaoDisco = 0;
-
-    obterDadosGraficoDisco(sessionStorage.ID_GRAFICO, contagem_linha_disco, selectDisk)
-}
-
-//GRAFICO MEMORIA
-//função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
-function obterDadosGraficoMemoria(idComputador, contagem_linha_mem) {
-    if (proximaAtualizacaoMem != undefined) {
-        clearTimeout(proximaAtualizacaoMem);
+        default:
+            break;
     }
 
-    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/tempo-real-memoria/${idComputador}/${contagem_linha_mem}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                // inverter a ordem dos dados
-                //resposta.reverse();
-
-                // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+    graficoCPU.update();
 }
 
-function plotarGraficoMemoria(resposta, idComputador, contagem_linha_mem) {
-    console.log('iniciando plotagem do gráfico...');
+function plotarDadosMemoria(){
+    // Limpando gráfico antes de replotar
+    graficoMemoria.data.labels = [];
+    graficoMemoria.data.datasets[0].data = [];
+    memUso.innerHTML = ""; 
+    memDisp.innerHTML = ""; 
 
-    // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
-    var dadosM = {
-        labels: [],
-        datasets: [
-            {
-                borderColor: '#ab30398f',
-                backgroundColor: '#cb5b578f',
-                fill: true,
-                data: []
-            }
-        ]
-    };
+    if(medidasMemoria.length == 0){
+        graficoMemoria.data.labels = [];
+        graficoMemoria.data.datasets[0].data = [];
+    }else{
+        graficoMemoria.data.labels.push("Em uso");
+        graficoMemoria.data.datasets[0].data.push(medidasMemoria[0]);
+        memUso.innerHTML = `Em uso: ${medidasMemoria[0]}%`; 
 
-    // LAÇO DE REPETIÇÃO PARA ARMAZENAR OS DADOS DE HORA EM "LABELS"
-    // OS DADOS DA CPU NO DATASET(0).DATA
-    for (i = 0; i <= 0; i++) {
-        var registroMem = resposta[i];
-        var registroMemDois = (100 - resposta[i].medida).toFixed(1);
-        dadosM.labels.push(registroMem.medida);
-        dadosM.datasets.push(registroMemDois);
+        // Memória disponível
+        graficoMemoria.data.labels.push("Disponível");
+        graficoMemoria.data.datasets[0].data.push(100 - medidasMemoria[0]);
+        memDisp.innerHTML = "Disponível: " + (100 - medidasMemoria[0]) + "%";
     }
 
-    // Definição inicial do gráfico de memória RAM
-    let usoMem = dadosM.labels[0];
-    let dispMem = dadosM.datasets[1];
-    memDisp.innerHTML = `Disp: ${dispMem}%`;
-    memUso.innerHTML = `Em uso: ${usoMem}%`;
-
-    // CONSOLE IMPRIMIRÁ OS DADOS
-    console.log(JSON.stringify(dadosM));
-
-    // CONFIGURAÇÃO DO GRÁFICO DO TIPO 2D
-    // Configuração do gráfico de memória RAM
-    var ctx = donutChartOne.getContext('2d');
-    window.grafico_donut_mem = Chart.Doughnut(ctx, {
-        type: "doughnut",
-        data: {
-            labels: ["Em uso", "Restante"],
-            datasets: [{
-                data: [dadosM.labels[0], dadosM.datasets[1]],
-                borderColor: "#0a518f",
-                backgroundColor: ["white", "#0c1622"],
-                fill: false
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            }
-        }
-    });
-
-    //Atualiza os dados de 7 em 7 segundos
-    contagem_linha_mem++;
-    setTimeout(() => atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM), 10000);
+    graficoMemoria.update();
+    
 }
 
-function atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM) {
-    fetch(`/medida/tempo-real-memoria/${idComputador}/${contagem_linha_mem}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (novoRegistroMem) {
+function plotarDadosDisco(){
+    // Limpando gráfico antes de replotar
+    graficoDisco.data.labels = [];
+    graficoDisco.data.datasets[0].data = [];
+    discoDisp.innerHTML = "";
+    discoUso.innerHTML = "";
 
-                console.log(`Dados recebidos: ${JSON.stringify(novoRegistroMem)}`);
-                console.log(`Dados atuais do gráfico: ${dadosM}`);
+    if(medidasDisco.length == 0){
+        graficoDisco.data.labels = [];
+        graficoDisco.data.datasets[0].data = [];
+    }else{
+        graficoDisco.data.labels.push("Em uso");
+        graficoDisco.data.datasets[0].data.push(medidasDisco[0]);
+        discoUso.innerHTML = `Em uso: ${medidasDisco[0]}%`; 
 
-                // tirando e colocando valores no gráfico
-                grafico_donut_mem.data.datasets[0].data[0] = novoRegistroMem[0].medida; //incluir um novo momento
-
-                var registroMemDois = (100 - novoRegistroMem[0].medida).toFixed(1);
-
-                grafico_donut_mem.data.datasets[0].data[1] = registroMemDois; // incluir uma nova medida
-
-                memDisp.innerHTML = `Disp: ${registroMemDois}%`;
-                memUso.innerHTML = `Em uso: ${novoRegistroMem[0].medida}%`;
-
-                i++;
-                contagem_linha_mem++;
-                window.grafico_donut_mem.update();
-
-                proximaAtualizacaoMem = setTimeout(() => atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM), 2000);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-            proximaAtualizacaoMem = setTimeout(() => atualizarGraficoMemoria(idComputador, contagem_linha_mem, dadosM), 2000);
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-
-}
-
-//GRAFICO DISCO
-//função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
-function obterDadosGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado) {
-    if (proximaAtualizacaoDisco != undefined) {
-        clearTimeout(proximaAtualizacaoDisco);
+        // Memória disponível
+        graficoDisco.data.labels.push("Disponível");
+        graficoDisco.data.datasets[0].data.push(100 - medidasDisco[0]);
+        discoDisp.innerHTML = `Disponível: ${100 - medidasDisco[0]}%`;
     }
 
-    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/tempo-real-disco/${idComputador}/${contagem_linha_disco}/${discoSelecionado}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                // inverter a ordem dos dados
-                //resposta.reverse();
-
-                // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarGraficoDisco(resposta, idComputador, contagem_linha_disco, discoSelecionado);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+    graficoDisco.update();
+    
 }
 
-function plotarGraficoDisco(resposta, idComputador, contagem_linha_disco, discoSelecionado) {
-    console.log('iniciando plotagem do gráfico...');
-
-    // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
-    var dadosD = {
-        labels: [],
-        datasets: [
-            {
-                borderColor: '#ab30398f',
-                backgroundColor: '#cb5b578f',
-                fill: true,
-                data: []
-            }
-        ]
-    };
-
-    // LAÇO DE REPETIÇÃO PARA ARMAZENAR OS DADOS DE HORA EM "LABELS"
-    // OS DADOS DA CPU NO DATASET(0).DATA
-    for (i = 0; i <= 0; i++) {
-        var registroDisco = resposta[i];
-        var registroDiscoDois = (100 - resposta[i].medida).toFixed(2);
-        dadosD.labels.push(registroDisco.medida);
-        dadosD.datasets.push(registroDiscoDois);
-    }
-
-    // Definição inicial do gráfico de memória RAM
-    let usoDisco = dadosD.labels[0];
-    let dispDisco = dadosD.datasets[1];
-    discoDisp.innerHTML = `Disp: ${dispDisco}`;
-    discoUso.innerHTML = `Em uso: ${usoDisco}`;
-
-    // CONSOLE IMPRIMIRÁ OS DADOS
-    console.log(JSON.stringify(dadosD));
-
-    // CONFIGURAÇÃO DO GRÁFICO DO TIPO 2D
-    // Configuração do gráfico de memória RAM
-    var ctx = donutChartTwo.getContext('2d');
-    window.grafico_donut_Disco = Chart.Doughnut(ctx, {
-        type: "doughnut",
-        data: {
-            labels: ["Em uso", "Restante"],
-            datasets: [{
-                data: [dadosD.labels[0], dadosD.datasets[1]],
-                borderColor: "#0a518f",
-                backgroundColor: ["white", "#0c1622"],
-                fill: false
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            }
-        }
-    });
-
-    //Atualiza os dados de 7 em 7 segundos
-    contagem_linha_disco++;
-    setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD), 10000);
+// Atualizando dados quando troca opção no select
+function selectAttGraficoW(){
+    
+    let idComputador = document.getElementById("select_windows").value;
+    sessionStorage.setItem("idComputador", idComputador);
+    getMedidas(idComputador);
 }
 
-function atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD) {
-    fetch(`/medida/tempo-real-disco/${idComputador}/${contagem_linha_disco}/${discoSelecionado}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (novoRegistroDisco) {
+// Atualizando dados quando troca opção no select
+function selectAttGraficoL(){
+    
+    let idComputador = document.getElementById("select_linux").value;
+    sessionStorage.setItem("idComputador", idComputador);
+    getMedidas(idComputador);
+}
 
-                console.log(`Dados recebidos: ${JSON.stringify(novoRegistroDisco)}`);
-                console.log(`Dados atuais do gráfico: ${dadosD}`);
+// Função que será executada assim que a página iniciar
+function carregamentoPagina() {
+    if(sessionStorage.getItem('idComputador') == null){
+        alert("Faltando ID do computador, voltando à tela de máquinas");
+        location = "../tela_maquinas.html";
+    }else{
+    //Resgatando ID do computador
+    let idComputador = sessionStorage.getItem('idComputador');
 
-                // tirando e colocando valores no gráfico
-                grafico_donut_Disco.data.datasets[0].data[0] = novoRegistroDisco[0].medida; //incluir um novo momento
+    //Plotando os dados pela primeira vez
+    getMedidas(idComputador);
+    // Plotando máquinas na combo box
+    getMaquinas(sessionStorage.getItem('Hospital'));
 
-                var registroDiscoDois = (100 - novoRegistroDisco[0].medida).toFixed(2);
+    // Atualizando o gráfico a cada 7 segundos
+    let intervalo = setInterval(() => {
+        //Verificando qual é o computador na sessionStorage
+        idComputador = sessionStorage.getItem('idComputador');
 
-                grafico_donut_Disco.data.datasets[0].data[1] = registroDiscoDois; // incluir uma nova medida
-
-                discoDisp.innerHTML = `Disp: ${registroDiscoDois}`;
-                discoUso.innerHTML = `Em uso: ${novoRegistroDisco[0].medida}`;
-
-                i++;
-                contagem_linha_disco++;
-                window.grafico_donut_Disco.update();
-
-                proximaAtualizacaoDisco = setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD), 2000);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-            proximaAtualizacaoDisco = setTimeout(() => atualizarGraficoDisco(idComputador, contagem_linha_disco, discoSelecionado, dadosD), 2000);
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
+        getMedidas(idComputador);
+    }, 5000);
+}
 
 }
 
-//GRAFICO CPU
-//função de obter dados do gráfico receberá o parâmetro com o id da maquina a ser buscado
-function obterDadosGrafico(idComputador, contagem_linha) {
-    if (proximaAtualizacao != undefined) {
-        clearTimeout(proximaAtualizacao);
-    }
-
-    // FETCH LEVANDO O PARÂMETRO DO ID DA  MAQUINA E FAZENDO UM "GET", OU SEJA, ELE IRÁ TRAZER O SELECT DOS DADOS DE ACORDO COM A GELADEIRA
-    fetch(`/medida/tempo-real/${idComputador}/${contagem_linha}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            // RESPOSTA TRANSFORMADA EM JSON (OBJETO) ENTÃO A FUNÇÃO ARMAZENARÁ OS DADOS NO PARÂMETRO RESPOSTA
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                // inverter a ordem dos dados
-                //resposta.reverse();
-
-                // após trazer a resposta, levar ela para a função de plotar o gráfico
-                plotarGrafico(resposta, idComputador, contagem_linha);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function plotarGrafico(resposta, idComputador, contagem_linha) {
-    console.log('iniciando plotagem do gráfico...');
-
-    // VARIÁVEL DE DADOS RECEBERÁ OS DADOS OBTIDOS
-    var dados = {
-        labels: [],
-        datasets: [
-            {
-                yAxisID: 'y-processamento',
-                label: 'Processamento',
-                borderColor: '#0c1622',
-                backgroundColor: 'rgba(12, 22, 34, 0.5)',
-                fill: true,
-                data: [],
-                position: 'right'
-            }
-        ]
-    };
-
-    // LAÇO DE REPETIÇÃO PARA ARMAZENAR OS DADOS DE HORA EM "LABELS"
-    // OS DADOS DA CPU NO DATASET(0).DATA
-    for (i = 0; i < 7; i++) {
-        var registro = resposta[i];
-        dados.labels.push(registro.momento_grafico);
-        dados.datasets[0].data.push(registro.medida);
-    }
-
-    // CONSOLE IMPRIMIRÁ OS DADOS
-    console.log(JSON.stringify(dados));
-
-    // CONFIGURAÇÃO DO GRÁFICO DO TIPO 2D
-    var ctx = lineChart.getContext('2d');
-    window.grafico_linha = Chart.Line(ctx, {
-        data: dados,
-        //Configurações do gráfico
-        options: {
-            responsive: true,
-            animation: { duration: 500 },
-            hoverMode: 'index',
-            stacked: false,
-            title: {
-                display: true,
-                text: 'Histórico recente de processamento',
-                fontSize: 14,
-                fontColor: 'white'
-            },
-            scales: {
-                yAxes: [{
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    id: 'y-processamento',
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100,
-                        min: 0,
-                        fontSize: 12,
-                        fontColor: "#FFF"
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100,
-                        min: 0,
-                        fontSize: 12,
-                        fontColor: "#FFF"
-                    }
-                }]
-            },
-            legend: {
-                display: false
-            }
-        }
-    });
-
-    //Atualiza os dados de 7 em 7 segundos
-    contagem_linha++;
-    setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 10000);
-}
-
-function atualizarGrafico(idComputador, contagem_linha, dados) {
-    fetch(`/medida/tempo-real/${idComputador}/${contagem_linha}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (novoRegistro) {
-
-                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                console.log(`Dados atuais do gráfico: ${dados}`);
-
-
-                // tirando e colocando valores no gráfico
-                dados.labels.shift(); // apagar o primeiro
-                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-                dados.datasets[0].data.shift();  // apagar o primeiro 
-                dados.datasets[0].data.push(novoRegistro[0].medida); // incluir uma nova medida
-                i++;
-                contagem_linha++;
-                window.grafico_linha.update();
-
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 2000);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(idComputador, contagem_linha, dados), 2000);
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-
-}
+carregamentoPagina();

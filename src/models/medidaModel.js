@@ -1,6 +1,26 @@
 // VARIÁVEL RECEBENDO A CONFIGURAÇÃO DO BANCO DE DADOS PARA CONEXÃO
 var database = require("../database/config");
 
+
+function buscarUltimasMedidas(idComputador){
+    let instrucaoSql = `
+    select idMonitoramento, processador, memoria, disco, dataHora 
+    from Monitoramento 
+    where fkComputador = ${idComputador} 
+    order by idMonitoramento 
+    desc limit 7;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(instrucaoSql);
+
+}
+
+
+/*
+    Funções comentadas pois, com a última modelagem, se tornaram inúteis
+
 // FUNÇÃO DE BUSCAR MEDIDAS EM TEMPO REAL FAZENDO UM SELECT E RETORNANDO A EXECUÇÃO DO COMANDO SQL
 function buscarMedidasEmTempoRealCpu(idComputador, contagem_linha) {
     instrucaoSql = `select cast(medida as numeric(10, 2)) as medida, FORMAT(dataHora,'hh:mm:ss') as 'momento_grafico' 
@@ -34,26 +54,18 @@ function buscarMedidasEmTempoRealDisco(idComputador, contagem_linha_disco, disco
     return database.executar(instrucaoSql);
 }
 
-function buscarMaquinas() {
-    instrucaoSql = `select idComputador, hostname, sistemaOperacional from Computador;`
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
 
-function buscarDiscos(idComputador) {
+
+/*function buscarDiscos(idComputador) {
     instrucaoSql = `select tipoComponente from Componente where tipoComponente like 'disco%' 
                         and fkComputador = ${idComputador};`
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
-}
+}*/
 
 // EXPORTAÇÃO DE MÓDULOS USADOS NA CONTROLLER
 module.exports = {
-    buscarMedidasEmTempoRealCpu,
-    buscarMedidasEmTempoRealMemoria,
-    buscarMedidasEmTempoRealDisco,
-    buscarMaquinas,
-    buscarDiscos
+    buscarUltimasMedidas
 }

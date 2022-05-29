@@ -1,5 +1,42 @@
 // IMPORTAÇÃO DO ARQUIVO MEDIDA MODEL COM OS COMANDOS SQL
 var medidaModel = require("../models/medidaModel");
+// Importando o computador model, pois lá temos a função de listar máquinas
+var computadorModel = require("../models/computadorModel");
+
+function buscarMaquinas(req, res){
+
+   computadorModel.fnListar()
+   .then( (resultado) => {
+       res.status(200).json(resultado);
+   } )
+   .catch( (erro)  => {
+    res.status(500).send(erro.sqlMessage);
+   })
+}
+
+function buscarMedidas(req, res){
+    let idComputador = req.params.idComputador;
+
+    if(idComputador == null){
+        res.status(400).send("idComputador não pode ser undefined");
+    }else{
+        medidaModel.buscarUltimasMedidas(idComputador)
+        .then((resultado) => {
+            res.status(200).json(resultado);
+        })
+        .catch((erro) => {
+            res.status(500).send(erro.sqlMessage);
+        })
+    }
+
+    
+}
+
+
+
+/*
+
+    Funções comentadas pois, com a nova modelagem, se tornam inúteis
 
 // FUNÇÃO PARA BUSCAR MEDIDAS EM TEMPO REAL TERÁ UMA REQUISIÇÃO E RESPOSTA
 function buscarMedidasEmTempoRealCpu(req, res) {
@@ -117,13 +154,10 @@ function buscarDiscos(req, res) {
         console.log("Houve um erro ao buscar discos.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
-}
+}*/
 
 // EXPORTAÇÃO DE MÓDULOS QUE SÃO CHAMADOS NAS ROTAS
 module.exports = {
-    buscarMedidasEmTempoRealCpu,
-    buscarMedidasEmTempoRealMemoria,
-    buscarMaquinas,
-    buscarMedidasEmTempoRealDisco,
-    buscarDiscos
+   buscarMaquinas,
+   buscarMedidas
 }

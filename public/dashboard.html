@@ -9,7 +9,7 @@
 
     <title>Dashboard</title>
 </head>
-<body  onload="obterDadosGrafico(grafico)">
+<body>
     <div class="navbar"></div>
     <div class="side-bar">
         <div class="container">
@@ -46,14 +46,12 @@
                 <div id="maquina-windows" class="filters-box">
                     <h3 class="text">Máquinas Windows</h3>
                     <select onchange="selectAttGraficoW()" class="select-filter" id="select_windows">
-                        <option value="0">Selecione --</option>
                     </select>
                 </div>
 
                 <div id="maquina-linux" class="filters-box">
                     <h3 class="text">Máquinas Linux</h3>
                     <select onchange="selectAttGraficoL()" class="select-filter" id="select_linux">
-                        <option value="0">Selecione --</option>
                     </select>
                 </div>
 
@@ -83,7 +81,7 @@
             </div>
 
             <div class="line-graph">
-                <canvas id="lineChart" style="width:100%;max-width:85%"></canvas>
+                <canvas id="lineChart" style="width:100%;max-width:92%"></canvas>
             </div>
 
             <div class="text-mem">
@@ -93,7 +91,7 @@
             <div class="text-disc">
                 <div class="disco-div">
                     <b class="text">Disco Rígido</b>
-                    <select onchange="selectAttDisco()" id="select_discos_pc" class="select-filter">
+                    <!-- <select onchange="selectAttDisco()" id="select_discos_pc" class="select-filter"> -->
                     </select>
                 </div>
             </div>
