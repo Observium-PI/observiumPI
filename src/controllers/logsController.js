@@ -1,7 +1,9 @@
 var logsModel = require("../models/logsModel");
 
 function fnListarLogs(req, res){
-    logsModel.fnListarLogs()
+    let idHospital = req.params.idHospital;
+
+    logsModel.fnListarLogs(idHospital)
     .then(
         function (resultado) {
             res.status(200).json(resultado);     

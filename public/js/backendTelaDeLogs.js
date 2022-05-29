@@ -15,7 +15,10 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         link_tela_funcionario.appendChild(icon_tela_funcionario);
 
 
-        fetch("logs/listarLogs", {
+        //Resgatando id do hospital da sessão do usuário
+        let idHospital = sessionStorage.getItem("Hospital");
+
+        fetch(`logs/listarLogs/${idHospital}`, {
             method: "GET",
             mode: "cors"
         })
@@ -26,39 +29,47 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         const log = document.getElementById("logs");
                         let card = document.createElement("div");
                         let data = document.createElement("span");
-                        let componente = document.createElement("span");
+                        let cpu = document.createElement("span");
+                        let ram = document.createElement("span");
+                        let disco = document.createElement("span");
                         let maquina = document.createElement("span");
                         let descricao = document.createElement("span");
                 
                         // Formatando a data vinda do banco
-                        let dataHoraFormatada = dados[i].datahora.substring(5, 7) 
+                        let dataHoraFormatada = dados[i].dataHora.substring(5, 7) 
                         + "/" 
-                        + dados[i].datahora.substring(8, 10) 
+                        + dados[i].dataHora.substring(8, 10) 
                         + "/" 
-                        + dados[i].datahora.substring(0, 4)
+                        + dados[i].dataHora.substring(0, 4)
                         + " - "
-                        + dados[i].datahora.substring(11, 13)
+                        + dados[i].dataHora.substring(11, 13)
                         + ":"
-                        + dados[i].datahora.substring(14, 16)
+                        + dados[i].dataHora.substring(14, 16)
                         + ":"
-                        + dados[i].datahora.substring(17, 19);
+                        + dados[i].dataHora.substring(17, 19);
                          
 
 
                         data.innerHTML += dataHoraFormatada;
-                        componente.innerHTML += dados[i].tipoComponente;
-                        maquina.innerHTML += dados[i].hostname;
+                        cpu.innerHTML += dados[i].processador;
+                        ram.innerHTML += dados[i].memoria;
+                        disco.innerHTML += dados[i].disco;
+                        maquina.innerHTML += dados[i].hostName;
                         descricao.innerHTML += dados[i].descricao;
                 
                         log.appendChild(card);
                         card.appendChild(data);
-                        card.appendChild(componente);
+                        card.appendChild(cpu);
+                        card.appendChild(ram);
+                        card.appendChild(disco);
                         card.appendChild(maquina);
                         card.appendChild(descricao);
                 
                         card.classList.add("card-log");
                         data.classList.add("text-log");
-                        componente.classList.add("text-log");
+                        cpu.classList.add("text-log");
+                        ram.classList.add("text-log");
+                        disco.classList.add("text-log");
                         maquina.classList.add("text-log");
                         descricao.classList.add("text-log");
                         

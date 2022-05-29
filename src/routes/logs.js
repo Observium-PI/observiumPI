@@ -3,7 +3,7 @@ var router = express.Router();
 
 var logsController = require("../controllers/logsController.js");
 
-router.get("/listarLogs", function(req, res){
+router.get("/listarLogs/:idHospital", function(req, res){
     logsController.fnListarLogs(req, res);
 });
 
