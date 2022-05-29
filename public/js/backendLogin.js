@@ -30,6 +30,7 @@ function logar() {
                     resposta.json().then(function(dados){
                     // Definindo na variavel de sessão os dados do usuário
                     sessionStorage.setItem("nomeUsuario", dados.nome);
+                    sessionStorage.setItem("idUsuario", dados.idUsuario);
                     sessionStorage.setItem("setor", dados.setor);
                     sessionStorage.setItem("tipoUsuario", dados.tipoUsuario);
                     sessionStorage.setItem("Hospital", dados.fkHospital);

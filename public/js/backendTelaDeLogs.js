@@ -178,4 +178,53 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
     let botao = document.getElementById("btnFiltro");
     botao.addEventListener("click", filtrarLogs);
 
+
+    
+    
+    async function gerarRelatorio(){
+        let idHospital = sessionStorage.getItem('Hospital');
+        let idUsuario = sessionStorage.getItem('idUsuario');
+
+        let response1 = await fetch(`relatorio/${idHospital}/${idUsuario}`, {
+            method: 'GET',
+            mode: 'cors'
+        });
+
+        let dados1 = await response1.json();
+
+        let response2 = await fetch(`relatorio/${idHospital}`,{
+            method: 'GET',
+            mode: 'cors'
+        });
+
+        let dados2 = await response2.json();
+
+        // console.log(dados1, dados2);
+
+        let csv = `Gerado por:, ${dados1[0].nomeUsuario}, , Hospital: , ${dados1[0].nomeHospital}\n\n
+        ID, hostname, Monitoramentos, Alertas, Disponibilidade\n`;
+
+        dados2.forEach(function (linha) {
+            // Calculando disponibilidade
+            let disponibilidade = 100 - ((linha.qtdAlertas/linha.qtdMonitoramento) * 100);
+      
+            csv += linha.idComputador;
+            csv += ',' + linha.hostname;
+            csv += ',' + linha.qtdMonitoramento;
+            csv += ',' + linha.qtdAlertas;
+            csv += ',' + disponibilidade + "%"
+            csv += '\n';
+
+            let hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'relatorio.csv';
+            hiddenElement.click();
+          });
+    }
+
+    let ancora = document.getElementById("ancoraGerarRelatorio");
+    ancora.addEventListener("click", gerarRelatorio);
+
+
 }

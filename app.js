@@ -14,6 +14,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var computadorRouter = require("./src/routes/computador");
 var logsRouter = require("./src/routes/logs");
 var medidaRouter = require("./src/routes/medida");
+var relatorioRouter = require("./src/routes/relatorio");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,6 +28,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/computador", computadorRouter);
 app.use("/logs", logsRouter);
 app.use("/medida", medidaRouter);
+app.use("/relatorio", relatorioRouter);
 
 
 app.listen(PORTA, function () {
