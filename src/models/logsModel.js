@@ -1,7 +1,7 @@
 var database = require('../database/config');
 
 function fnListarLogs(idHospital) {
-    var instrucao = `
+    let instrucao = `
     select M.dataHora, M.processador, M.memoria, M.disco, Cp.tipoComponente, C.hostName, H.descricao
     from Historico as H 
     join Monitoramento as M on H.fkMonitoramento = M.idMonitoramento
@@ -16,6 +16,23 @@ function fnListarLogs(idHospital) {
     return database.executar(instrucao);
   }
 
+function fnListarLogsFiltro(idHospital, dtInicial, dtFinal){
+  let instrucao = `
+  select M.dataHora, M.processador, M.memoria, M.disco, Cp.tipoComponente, C.hostName, H.descricao
+  from Historico as H 
+  join Monitoramento as M on H.fkMonitoramento = M.idMonitoramento
+  join Computador as C on M.fkComputador = C.idComputador
+  join Componente as Cp on Cp.fkComputador = C.idComputador 
+ 
+  where fkHospital = ${idHospital} and dataHora > '${dtInicial}' and dataHora < '${dtFinal}';
+    `;
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+
+}
+
 module.exports = {
-    fnListarLogs
+    fnListarLogs,
+    fnListarLogsFiltro
   }

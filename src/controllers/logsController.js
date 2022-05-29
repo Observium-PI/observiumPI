@@ -16,6 +16,25 @@ function fnListarLogs(req, res){
     )
 }
 
+function fnListarLogsFiltro(req, res){
+    let idHospital = req.params.idHospital;
+    let dtInicial = req.body.dtInicial;
+    let dtFinal = req.body.dtFinal;
+
+    logsModel.fnListarLogsFiltro(idHospital, dtInicial, dtFinal)
+    .then(
+        function (resultado) {
+            res.status(200).json(resultado);     
+        }
+    )
+    .catch(
+        function(erro){
+            res.status(500).json(erro.sqlMessage)
+        }
+    )
+}
+
 module.exports = {
-    fnListarLogs 
+    fnListarLogs,
+    fnListarLogsFiltro 
 }

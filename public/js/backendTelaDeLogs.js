@@ -34,20 +34,20 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         let disco = document.createElement("span");
                         let maquina = document.createElement("span");
                         let descricao = document.createElement("span");
-                
+
                         // Formatando a data vinda do banco
-                        let dataHoraFormatada = dados[i].dataHora.substring(5, 7) 
-                        + "/" 
-                        + dados[i].dataHora.substring(8, 10) 
-                        + "/" 
-                        + dados[i].dataHora.substring(0, 4)
-                        + " - "
-                        + dados[i].dataHora.substring(11, 13)
-                        + ":"
-                        + dados[i].dataHora.substring(14, 16)
-                        + ":"
-                        + dados[i].dataHora.substring(17, 19);
-                         
+                        let dataHoraFormatada = dados[i].dataHora.substring(5, 7)
+                            + "/"
+                            + dados[i].dataHora.substring(8, 10)
+                            + "/"
+                            + dados[i].dataHora.substring(0, 4)
+                            + " - "
+                            + dados[i].dataHora.substring(11, 13)
+                            + ":"
+                            + dados[i].dataHora.substring(14, 16)
+                            + ":"
+                            + dados[i].dataHora.substring(17, 19);
+
 
 
                         data.innerHTML += dataHoraFormatada;
@@ -56,7 +56,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         disco.innerHTML += dados[i].disco;
                         maquina.innerHTML += dados[i].hostName;
                         descricao.innerHTML += dados[i].descricao;
-                
+
                         log.appendChild(card);
                         card.appendChild(data);
                         card.appendChild(cpu);
@@ -64,7 +64,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         card.appendChild(disco);
                         card.appendChild(maquina);
                         card.appendChild(descricao);
-                
+
                         card.classList.add("card-log");
                         data.classList.add("text-log");
                         cpu.classList.add("text-log");
@@ -72,7 +72,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         disco.classList.add("text-log");
                         maquina.classList.add("text-log");
                         descricao.classList.add("text-log");
-                        
+
                     }
                 })
             })
@@ -90,5 +90,92 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         // Logo após, ele é direcionado para a tela inicial do site.
         location = "index.html";
     }
+
+    
+
+    // Funcionalidade filtro de data
+    async function filtrarLogs() {
+        
+        let input_dataInicial = document.getElementById("input_dataInicial");
+        let input_dataFinal = document.getElementById("input_dataFinal");
+        let input_tempoInicial = document.getElementById("input_tempoInicial");
+        let input_tempoFinal = document.getElementById("input_tempoFinal");
+
+        let dtInicial = input_dataInicial.value;
+        let dtFinal = input_dataFinal.value;
+        let tempoInicial = input_tempoInicial.value;
+        let tempoFinal = input_tempoFinal.value;
+
+        let dataInicial = dtInicial + " " + tempoInicial + ":00";
+        let dataFinal = dtFinal + " " + tempoFinal + ":00";  
+
+        
+
+        if (dtInicial && dtFinal && tempoInicial && tempoFinal != "") {
+            if (dtInicial < dtFinal) {
+                // Preparando requisição
+
+
+                let body = JSON.stringify({
+                    "dtInicial": dataInicial,
+                    "dtFinal": dataFinal
+                });
+
+                //Resgatando id do hospital da sessão do usuário
+                let idHospital = sessionStorage.getItem("Hospital");
+                /* 
+                    Como a função é assíncrona, devemos aguardar (await) 
+                    o resultado dela, para que assim podemos armazenar na variavel resposta
+                */
+                let resposta = await fetch(`logs/listarLogs/${idHospital}`, {
+                    method: 'POST',
+                    headers:{
+                            'Content-Type': 'application/json'
+                        },
+                    body: body
+
+                });
+
+                // Agora, para pegarmos os dados, precisamos aguardar que a váriavel let esteja pronta
+                let dados = await resposta.json();
+                console.log(dados);
+            } else if (dtInicial == dtFinal) {
+                if (tempoInicial < tempoFinal) {
+                    let body = JSON.stringify({
+                        "dtInicial": dataInicial,
+                        "dtFinal": dataFinal
+                    });
+    
+                    //Resgatando id do hospital da sessão do usuário
+                    let idHospital = sessionStorage.getItem("Hospital");
+                    /* 
+                        Como a função é assíncrona, devemos aguardar (await) 
+                        o resultado dela, para que assim podemos armazenar na variavel resposta
+                    */
+                    let resposta = await fetch(`logs/listarLogs/${idHospital}`, {
+                        method: 'POST',
+                        headers:{
+                            'Content-Type': 'application/json'
+                        },
+                        body: body
+    
+                    });
+    
+                    // Agora, para pegarmos os dados, precisamos aguardar que a váriavel let esteja pronta
+                    let dados = await resposta.json();
+                    console.log(dados);
+
+                } else {
+                    alert("O primeiro tempo não pode ser maior ou igual ao segundo tempo!")
+                }
+            } else {
+                alert("A primeira data não pode ser maior ou igual do que a segunda!");
+            }
+        } else {
+            alert("Preencha todos os campos de data!");
+        }
+    }
+    let botao = document.getElementById("btnFiltro");
+    botao.addEventListener("click", filtrarLogs);
 
 }
