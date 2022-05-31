@@ -99,6 +99,20 @@ body{
     align-items: flex-start;
 }
 
+.container .data .dataItems{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.dataItems a{
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    align-self: end;
+    margin-right: 1rem;
+}
+
 .container .conteudo-logs {
     height: 70%;
     width: 100%;
@@ -160,3 +174,4 @@ body{
     font-family: 'Ubuntu';
     color: white;
 }
+

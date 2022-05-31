@@ -22,7 +22,7 @@ var mySqlConfigFaculdade = {
   host: "localhost",
   user: "root",
   database: "Observium",
-  password: "drdestinoA1!"
+  password: "observium123"
 };
 
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL e na máquina de casa)
@@ -30,7 +30,7 @@ var mySqlConfigCasa = {
   host: "localhost",
   user: "root",
   database: "Observium",
-  password: "drdestinoA1!"
+  password: "observium123"
 };
 
 function executar(instrucao) {

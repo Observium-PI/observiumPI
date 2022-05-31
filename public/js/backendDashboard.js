@@ -182,9 +182,11 @@ function plotarDadosCPU() {
 
     switch (medidasCPU.length) {
         case 0:
+            
          // Limpando todo o gráfico
          graficoCPU.data.labels = [];
          graficoCPU.data.datasets[0].data = [];
+
 
 
         break;

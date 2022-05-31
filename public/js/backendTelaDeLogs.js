@@ -36,9 +36,9 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
                         let descricao = document.createElement("span");
 
                         // Formatando a data vinda do banco
-                        let dataHoraFormatada = dados[i].dataHora.substring(5, 7)
+                        let dataHoraFormatada = dados[i].dataHora.substring(8, 10)
                             + "/"
-                            + dados[i].dataHora.substring(8, 10)
+                            + dados[i].dataHora.substring(5, 7)
                             + "/"
                             + dados[i].dataHora.substring(0, 4)
                             + " - "
@@ -138,7 +138,61 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
                 // Agora, para pegarmos os dados, precisamos aguardar que a váriavel let esteja pronta
                 let dados = await resposta.json();
-                console.log(dados);
+                // Agora, vamos limpar os logs que já estão em tela
+                const log = document.getElementById("logs");
+
+                while (log.hasChildNodes()) {
+                log.removeChild(log.firstChild);
+                }
+
+                for (let i = 0; i < dados.length; i++) {
+                    //let log = document.getElementById("logs");
+                    let card = document.createElement("div");
+                    let data = document.createElement("span");
+                    let cpu = document.createElement("span");
+                    let ram = document.createElement("span");
+                    let disco = document.createElement("span");
+                    let maquina = document.createElement("span");
+                    let descricao = document.createElement("span");
+
+                    // Formatando a data vinda do banco
+                    let dataHoraFormatada = dados[i].dataHora.substring(8, 10)
+                        + "/"
+                        + dados[i].dataHora.substring(5, 7)
+                        + "/"
+                        + dados[i].dataHora.substring(0, 4)
+                        + " - "
+                        + dados[i].dataHora.substring(11, 13)
+                        + ":"
+                        + dados[i].dataHora.substring(14, 16)
+                        + ":"
+                        + dados[i].dataHora.substring(17, 19);
+
+
+
+                    data.innerHTML += dataHoraFormatada;
+                    cpu.innerHTML += dados[i].processador;
+                    ram.innerHTML += dados[i].memoria;
+                    disco.innerHTML += dados[i].disco;
+                    maquina.innerHTML += dados[i].hostName;
+                    descricao.innerHTML += dados[i].descricao;
+
+                    log.appendChild(card);
+                    card.appendChild(data);
+                    card.appendChild(cpu);
+                    card.appendChild(ram);
+                    card.appendChild(disco);
+                    card.appendChild(maquina);
+                    card.appendChild(descricao);
+
+                    card.classList.add("card-log");
+                    data.classList.add("text-log");
+                    cpu.classList.add("text-log");
+                    ram.classList.add("text-log");
+                    disco.classList.add("text-log");
+                    maquina.classList.add("text-log");
+                    descricao.classList.add("text-log");
+                }
             } else if (dtInicial == dtFinal) {
                 if (tempoInicial < tempoFinal) {
                     let body = JSON.stringify({
@@ -163,7 +217,60 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
     
                     // Agora, para pegarmos os dados, precisamos aguardar que a váriavel let esteja pronta
                     let dados = await resposta.json();
-                    console.log(dados);
+                    // Agora, vamos limpar os logs que já estão em tela
+                    const log = document.getElementById("logs");
+
+                    while (log.hasChildNodes()) {
+                        log.removeChild(log.firstChild);
+                    }
+                    for (let i = 0; i < dados.length; i++) {
+                        //const log = document.getElementById("logs");
+                        let card = document.createElement("div");
+                        let data = document.createElement("span");
+                        let cpu = document.createElement("span");
+                        let ram = document.createElement("span");
+                        let disco = document.createElement("span");
+                        let maquina = document.createElement("span");
+                        let descricao = document.createElement("span");
+
+                        // Formatando a data vinda do banco
+                        let dataHoraFormatada = dados[i].dataHora.substring(8, 10)
+                            + "/"
+                            + dados[i].dataHora.substring(5, 7)
+                            + "/"
+                            + dados[i].dataHora.substring(0, 4)
+                            + " - "
+                            + dados[i].dataHora.substring(11, 13)
+                            + ":"
+                            + dados[i].dataHora.substring(14, 16)
+                            + ":"
+                            + dados[i].dataHora.substring(17, 19);
+
+
+
+                        data.innerHTML += dataHoraFormatada;
+                        cpu.innerHTML += dados[i].processador;
+                        ram.innerHTML += dados[i].memoria;
+                        disco.innerHTML += dados[i].disco;
+                        maquina.innerHTML += dados[i].hostName;
+                        descricao.innerHTML += dados[i].descricao;
+
+                        log.appendChild(card);
+                        card.appendChild(data);
+                        card.appendChild(cpu);
+                        card.appendChild(ram);
+                        card.appendChild(disco);
+                        card.appendChild(maquina);
+                        card.appendChild(descricao);
+
+                        card.classList.add("card-log");
+                        data.classList.add("text-log");
+                        cpu.classList.add("text-log");
+                        ram.classList.add("text-log");
+                        disco.classList.add("text-log");
+                        maquina.classList.add("text-log");
+                        descricao.classList.add("text-log");
+                    }
 
                 } else {
                     alert("O primeiro tempo não pode ser maior ou igual ao segundo tempo!")

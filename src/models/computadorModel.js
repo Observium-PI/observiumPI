@@ -15,7 +15,7 @@ async function fnExcluir(id){
 }
 
 async function fnEditar(id, novoNome){
-  var instrucao = `UPDATE Computador set hostname = "${novoNome}" where idComputador = ${id}`;
+  var instrucao = `UPDATE Computador set apelido = "${novoNome}" where idComputador = ${id}`;
   console.log('Executando a instrução SQL: \n' + instrucao);
   return await database.executar(instrucao);
 }

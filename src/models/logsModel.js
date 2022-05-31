@@ -9,6 +9,7 @@ function fnListarLogs(idHospital) {
     join Componente as Cp on Cp.fkComputador = C.idComputador 
    
     where fkHospital = ${idHospital}     
+    order by M.dataHora
     ;
       `;
   
@@ -24,8 +25,9 @@ function fnListarLogsFiltro(idHospital, dtInicial, dtFinal){
   join Computador as C on M.fkComputador = C.idComputador
   join Componente as Cp on Cp.fkComputador = C.idComputador 
  
-  where fkHospital = ${idHospital} and dataHora > '${dtInicial}' and dataHora < '${dtFinal}';
-    `;
+  where fkHospital = ${idHospital} and dataHora > '${dtInicial}' and dataHora < '${dtFinal}'
+  order by M.dataHora;
+  `;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
