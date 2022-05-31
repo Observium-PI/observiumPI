@@ -52,7 +52,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             let btn_confirmar_edit_modal = document.createElement("a");
 
             //ADICIONANDO TEXTO EM CADA ELEMENTO A CADA VOLTA DO LAÇO
-            tituloMaquina.innerHTML += element.hostname;
+            tituloMaquina.innerHTML += element.apelidoMaquina;
             txt_delete_modal.innerHTML = "Deseja mesmo excluir a " + element.hostname + " ?";
             txt_edit_modal.innerHTML = "Alterar o nome de " + element.hostname + " para: ";
             btn_fechar_delete_modal.innerHTML = "X";
