@@ -5,6 +5,10 @@
         width: 15%;
     }
 
+    .side-bar .container .boxes{
+        width: 100%;
+    }
+
     #machine_wrapper {
 
         width: 90%;
