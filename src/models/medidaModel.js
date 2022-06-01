@@ -2,13 +2,13 @@
 var database = require("../database/config");
 
 
+// Se for rodar em desenvolvimento, substituir a cláusula top 7 por limit 7  (pesquisar no Google)
 function buscarUltimasMedidas(idComputador){
     let instrucaoSql = `
-    select idMonitoramento, processador, memoria, disco, dataHora 
+    select top 7 idMonitoramento, processador, memoria, disco, dataHora 
     from Monitoramento 
     where fkComputador = ${idComputador} 
-    order by idMonitoramento 
-    desc limit 7;
+    order by idMonitoramento desc ;
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
