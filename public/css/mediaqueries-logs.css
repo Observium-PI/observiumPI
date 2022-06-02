@@ -1,4 +1,4 @@
-@media (min-width: 280px) and (max-width: 767px) {
+@media (min-width: 280px) and (max-width: 780px) {
 
     .side-bar{
         width: 100%;
@@ -28,7 +28,7 @@
     }
 
     #boxes_logo {
-        width:60px;
+        width: 58px;
         display: flex;
         justify-content: center;
         align-items: center;
