@@ -28,7 +28,7 @@
     }
 
     #boxes_logo {
-        width: 18%;
+        width:60px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -42,7 +42,7 @@
 
     #boxes_logout{
         height: 100%;
-        width:30%;
+        width:100px;
         display: flex;
         justify-items: center;
         align-items: center;
@@ -86,12 +86,12 @@
     }
 
     .banner-logs .card-log {
-        height: 20%;
+        height: 25%;
         width: 98%;
     }
 
     .container .data {
-        height: 10%;
+        height: 15%;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
