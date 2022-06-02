@@ -309,25 +309,26 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         // console.log(dados1, dados2);
 
         let csv = `Gerado por:, ${dados1[0].nomeUsuario}, , Hospital: , ${dados1[0].nomeHospital}\n\n
-        ID, hostname, Monitoramentos, Alertas, Disponibilidade\n`;
+        , hostname, Monitoramentos, Alertas, Disponibilidade\n`;
 
         dados2.forEach(function (linha) {
             // Calculando disponibilidade
             let disponibilidade = 100 - ((linha.qtdAlertas/linha.qtdMonitoramento) * 100);
       
-            csv += linha.idComputador;
             csv += ',' + linha.hostname;
             csv += ',' + linha.qtdMonitoramento;
             csv += ',' + linha.qtdAlertas;
             csv += ',' + disponibilidade + "%"
             csv += '\n';
 
-            let hiddenElement = document.createElement('a');
+            
+          });
+
+          let hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
             hiddenElement.target = '_blank';
             hiddenElement.download = 'relatorio.csv';
             hiddenElement.click();
-          });
     }
 
     let ancora = document.getElementById("ancoraGerarRelatorio");
