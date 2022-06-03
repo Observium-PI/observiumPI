@@ -60,6 +60,8 @@
     .container .cabecalho-logs {
 
         height: 9%;
+        width: 100%;
+        
     }
 
     .cabecalho-logs b {
@@ -77,8 +79,9 @@
     }
 
     .conteudo-logs .banner-logs {
-        height: 150%;
+        height: 140%;
         width: 100%;
+        margin-left: -5%;
     }
 
     .conteudo-logs {
@@ -87,11 +90,14 @@
 
     .banner-logs .card-log {
         height: 25%;
-        width: 98%;
+        width: 100%;
+        padding-right: 2%;
+        padding-left: 5.5%;
     }
 
     .container .data {
-        height: 15%;
+        margin-top: 15%;
+        height: 32%;
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
@@ -106,5 +112,76 @@
         color: white;
     }
 
+}
+
+@media (min-height: 280px) and (max-height: 376px) {
+
+    #boxes_logo .box {
+        height: 103%;
+        width: 50%;
+    }
+
+    #boxes_logout .box{
+        width:27%;
+        height:63%;
+    }
+
+    .container .data {
+        height: 50%;
+        margin-top: 2%;
+    }
+
+    .conteudo-logs .banner-logs {
+        height: 190%;
+        width: 98%;
+    }
+
+    .side-bar .container .boxes .box img{
+        width: 80%;
+        height: 75%;
+        align-self: center;
+    }
+
+}
+
+@media (min-height: 377px) and (max-height: 511px) {
+
+    .conteudo-logs .banner-logs {
+        height: 295%;
+        width: 98%;
+    }
+
+}
+
+@media (min-height: 512px) and (max-height: 540px) {
+
+    .conteudo-logs .banner-logs {
+        height: 150%;
+        width: 100%;
+    }
+
+    #boxes_logo .box {
+        height: 97%;
+        width: 57%;
+    }
+
+    #boxes_logout .box{
+        width:27%;
+        height:63%;
+    }
+
+    .container .data {
+        height: 25%;
+        margin-top: 5%;
+    }
+
+}
+
+@media (min-height: 640px) and (max-height: 820px) {
+
+    .conteudo-logs .banner-logs {
+        height: 275%;
+        width: 98%;
+    }
 
 }
