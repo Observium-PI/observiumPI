@@ -92,6 +92,8 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             div_edit_modal.setAttribute("id", "edit_modal_" + element.hostname);
             card.setAttribute("id", + element.idComputador)
 
+           
+
             //CONFIGURANDO URL DAS DIV COM IMAGENS
             divSO.style.backgroundImage = "url(" + element.imagemSO + ")";
             img_edit.style.backgroundImage = "url(" + element.img_edit + ")";
@@ -100,7 +102,7 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             //Adicionando eventos para os clicks de excluir máquina
             btn_confirmar_delete_modal.addEventListener("click", () => fnExcluir(element.idComputador));
             btn_confirmar_edit_modal.addEventListener("click", () => fnEditar(element.idComputador, input_modal_edit.value));
-            divSO.addEventListener("click", () => id_grafico(element.idComputador));
+            divSO.addEventListener("click", () => id_grafico(element.idComputador, element.hostname));
 
             //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
             container.appendChild(card);
@@ -137,8 +139,11 @@ function fnDeslogar() {
     location = "index.html";
 }
 
-function id_grafico(idComputador) {
+function id_grafico(idComputador, hostname) {
     sessionStorage.setItem("idComputador", idComputador);
+    sessionStorage.setItem("hostname", hostname);
+    
+
     location.href = "../dashboard.html"
 }
 

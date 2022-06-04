@@ -39,9 +39,11 @@ function getMaquinas(hospital) {
                     dados.forEach(maquina => {
                         if (maquina.sistemaOperacional == "Windows") {
                             let opcao = new Option(maquina.hostname, maquina.idComputador);
+                            opcao.setAttribute("id", maquina.hostname);
                             comboW.add(opcao);
                         } else {
                             let opcao = new Option(maquina.hostname, maquina.idComputador);
+                            opcao.setAttribute("id", maquina.hostname);
                             comboL.add(opcao);
                         }
                     });
@@ -407,6 +409,7 @@ function carregamentoPagina() {
         alert("Faltando ID do computador, voltando à tela de máquinas");
         location = "../tela_maquinas.html";
     }else{
+    
     //Resgatando ID do computador
     let idComputador = sessionStorage.getItem('idComputador');
 
@@ -414,6 +417,29 @@ function carregamentoPagina() {
     getMedidas(idComputador);
     // Plotando máquinas na combo box
     getMaquinas(sessionStorage.getItem('Hospital'));
+
+    //Adicionando no <select> o hostname do computador selecionado
+    //let hostname = sessionStorage.getItem("hostname");
+    let SO = sessionStorage.getItem("SO");
+    let elemento = "";
+    let hostname = sessionStorage.getItem("hostname");
+
+    // Após 3 segundos do carregamento da tela, plotaremos qual máquina foi selecionada no <select>
+    let timeout;
+
+    function temporizador() {
+    timeout = setTimeout(alertFunc, 2500);
+    }
+
+    function alertFunc() {
+        const $option = document.querySelector(`#${sessionStorage.getItem("hostname")}`);
+        $option.selected = true;
+    }
+
+    temporizador();
+
+
+    
 
     // Atualizando o gráfico a cada 7 segundos
     let intervalo = setInterval(() => {
