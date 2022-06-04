@@ -86,7 +86,7 @@
     }
 }
 
-@media (min-width:  541px) and (max-width: 912px) {
+@media (min-width:  541px) and (max-width: 914px) {
 
     .botaoPesquisa {
         width: 50%;
@@ -101,5 +101,14 @@
         width: 100%;
 
     }
+
+}
+
+@media (min-height: 280px) and (max-height: 540px) {
+
+    .banner-users .card-user {
+
+        height: 25%;
+    } 
 
 }
