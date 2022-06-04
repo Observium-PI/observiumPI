@@ -246,6 +246,7 @@
 
 @media (min-width: 781px) and (max-width: 912px) {
 
+
     .side-bar .container .boxes {
 
         width: 100%;
@@ -253,7 +254,48 @@
 
 }
 
-@media (min-height: 280px) and (max-height: 376px) {
+@media (min-height: 260px) and (max-height: 280px) {
+
+    .side-bar .container .boxes {
+
+        width: 30%;
+    }
+
+    .side-bar {
+
+        height: 14vh;
+    }
+
+    #boxes_logout .box {
+        width: 45%;
+        height: 100%;
+    }
+
+    .container .data {
+        height: 50%;
+        margin-top: 5%;
+    }
+
+    .conteudo-logs {
+
+        margin-top: 5%;
+    }
+
+    .container .cabecalho-logs {
+
+        height: 15%;
+
+    }
+
+    .conteudo-logs .banner-logs {
+        height: 500%;
+        width: 100%;
+        margin-left: -5%;
+    }
+
+}
+
+@media (min-height: 281px) and (max-height: 376px) {
 
     #boxes_logo .box {
         height: 103%;
