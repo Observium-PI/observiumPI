@@ -14,7 +14,7 @@
     }
 
     .side-bar .container .boxes{
-        width: 100%;
+        width: 55%;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -49,8 +49,8 @@
     }
 
     #boxes_logout .box{
-        width:47%;
-        height:50%;
+        width:50%;
+        height:90%;
     }
 
    .container {

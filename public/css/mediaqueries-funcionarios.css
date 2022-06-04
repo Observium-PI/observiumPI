@@ -62,7 +62,7 @@
 
     #boxes_logout .box{
         width:47%;
-        height:50%;
+        height:90%;
     }
 
     .banner {
@@ -79,6 +79,11 @@
         height: 20%;
     }
 
+    .side-bar .container .boxes{
+
+        width: 55%;
+
+    }
 }
 
 @media (min-width:  541px) and (max-width: 912px) {
@@ -90,5 +95,11 @@
     .pesquisa {
         width: 40%;
       }
+
+      .side-bar .container .boxes{
+
+        width: 100%;
+
+    }
 
 }
