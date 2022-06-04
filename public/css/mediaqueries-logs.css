@@ -336,6 +336,21 @@
 
 @media (min-height: 512px) and (max-height: 540px) {
 
+    .side-bar .container .boxes {
+
+        width: 27%;
+    }
+
+    .banner {
+
+        margin-bottom: 5%;
+
+    }
+
+    .conteudo-logs {
+        margin-top: 3%;
+    }
+
     .conteudo-logs .banner-logs {
         height: 150%;
         width: 100%;
