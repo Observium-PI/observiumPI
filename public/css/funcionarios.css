@@ -239,7 +239,7 @@ body{
     color: #f0f8ff;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 100%;
   }
 
   .add_modal {

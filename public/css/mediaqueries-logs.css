@@ -78,6 +78,12 @@
         height: 90vh;
     }
 
+    .banner {
+
+        float: left;
+        margin-left: 2.5%;
+    }
+
     .conteudo-logs .banner-logs {
         height: 140%;
         width: 100%;
