@@ -285,26 +285,37 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
     let botao = document.getElementById("btnFiltro");
     botao.addEventListener("click", filtrarLogs);
 
-
-    
-    
     async function gerarRelatorio(){
         let idHospital = sessionStorage.getItem('Hospital');
         let idUsuario = sessionStorage.getItem('idUsuario');
 
-        let response1 = await fetch(`relatorio/${idHospital}/${idUsuario}`, {
+        let response1 = await fetch(`relatorio/getDadosUsuario/${idHospital}/${idUsuario}`, {
             method: 'GET',
             mode: 'cors'
         });
 
         let dados1 = await response1.json();
 
-        let response2 = await fetch(`relatorio/${idHospital}`,{
+        let response2 = await fetch(`relatorio/getDados/${idHospital}`,{
             method: 'GET',
             mode: 'cors'
         });
 
         let dados2 = await response2.json();
+
+        let response3 = await fetch(`relatorio/listarComputadorComMaisAlertas/${idHospital}`, {
+            method: 'GET',
+            mode: 'cors'
+        });
+
+        let dados3 = await response3.json();
+
+        let response4 = await fetch(`relatorio/listarComputadorComMaisMonitoramentos/${idHospital}`, {
+            method: 'GET',
+            mode: 'cors'
+        });
+
+        let dados4 = await response4.json();
 
         // console.log(dados1, dados2);
 
@@ -323,6 +334,10 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
             
           });
+
+          csv += "\n\n";
+          csv += `,Computador com mais monitoramentos:, ${dados4[0].hostname}, ${dados4[0].qtdMonitoramentos}\n`;
+          csv += `,Computador com mais alertas:, ${dados3[0].hostname}, ${dados3[0].qtdHistorico}\n`;
 
           let hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);

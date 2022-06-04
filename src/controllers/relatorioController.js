@@ -18,7 +18,27 @@ async function getDadosUsuarioHospital(req, res){
     res.status(200).json(response);
 }
 
+async function getComputadorComMaisMonitoramentos(req, res){
+    let idHospital =  req.params.idHospital; 
+
+    let response = await relatorioModel.getComputadorComMaisMonitoramentos(idHospital);
+
+    res.status(200).json(response);
+
+}
+
+async function getComputadorComMaisAlertas(req, res){
+    let idHospital =  req.params.idHospital; 
+
+    let response = await relatorioModel.getComputadorComMaisAlertas(idHospital);
+
+    res.status(200).json(response);
+
+}
+
 module.exports = {
     getDados,
-    getDadosUsuarioHospital
+    getDadosUsuarioHospital,
+    getComputadorComMaisMonitoramentos,
+    getComputadorComMaisAlertas
 }
