@@ -1,4 +1,8 @@
-@media (min-width: 281px) and (max-width: 428px) {
+@media (min-width: 281px) and (max-width: 540px) {
+
+    .lista {
+        margin-top: 15%;
+    }
 
     .botaoPesquisa {
         width: 60%;
@@ -74,5 +78,17 @@
         word-break: break-all;
         height: 20%;
     }
+
+}
+
+@media (min-width:  541px) and (max-width: 912px) {
+
+    .botaoPesquisa {
+        width: 50%;
+      }
+
+    .pesquisa {
+        width: 40%;
+      }
 
 }
