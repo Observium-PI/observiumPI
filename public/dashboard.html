@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/mediaqueries-dashboard.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,700,700italic" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
@@ -59,7 +60,9 @@
                     <h1 id="hostname_maquina" class="text text-titulo-maq"></h1>
                 </div>
             </div>
-            
+            <div class="text-mem">
+                <b class="text">Memória - RAM</b>
+            </div>
             <div class="donut-graph-one">
                 <canvas id="donutChartOne" style="width:100%;max-width:90%"></canvas>
                 <div class="text-disp-mem">
@@ -67,6 +70,14 @@
                 </div>
                 <div class="text-uso-mem">
                     <b class="text" id="memUso"></b>
+                </div>
+            </div>
+
+            <div class="text-disc">
+                <div class="disco-div">
+                    <b class="text">Disco Rígido</b>
+                    <!-- <select onchange="selectAttDisco()" id="select_discos_pc" class="select-filter"> -->
+                    </select>
                 </div>
             </div>
 
@@ -80,24 +91,12 @@
                 </div>
             </div>
 
-            <div class="line-graph">
-                <canvas id="lineChart" style="width:100%;max-width:92%"></canvas>
-            </div>
-
-            <div class="text-mem">
-                <b class="text">Memória - RAM</b>
-            </div>
-
-            <div class="text-disc">
-                <div class="disco-div">
-                    <b class="text">Disco Rígido</b>
-                    <!-- <select onchange="selectAttDisco()" id="select_discos_pc" class="select-filter"> -->
-                    </select>
-                </div>
-            </div>
-
             <div class="text-cpu">
                 <b class="text">CPU - Velocidade</b>
+            </div>
+            
+            <div class="line-graph">
+                <canvas id="lineChart" style="width:100%;max-width:92%"></canvas>
             </div>
         </div>
     </div>
