@@ -8,34 +8,40 @@
     <title>Login | Observium</title>
     <link rel="shortcut icon" href="background/favicon.ico">
     <link rel="stylesheet" href="./css/styleHome.css">
+    <link rel="stylesheet" href="./css/mediaqueries-login.css">
 </head>
 
 <body>
-    <div class="header">
-        <div class="container">
-            <ul class="navbar">
-                <li>
-                    <a href="index.html"><img class="logo-observium" src="assets/imgs/Logo_Observium_Azul.png"></a>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="nav-branding">
+                <img class="logo-observium" src="assets/imgs/Logo_Observium_Azul.png">
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
                 </li>
-                <li>
-                    <a href="index.html #sobre-nos">Sobre nós</a>
+                <li class="nav-item">
+                    <a href="#sobre-nos" class="nav-link">Sobre nós</a>
                 </li>
-                <li>
-                    |
+                <li class="nav-item">
+                    <a href="#produto" class="nav-link">Nosso produto</a>
                 </li>
-                <li>
-                    <a href="index.html #produto">Nosso produto</a>
-                </li>
-                <li>
-                    |
-                </li>
-                <li class="agora">
-                    <a href="tela_login.html">Login</a>
+                <li class="nav-item">
+                    <a href="tela_login.html" class="nav-link">Login</a>
                 </li>
             </ul>
-        </div>
-    </div>
 
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+    
     <div class="login" id="login">
         <div class="banner">
             <div class="container">
@@ -96,6 +102,8 @@
 </body>
 
 </html>
+<script src="./js/scriptHome.js"></script>
+
 <script src="js/backendLogin.js"></script>
 
 <script type="text/javascript">var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"c9a263cd399a72bf5e41f7e24c731be220c5742fdb1fdfad20811315917c512a", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget'></div>");</script>
