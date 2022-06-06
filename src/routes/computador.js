@@ -15,4 +15,8 @@ router.post("/editar", function(req, res){
     computadorController.fnEditar(req, res);
 });
 
+router.get("/buscarAlertas/:idComputador", function(req, res){
+    computadorController.buscarAlertas(req, res);
+});
+
 module.exports = router;

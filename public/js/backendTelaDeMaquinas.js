@@ -15,7 +15,10 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
         link_tela_funcionario.appendChild(icon_tela_funcionario);
     }
 
+    var vetorPc = [];
+
     async function carregarMaquinas() {
+
         //Resgatando hospital do usuário logado 
         let idHospital = sessionStorage.getItem('Hospital');
 
@@ -34,6 +37,8 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             //CRIANDO VARIAVEL QUE CONTEM OS ELEMENTOS HTML
             const container = document.getElementById("container");
             let card = document.createElement("div");
+            let divAlerta = document.createElement("div");
+            let divCircle = document.createElement("div");
             let tituloMaquina = document.createElement("h3");
             let divSO = document.createElement("div");
             let div_edit_delete = document.createElement("div");
@@ -60,6 +65,34 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             btn_confirmar_delete_modal.innerHTML = "CONFIRMAR";
             btn_confirmar_edit_modal.innerHTML = "CONFIRMAR";
 
+            //CHAMANDO FUNÇÃO PARA COLOCAR NUMEROS DE ALERTAS
+            function attValoresAlertas() {
+                fetch(`computador/buscarAlertas/${element.idComputador}`, {
+                    method: "GET",
+                    mode: "cors"
+                }).then((resposta => {
+                    resposta.json().then((dados => {
+                        let dadoDiv = dados[0].contador;
+                        
+                        if (dadoDiv > 4 && dadoDiv <= 7) {
+                            divCircle.style.backgroundColor = "orange";
+                            divCircle.style.color = "white";
+                        } else if (dadoDiv > 7) {
+                            divCircle.style.backgroundColor = "red";
+                            divCircle.style.color = "white";
+                        }
+
+                        divCircle.innerHTML = dadoDiv;
+                    }));
+                }))
+                    .catch((erro => {
+                        console.log(erro);
+                    }))
+            }
+                
+            attValoresAlertas();
+            setInterval(attValoresAlertas, 5000);
+
             //ATUALIZANDO O HREF DOS ELEMENTOS
             img_edit.href = "#edit_modal_" + element.hostname;
             img_delete.href = "#delete_modal_" + element.hostname;
@@ -70,6 +103,8 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
             //ATUALIZANDO O CLASSNAME DOS ELEMENTOS
             tituloMaquina.classList.add("hostname");
+            divAlerta.classList.add("div_alerta");
+            divCircle.classList.add("div_circulo");
             card.classList.add("item_container");
             divSO.classList.add("item_container_SO");
             div_edit_delete.classList.add("div_edit_delete");
@@ -92,8 +127,6 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             div_edit_modal.setAttribute("id", "edit_modal_" + element.hostname);
             card.setAttribute("id", + element.idComputador)
 
-           
-
             //CONFIGURANDO URL DAS DIV COM IMAGENS
             divSO.style.backgroundImage = "url(" + element.imagemSO + ")";
             img_edit.style.backgroundImage = "url(" + element.img_edit + ")";
@@ -106,9 +139,11 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
 
             //DEFININDO ONDE OS ELEMENTOS DEVERÃO SER CRIADOS NO HTML
             container.appendChild(card);
+            card.appendChild(divAlerta);
             card.appendChild(divSO);
             card.appendChild(tituloMaquina);
             card.appendChild(div_edit_delete);
+            divAlerta.appendChild(divCircle);
             div_edit_delete.appendChild(img_edit);
             div_edit_delete.appendChild(img_delete);
             container.appendChild(div_delete_modal);
@@ -122,12 +157,12 @@ if (sessionStorage.getItem("logado") == false || sessionStorage.getItem("logado"
             content_edit_modal.appendChild(txt_edit_modal);
             content_edit_modal.appendChild(input_modal_edit);
             content_edit_modal.appendChild(btn_confirmar_edit_modal);
+
+            vetorPc.push(element.idComputador);
         });
     }
 
     carregarMaquinas();
-
-
 }
 
 function fnDeslogar() {

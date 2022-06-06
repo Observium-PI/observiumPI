@@ -25,8 +25,16 @@ async function fnEditar(req, res){
     res.status(200).json(response);
 }
 
+async function buscarAlertas(req, res) {
+    let idComputador = req.params.idComputador;
+    
+    let response = await computadorModel.buscarAlertas(idComputador)
+    res.status(200).json(response);
+}
+
 module.exports = {
     listarPorHospital,
     fnExcluir,
-    fnEditar
+    fnEditar,
+    buscarAlertas
 }

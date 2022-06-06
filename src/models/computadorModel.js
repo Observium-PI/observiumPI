@@ -1,6 +1,6 @@
 var database = require('../database/config');
 
- async function listarPorHospital(idHospital){
+async function listarPorHospital(idHospital){
   let instrucao = `
   SELECT * FROM Computador where fkHospital = ${idHospital};
   `;
@@ -20,8 +20,20 @@ async function fnEditar(id, novoNome){
   return await database.executar(instrucao);
 }
 
+async function buscarAlertas(idComputador){
+  let instrucao = `
+  select count(idHistorico) as 'contador' from Historico join Monitoramento
+  on fkMonitoramento = idMonitoramento join Computador
+  on fkComputador = idComputador where
+  datediff(minute, dataHora, getdate()) <= 5 and fkComputador = ${idComputador};
+  `;
+  console.log('Executando a instrução SQL: \n' + instrucao);
+  return await database.executar(instrucao);
+}
+
 module.exports = {
     listarPorHospital,
     fnExcluir,
-    fnEditar
+    fnEditar,
+    buscarAlertas
 }
